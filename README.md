@@ -1,5 +1,5 @@
 # API-project
-# `<name of application here>`
+# Soundcloud clone
 
 ## Database Schema Design
 
