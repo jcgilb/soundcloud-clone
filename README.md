@@ -3,7 +3,7 @@
 
 ## Database Schema Design
 
-`<insert database schema design here>`
+https://cdn.discordapp.com/attachments/996595927831810129/1012118941709115422/unknown.png
 
 ## API Documentation
 
