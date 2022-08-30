@@ -1,5 +1,5 @@
 const express = require('express');
-const { Song, User } = require('../../db/models');
+const { Song, User, Album } = require('../../db/models');
 const { check } = require('express-validator');
 const { setTokenCookie, requireAuth, restoreUser } = require('../../utils/auth');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -49,17 +49,23 @@ router.get('/:songId', async (req, res) => {
 // Authentication: true
 router.post('/', restoreUser, async (req, res) => {
     const { user } = req;
-    if (user) {
-        const newSong = await Song.create({
-            title: req.body.title,
-            description: req.body.description,
-            url: req.body.url,
-            imageUrl: req.body.imageUrl,
-            albumId: req.body.albumId
-        });
-        console.log(newSong)
-        return res.json(newSong);
-    } else {
+    const albums = await Album.findAll();
+    if (req.body.albumId < 0 || req.body.albumId > albums.length) {
+        res.status(404);
+        return res.json({
+            "message": "Album couldn't be found",
+            "statusCode": 404
+        })
+    }
+    const newSong = await Song.create({
+        title: req.body.title,
+        description: req.body.description,
+        url: req.body.url,
+        imageUrl: req.body.imageUrl,
+        albumId: req.body.albumId,
+        userId: user.id
+    });
+    if (!newSong) {
         return res.json({
             "message": "Validation Error",
             "statusCode": 400,
@@ -69,9 +75,9 @@ router.post('/', restoreUser, async (req, res) => {
             }
         });
     }
+    return res.json(newSong);
+
 });
-
-
 // All endpoints that require authentication 
 // and the current user does not have the
 // correct role(s) or permission(s).
