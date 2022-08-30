@@ -12,6 +12,23 @@ router.get('/', async (req, res) => {
     return res.json(songs);
 });
 
+// Get details of a Song from an id
+// Authentication: false
+router.get('/:songId', async (req, res) => {
+    const song = await Song.findOne({
+        where: { id: req.params.songId }
+    });
+    if (song) {
+        return res.json(song);
+    } else {
+        res.status(404)
+        return res.json({
+            "message": "Song not found"
+        });
+    }
+});
+
+
 // Get all Songs created by the Current User
 // Authentication: true
 router.get('/current', restoreUser, async (req, res) => {
@@ -26,6 +43,9 @@ router.get('/current', restoreUser, async (req, res) => {
         "statusCode": 401
     });
 });
+
+
+
 
 // All endpoints that require authentication 
 // and the current user does not have the
