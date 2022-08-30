@@ -3,6 +3,7 @@ const { Song, User } = require('../../db/models');
 const { check } = require('express-validator');
 const { setTokenCookie, requireAuth, restoreUser } = require('../../utils/auth');
 const { handleValidationErrors } = require('../../utils/validation');
+const { ResultWithContext } = require('express-validator/src/chain');
 
 const router = express.Router();
 
@@ -11,23 +12,6 @@ router.get('/', async (req, res) => {
     const songs = await Song.findAll();
     return res.json(songs);
 });
-
-// Get details of a Song from an id
-// Authentication: false
-router.get('/:songId', async (req, res) => {
-    const song = await Song.findOne({
-        where: { id: req.params.songId }
-    });
-    if (song) {
-        return res.json(song);
-    } else {
-        res.status(404)
-        return res.json({
-            "message": "Song not found"
-        });
-    }
-});
-
 
 // Get all Songs created by the Current User
 // Authentication: true
@@ -45,6 +29,47 @@ router.get('/current', restoreUser, async (req, res) => {
 });
 
 
+// Get details of a Song from an id
+// Authentication: false
+router.get('/:songId', async (req, res) => {
+    const song = await Song.findOne({
+        where: { id: req.params.songId }
+    });
+    if (song) {
+        return res.json(song);
+    } else {
+        res.status(404)
+        return res.json({
+            "message": "Song not found"
+        });
+    }
+});
+
+// Create a Song - creates new song w/ or w/o album.
+// Authentication: true
+router.post('/', restoreUser, async (req, res) => {
+    const { user } = req;
+    if (user) {
+        const newSong = await Song.create({
+            title: req.body.title,
+            description: req.body.description,
+            url: req.body.url,
+            imageUrl: req.body.imageUrl,
+            albumId: req.body.albumId
+        });
+        console.log(newSong)
+        return res.json(newSong);
+    } else {
+        return res.json({
+            "message": "Validation Error",
+            "statusCode": 400,
+            "errors": {
+                "title": "Song title is required",
+                "url": "Audio is required"
+            }
+        });
+    }
+});
 
 
 // All endpoints that require authentication 
