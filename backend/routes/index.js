@@ -10,8 +10,7 @@ router.get('/hello/world', function (req, res) {
 });
 
 // Add a XSRF-TOKEN cookie
-// router.get("/api/csrf/restore", (req, res) => {
-router.get("/csrf/restore", (req, res) => {
+router.get("/api/csrf/restore", (req, res) => {
     const csrfToken = req.csrfToken();
     res.cookie("XSRF-TOKEN", csrfToken);
     res.status(200).json({
@@ -20,3 +19,5 @@ router.get("/csrf/restore", (req, res) => {
 });
 
 module.exports = router;
+
+// LfLLmKWj-6nsAH3fxYq5TcyeZLm3tYTzOA3w

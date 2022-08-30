@@ -9,10 +9,10 @@ module.exports = (sequelize, DataTypes) => {
       return { id, username, firstName, lastName, email };
     }
     static associate(models) {
-      // User.hasMany(models.Album, { foreignKey: 'userId' })
-      // User.hasMany(models.Song, { foreignKey: 'userId' })
-      // User.hasMany(models.Playlist, { foreignKey: 'userId' })
-      // User.hasMany(models.Comment, { foreignKey: 'userId' })
+      User.hasMany(models.Album, { foreignKey: 'userId' })
+      User.hasMany(models.Song, { foreignKey: 'userId' })
+      User.hasMany(models.Playlist, { foreignKey: 'userId' })
+      User.hasMany(models.Comment, { foreignKey: 'userId' })
     }
     static getCurrentUserById(id) {
       return User.scope("currentUser").findByPk(id);
