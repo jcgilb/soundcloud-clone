@@ -8,9 +8,7 @@ const { restoreUser } = require("../../utils/auth.js");
 // If current user session is valid, set req.user to the user in the database
 // If current user session is not valid, set req.user to null
 router.use(restoreUser);
-
 router.use('/session', sessionRouter);
-
 router.use('/users', usersRouter);
 
 router.post('/test', function (req, res) {
@@ -31,24 +29,16 @@ router.get('/set-token-cookie', async (_req, res) => {
 });
 
 // GET /api/restore-user
-
 router.use(restoreUser);
-router.get(
-    '/restore-user',
-    (req, res) => {
-        return res.json(req.user);
-    }
-);
+router.get('/restore-user', (req, res) => {
+    return res.json(req.user);
+});
 
 router.use(restoreUser);
 // GET /api/require-auth
 const { requireAuth } = require('../../utils/auth.js');
-router.get(
-    '/require-auth',
-    requireAuth,
-    (req, res) => {
-        return res.json(req.user);
-    }
-);
+router.get('/require-auth', requireAuth, (req, res) => {
+    return res.json(req.user);
+});
 
 module.exports = router;
