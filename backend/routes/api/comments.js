@@ -1,5 +1,5 @@
 const express = require('express');
-const { Song, User, Album } = require('../../db/models');
+const { Song, User, Album, Comment } = require('../../db/models');
 const { check } = require('express-validator');
 const { setTokenCookie, requireAuth, restoreUser } = require('../../utils/auth');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -17,22 +17,22 @@ const validateAlbumRequests = [
     handleValidationErrors
 ];
 
-// Get all albums
+// Get all comments
 // Authentication: false
 router.get('/', async (req, res) => {
-    const albums = await Album.findAll();
-    return res.json(albums);
+    const comments = await Comment.findAll();
+    return res.json(comments);
 });
 
-// Get all albums created by the current user
+// Get all comments created by the current user
 // Authentication: true
 router.get('/current', restoreUser, async (req, res) => {
     const { user } = req;
     if (user) {
-        const albums = await Album.findAll({
+        const comments = await Comment.findAll({
             where: { userId: user.id }
         });
-        return res.json({ albums });
+        return res.json({ comments });
     } else {
         res.status(401);
         return res.json({
@@ -42,99 +42,38 @@ router.get('/current', restoreUser, async (req, res) => {
     }
 });
 
-// Get details of an album by id
-// Authentication: false
-router.get('/:albumId', async (req, res) => {
-    const album = await Album.findOne({
-        where: { id: req.params.albumId },
-        include: [
-            { model: User, as: 'Artist', attributes: ['id', 'username', 'previewImage'] },
-            { model: Song }
-        ]
-    });
-    if (album) {
-        console.log("will this print")
-        return res.json(album);
-    } else {
-        res.status(404)
-        return res.json({
-            "message": "album couldn't be found"
-        });
-    }
-});
-
-// Create an album 
+// Edit a comment - PUT /:commentId
 // Authentication: true
-router.post('/', restoreUser, async (req, res) => {
-    const newAlbum = await Album.create({
-        userId: req.user.id,
-        title: req.body.title,
-        description: req.body.description,
-        imageUrl: req.body.imageUrl
-    });
-    if (!newAlbum) {
-        res.status(400);
-        return res.json({
-            "message": "Validation Error",
-            "statusCode": 400,
-            "errors": {
-                "title": "Album title is required",
-                "url": "Audio is required"
-            }
-        });
-    } else {
-        return res.json(newAlbum);
-    }
-});
-
-// Edit a Album - PUT /:albumId
-// Authentication: true
-router.put('/:albumId', restoreUser, async (req, res) => {
-    const lastAlbum = await Album.findAll({
-        order: [['id', 'DESC']],
-        limit: 1,
-        raw: true
-    });
-    if (req.params.albumId < 0 || req.params.albumId > lastAlbum[0].id) {
-        res.status(404);
-        return res.json({
-            "message": "Album couldn't be found",
-            "statusCode": 404
-        });
-    }
+router.put('/:commentId', async (req, res) => {
     if (req.user) {
-        const album = await Album.findOne({
-            where: { id: req.params.albumId }
+        const comment = await Comment.findOne({
+            where: { id: req.params.commentId }
         });
-        if (req.user.id !== album.userId) {
+        if (!comment) {
+            res.status(404);
+            return res.json({
+                "message": "comment couldn't be found",
+                "statusCode": 404
+            });
+        } if (req.user.id !== comment.userId) {
             res.status(403);
             return res.json({
                 "message": "Forbidden",
                 "statusCode": 403
-            })
+            });
         }
-        if (album) {
-            if (req.body.title) {
-                album.title = req.body.title;
-                album.description = req.body.description;
-                album.imageUrl = req.body.imageUrl;
-                album.save();
-                return res.json(album);
-            } else {
-                res.status(400);
-                return res.json({
-                    "message": "Validation Error",
-                    "statusCode": 400,
-                    "errors": {
-                        "title": "Album title is required"
-                    }
-                });
-            }
+        if (req.body.body) {
+            comment.body = req.body.body;
+            comment.save();
+            return res.json(comment);
         } else {
-            res.status(404);
+            res.status(400);
             return res.json({
-                "message": "Album couldn't be found",
-                "statusCode": 404
+                "message": "Validation Error",
+                "statusCode": 400,
+                "errors": {
+                    "title": "comment title is required"
+                }
             });
         }
     } else {
@@ -146,25 +85,25 @@ router.put('/:albumId', restoreUser, async (req, res) => {
     }
 });
 
-// Delete a album
+// Delete a comment
 // Authentication: true
-router.delete('/:albumId', restoreUser, async (req, res) => {
+router.delete('/:commentId', restoreUser, async (req, res) => {
     if (req.user) {
-        const album = await Album.findByPk(req.params.albumId);
-        if (!album) {
+        const comment = await comment.findByPk(req.params.commentId);
+        if (!comment) {
             res.status(404);
             return res.json({
-                "message": "Album couldn't be found",
+                "message": "comment couldn't be found",
                 "statusCode": 404
             });
-        } else if (req.user.id !== album.userId) {
+        } else if (req.user.id !== comment.userId) {
             res.status(403);
             return res.json({
                 "message": "Forbidden",
                 "statusCode": 403
             })
         } else {
-            await album.destroy();
+            await comment.destroy();
             return res.json({
                 "message": "Successfully deleted",
                 "statusCode": 200
