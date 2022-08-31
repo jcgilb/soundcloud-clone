@@ -119,6 +119,34 @@ router.put('/:songId', restoreUser, async (req, res) => {
         })
     }
 });
+
+// Delete a Song
+// Authentication: true
+router.delete('/:songId', restoreUser, async (req, res) => {
+    if (req.user) {
+        const song = await Song.findByPk(req.params.songId);
+        if (song) {
+            song.destroy();
+            return res.json({
+                "message": "Successfully deleted",
+                "statusCode": 200
+            });
+        } else {
+            res.status(404);
+            return res.json({
+                "message": "Song couldn't be found",
+                "statusCode": 404
+            });
+        }
+    } else {
+        res.status(401);
+        return res.json({
+            "message": "Authentication required",
+            "statusCode": 401
+        });
+    }
+});
+
 // All endpoints that require authentication 
 // and the current user does not have the
 // correct role(s) or permission(s).
