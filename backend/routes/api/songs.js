@@ -64,8 +64,8 @@ router.get('/:songId', async (req, res) => {
 
 // Create a Song - creates new song w/ or w/o album.
 // Authentication: true
+// make sure a user cannot create a new song on someone else's album
 router.post('/', restoreUser, async (req, res) => {
-    const { user } = req;
     const albums = await Album.findAll();
     if (req.body.albumId < 0 || req.body.albumId > albums.length) {
         res.status(404);
@@ -80,7 +80,7 @@ router.post('/', restoreUser, async (req, res) => {
         url: req.body.url,
         imageUrl: req.body.imageUrl,
         albumId: req.body.albumId,
-        userId: user.id
+        userId: req.user.id
     });
     if (!newSong) {
         res.status(400);
@@ -92,8 +92,10 @@ router.post('/', restoreUser, async (req, res) => {
                 "url": "Audio is required"
             }
         });
+    } else {
+        return res.json(newSong);
     }
-    return res.json(newSong);
+
 });
 
 // Edit a Song - PUT /:songId
@@ -135,6 +137,12 @@ router.put('/:songId', restoreUser, async (req, res) => {
             song[0].albumId = req.body.albumId;
             song[0].save();
             return res.json(song[0]);
+        } else {
+            res.status(404);
+            return res.json({
+                "message": "Song couldn't be found",
+                "statusCode": 404
+            });
         }
     } else {
         res.status(401);
@@ -150,8 +158,15 @@ router.put('/:songId', restoreUser, async (req, res) => {
 router.delete('/:songId', restoreUser, async (req, res) => {
     if (req.user) {
         const song = await Song.findByPk(req.params.songId);
+        if (req.user.id !== song.userId) {
+            res.status(403);
+            return res.json({
+                "message": "Forbidden",
+                "statusCode": 403
+            })
+        }
         if (song) {
-            song.destroy();
+            await song.destroy();
             return res.json({
                 "message": "Successfully deleted",
                 "statusCode": 200
