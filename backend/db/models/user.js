@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     }
     static associate(models) {
       User.hasMany(models.Album, { foreignKey: 'userId' })
-      User.hasMany(models.Song, { foreignKey: 'userId' })
+      User.hasMany(models.Song, { foreignKey: 'userId', as: "Artist" })
       User.hasMany(models.Playlist, { foreignKey: 'userId' })
       User.hasMany(models.Comment, { foreignKey: 'userId' })
     }
@@ -74,6 +74,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       lastName: {
         type: DataTypes.STRING,
+      },
+      previewImage: {
+        type: DataTypes.STRING
       },
       hashedPassword: {
         type: DataTypes.STRING.BINARY,

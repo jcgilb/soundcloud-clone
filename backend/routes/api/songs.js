@@ -7,7 +7,18 @@ const { ResultWithContext } = require('express-validator/src/chain');
 
 const router = express.Router();
 
+const validateSongRequests = [
+    check('title')
+        .exists({ checkFalsy: true })
+        .withMessage('Song title is required.'),
+    check('url')
+        .exists({ checkFalsy: true })
+        .withMessage('Audio is required.'),
+    handleValidationErrors
+];
+
 // Get all songs
+// Authentication: false
 router.get('/', async (req, res) => {
     const songs = await Song.findAll();
     return res.json(songs);
@@ -22,25 +33,31 @@ router.get('/current', restoreUser, async (req, res) => {
             where: { userId: user.id }
         });
         return res.json({ songs });
-    } else return res.json({
-        "message": "Authentication required",
-        "statusCode": 401
-    });
+    } else {
+        res.status(401);
+        return res.json({
+            "message": "Authentication required",
+            "statusCode": 401
+        });
+    }
 });
-
 
 // Get details of a Song from an id
 // Authentication: false
 router.get('/:songId', async (req, res) => {
     const song = await Song.findOne({
-        where: { id: req.params.songId }
+        where: { id: req.params.songId },
+        include: [
+            { model: User, as: "Artist", attributes: ['id', 'username', 'previewImage'] },
+            { model: Album, attributes: ['id', 'title', 'imageUrl'] },
+        ],
     });
     if (song) {
         return res.json(song);
     } else {
         res.status(404)
         return res.json({
-            "message": "Song not found"
+            "message": "Song couldn't be found"
         });
     }
 });
@@ -66,6 +83,7 @@ router.post('/', restoreUser, async (req, res) => {
         userId: user.id
     });
     if (!newSong) {
+        res.status(400);
         return res.json({
             "message": "Validation Error",
             "statusCode": 400,
@@ -76,21 +94,20 @@ router.post('/', restoreUser, async (req, res) => {
         });
     }
     return res.json(newSong);
-
 });
 
 // Edit a Song - PUT /:songId
 // Authentication: true
 router.put('/:songId', restoreUser, async (req, res) => {
     if (req.params.songId < 0 || req.params.songId > await Song.count()) {
-        res.status(404)
+        res.status(404);
         return res.json({
             "message": "Song couldn't be found",
             "statusCode": 404
-        })
+        });
     }
     if (req.body.url === null || req.body.title === null) {
-        res.status(400)
+        res.status(400);
         return res.json({
             "message": "Validation Error",
             "statusCode": 400,
@@ -98,25 +115,33 @@ router.put('/:songId', restoreUser, async (req, res) => {
                 "title": "Song title is required",
                 "url": "Audio is required"
             }
-        })
+        });
     }
     if (req.user) {
         const song = await Song.findAll({
             where: { id: req.params.songId }
         });
+        if (req.user.id !== song[0].userId) {
+            res.status(403);
+            return res.json({
+                "message": "Forbidden",
+                "statusCode": 403
+            })
+        }
         if (song.length) {
-            song[0].title = req.body.title
-            song[0].description = req.body.description
-            song[0].url = req.body.url
-            song[0].albumId = req.body.albumId
+            song[0].title = req.body.title;
+            song[0].description = req.body.description;
+            song[0].url = req.body.url;
+            song[0].albumId = req.body.albumId;
             song[0].save();
-            return res.json(song[0])
+            return res.json(song[0]);
         }
     } else {
-        res.json({
+        res.status(401);
+        return res.json({
             "message": "Authentication required",
             "statusCode": 401
-        })
+        });
     }
 });
 
