@@ -17,7 +17,8 @@ module.exports = {
         references: { model: 'Users' }
       },
       title: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       description: {
         type: Sequelize.STRING

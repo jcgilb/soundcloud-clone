@@ -78,6 +78,47 @@ router.post('/', restoreUser, async (req, res) => {
     return res.json(newSong);
 
 });
+
+// Edit a Song - PUT /:songId
+// Authentication: true
+router.put('/:songId', restoreUser, async (req, res) => {
+    if (req.params.songId < 0 || req.params.songId > await Song.count()) {
+        res.status(404)
+        return res.json({
+            "message": "Song couldn't be found",
+            "statusCode": 404
+        })
+    }
+    if (req.body.url === null || req.body.title === null) {
+        res.status(400)
+        return res.json({
+            "message": "Validation Error",
+            "statusCode": 400,
+            "errors": {
+                "title": "Song title is required",
+                "url": "Audio is required"
+            }
+        })
+    }
+    if (req.user) {
+        const song = await Song.findAll({
+            where: { id: req.params.songId }
+        });
+        if (song.length) {
+            song[0].title = req.body.title
+            song[0].description = req.body.description
+            song[0].url = req.body.url
+            song[0].albumId = req.body.albumId
+            song[0].save();
+            return res.json(song[0])
+        }
+    } else {
+        res.json({
+            "message": "Authentication required",
+            "statusCode": 401
+        })
+    }
+});
 // All endpoints that require authentication 
 // and the current user does not have the
 // correct role(s) or permission(s).
