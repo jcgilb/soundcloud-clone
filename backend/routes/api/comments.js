@@ -72,7 +72,7 @@ router.put('/:commentId', async (req, res) => {
                 "message": "Validation Error",
                 "statusCode": 400,
                 "errors": {
-                    "title": "comment title is required"
+                    "title": "Comment title is required"
                 }
             });
         }
@@ -87,9 +87,9 @@ router.put('/:commentId', async (req, res) => {
 
 // Delete a comment
 // Authentication: true
-router.delete('/:commentId', restoreUser, async (req, res) => {
+router.delete('/:commentId', async (req, res) => {
     if (req.user) {
-        const comment = await comment.findByPk(req.params.commentId);
+        const comment = await Comment.findByPk(req.params.commentId);
         if (!comment) {
             res.status(404);
             return res.json({
