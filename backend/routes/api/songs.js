@@ -1,5 +1,5 @@
 const express = require('express');
-const { Song, User, Album } = require('../../db/models');
+const { Song, User, Album, Comment } = require('../../db/models');
 const { check } = require('express-validator');
 const { setTokenCookie, requireAuth, restoreUser } = require('../../utils/auth');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -7,15 +7,15 @@ const { ResultWithContext } = require('express-validator/src/chain');
 
 const router = express.Router();
 
-const validateSongRequests = [
-    check('title')
-        .exists({ checkFalsy: true })
-        .withMessage('Song title is required.'),
-    check('url')
-        .exists({ checkFalsy: true })
-        .withMessage('Audio is required.'),
-    handleValidationErrors
-];
+// const validateSongRequests = [
+//     check('title')
+//         .exists({ checkFalsy: true })
+//         .withMessage('Song title is required.'),
+//     check('url')
+//         .exists({ checkFalsy: true })
+//         .withMessage('Audio is required.'),
+//     handleValidationErrors
+// ];
 
 // Get all songs
 // Authentication: false
@@ -59,6 +59,59 @@ router.get('/:songId', async (req, res) => {
         return res.json({
             "message": "Song couldn't be found"
         });
+    }
+});
+
+// Get all Comments by a Song's id
+// Authentication: false
+router.get('/:songId/comments', async (req, res) => {
+    const comments = await Song.findAll({
+        where: { id: req.params.songId },
+        attributes: [],
+        include: {
+            model: Comment,
+            include: { model: User }
+        }
+    });
+    if (!comments.length) {
+        res.status(404);
+        res.json({
+            "message": "Song couldn't be found",
+            "statusCode": 404
+        });
+    } else {
+        return res.json(comments[0]);
+    }
+});
+
+// Create a Comment for a Song based on the Song's id
+// Authentication: true
+router.post('/:songId/comments', async (req, res) => {
+    const song = await Song.findByPk(req.params.songId);
+    if (!song) {
+        res.status(404);
+        return res.json({
+            "message": "Song couldn't be found",
+            "statusCode": 404
+        });
+    } else {
+        if (!req.body.body) {
+            res.status(400)
+            return res.json({
+                "message": "Validation error",
+                "statusCode": 400,
+                "errors": {
+                    "body": "Comment body text is required"
+                }
+            });
+        } else {
+            const comment = await Comment.create({
+                userId: req.user.id,
+                songId: song.id,
+                body: req.body.body
+            });
+            return res.json(comment);
+        }
     }
 });
 
