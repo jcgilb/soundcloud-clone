@@ -75,6 +75,9 @@ module.exports = (sequelize, DataTypes) => {
       lastName: {
         type: DataTypes.STRING,
       },
+      previewImage: {
+        type: DataTypes.STRING
+      },
       hashedPassword: {
         type: DataTypes.STRING.BINARY,
         allowNull: false,

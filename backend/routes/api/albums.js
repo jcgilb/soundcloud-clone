@@ -7,7 +7,7 @@ const { ResultWithContext } = require('express-validator/src/chain');
 
 const router = express.Router();
 
-const validateSongRequests = [
+const validateAlbumRequests = [
     check('title')
         .exists({ checkFalsy: true })
         .withMessage('Song title is required.'),
@@ -17,22 +17,22 @@ const validateSongRequests = [
     handleValidationErrors
 ];
 
-// Get all songs
+// Get all albums
 // Authentication: false
 router.get('/', async (req, res) => {
-    const songs = await Song.findAll();
-    return res.json(songs);
+    const albums = await Album.findAll();
+    return res.json(albums);
 });
 
-// Get all Songs created by the Current User
+// Get all albums created by the current user
 // Authentication: true
 router.get('/current', restoreUser, async (req, res) => {
     const { user } = req;
     if (user) {
-        const songs = await Song.findAll({
+        const albums = await Album.findAll({
             where: { userId: user.id }
         });
-        return res.json({ songs });
+        return res.json({ albums });
     } else {
         res.status(401);
         return res.json({
@@ -42,105 +42,98 @@ router.get('/current', restoreUser, async (req, res) => {
     }
 });
 
-// Get details of a Song from an id
+// Get details of an album by id
 // Authentication: false
-router.get('/:songId', async (req, res) => {
-    const song = await Song.findOne({
-        where: { id: req.params.songId },
+router.get('/:albumId', async (req, res) => {
+    const album = await Album.findOne({
+        where: { id: req.params.albumId },
         include: [
-            { model: User, as: "Artist", attributes: ['id', 'username', 'previewImage'] },
-            { model: Album, attributes: ['id', 'title', 'imageUrl'] },
-        ],
+            { model: User, as: 'Artist', attributes: ['id', 'username', 'previewImage'] },
+            { model: Song }
+        ]
     });
-    if (song) {
-        return res.json(song);
+    if (album) {
+        console.log("will this print")
+        return res.json(album);
     } else {
         res.status(404)
         return res.json({
-            "message": "Song couldn't be found"
+            "message": "album couldn't be found"
         });
     }
 });
 
-// Create a Song - creates new song w/ or w/o album.
+// Create an album 
 // Authentication: true
-// make sure a user cannot create a new song on someone else's album
 router.post('/', restoreUser, async (req, res) => {
-    const albums = await Album.findAll();
-    if (req.body.albumId < 0 || req.body.albumId > albums.length) {
+    const newAlbum = await Album.create({
+        userId: req.user.id,
+        title: req.body.title,
+        description: req.body.description,
+        imageUrl: req.body.imageUrl
+    });
+    if (!newAlbum) {
+        res.status(400);
+        return res.json({
+            "message": "Validation Error",
+            "statusCode": 400,
+            "errors": {
+                "title": "Album title is required",
+                "url": "Audio is required"
+            }
+        });
+    } else {
+        return res.json(newAlbum);
+    }
+});
+
+// Edit a Album - PUT /:albumId
+// Authentication: true
+router.put('/:albumId', restoreUser, async (req, res) => {
+    const lastAlbum = await Album.findAll({
+        order: [['id', 'DESC']],
+        limit: 1,
+        raw: true
+    });
+    if (req.params.albumId < 0 || req.params.albumId > lastAlbum[0].id) {
         res.status(404);
         return res.json({
             "message": "Album couldn't be found",
             "statusCode": 404
-        })
-    }
-    const newSong = await Song.create({
-        title: req.body.title,
-        description: req.body.description,
-        url: req.body.url,
-        imageUrl: req.body.imageUrl,
-        albumId: req.body.albumId,
-        userId: req.user.id
-    });
-    if (!newSong) {
-        res.status(400);
-        return res.json({
-            "message": "Validation Error",
-            "statusCode": 400,
-            "errors": {
-                "title": "Song title is required",
-                "url": "Audio is required"
-            }
-        });
-    } else {
-        return res.json(newSong);
-    }
-
-});
-
-// Edit a Song - PUT /:songId
-// Authentication: true
-router.put('/:songId', restoreUser, async (req, res) => {
-    if (req.params.songId < 0 || req.params.songId > await Song.count()) {
-        res.status(404);
-        return res.json({
-            "message": "Song couldn't be found",
-            "statusCode": 404
-        });
-    }
-    if (req.body.url === null || req.body.title === null) {
-        res.status(400);
-        return res.json({
-            "message": "Validation Error",
-            "statusCode": 400,
-            "errors": {
-                "title": "Song title is required",
-                "url": "Audio is required"
-            }
         });
     }
     if (req.user) {
-        const song = await Song.findAll({
-            where: { id: req.params.songId }
+        const album = await Album.findOne({
+            where: { id: req.params.albumId }
         });
-        if (req.user.id !== song[0].userId) {
+        if (req.user.id !== album.userId) {
             res.status(403);
             return res.json({
                 "message": "Forbidden",
                 "statusCode": 403
             })
         }
-        if (song.length) {
-            song[0].title = req.body.title;
-            song[0].description = req.body.description;
-            song[0].url = req.body.url;
-            song[0].albumId = req.body.albumId;
-            song[0].save();
-            return res.json(song[0]);
+        if (album) {
+            if (req.body.title) {
+                album.title = req.body.title;
+                album.description = req.body.description;
+                album.imageUrl = req.body.imageUrl;
+                album.save();
+                return res.json(album);
+            } else {
+                res.status(400);
+                return res.json({
+                    "message": "Validation Error",
+                    "statusCode": 400,
+                    "errors": {
+                        "title": "Album title is required"
+                    }
+                });
+            }
         } else {
             res.status(404);
             return res.json({
-                "message": "Song couldn't be found",
+                "message": "Album couldn't be found",
                 "statusCode": 404
             });
         }
@@ -153,29 +146,28 @@ router.put('/:songId', restoreUser, async (req, res) => {
     }
 });
 
-// Delete a Song
+// Delete a album
 // Authentication: true
-router.delete('/:songId', restoreUser, async (req, res) => {
+router.delete('/:albumId', restoreUser, async (req, res) => {
     if (req.user) {
-        const song = await Song.findByPk(req.params.songId);
-        if (req.user.id !== song.userId) {
+        const album = await Album.findByPk(req.params.albumId);
+        if (!album) {
+            res.status(404);
+            return res.json({
+                "message": "Album couldn't be found",
+                "statusCode": 404
+            });
+        } else if (req.user.id !== album.userId) {
             res.status(403);
             return res.json({
                 "message": "Forbidden",
                 "statusCode": 403
             })
-        }
-        if (song) {
-            await song.destroy();
+        } else {
+            await album.destroy();
             return res.json({
                 "message": "Successfully deleted",
                 "statusCode": 200
-            });
-        } else {
-            res.status(404);
-            return res.json({
-                "message": "Song couldn't be found",
-                "statusCode": 404
             });
         }
     } else {

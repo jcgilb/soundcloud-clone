@@ -18,6 +18,9 @@ module.exports = {
         allowNull: false,
         unique: true
       },
+      previewImage: {
+        type: Sequelize.STRING
+      },
       hashedPassword: {
         type: Sequelize.STRING.BINARY,
         allowNull: false
