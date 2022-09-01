@@ -1,6 +1,6 @@
 const express = require('express')
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User } = require('../../db/models');
+const { User, Playlist } = require('../../db/models');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
@@ -52,5 +52,22 @@ router.post('/', validateSignup, async (req, res) => {
         user,
     });
 });
+
+// // Get all playlists of an artist from an id
+// // Authentication: false
+// router.get('/:userId/playlists', async (req, res) => {
+//     const playlists = await User.findAll({
+//         where: { id: req.params.userId },
+//         attributes: [],
+//         include: { model: Playlist }
+//     });
+//     if (!playlists.length) {
+//         res.status(404);
+//         return res.json({
+//             "message": "Playlist couldn't be found",
+//             "statusCode": 404
+//         });
+//     } else return res.json(playlists[0]);
+// });
 
 module.exports = router;
