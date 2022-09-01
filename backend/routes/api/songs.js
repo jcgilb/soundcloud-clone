@@ -130,7 +130,7 @@ router.post('/', requireAuth, async (req, res) => {
         imageUrl: req.body.imageUrl,
         albumId: req.body.albumId,
         userId: req.user.id
-    });
+    })
     if (!newSong) {
         res.status(400);
         return res.json({
