@@ -6,16 +6,15 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
-// Sign up
-router.post('/', async (req, res) => {
-    const { email, password, firstName, lastName, username } = req.body;
-    const user = await User.signup({ email, username, firstName, lastName, password });
-
-    await setTokenCookie(res, user);
-    return res.json({
-        user
-    });
-});
+// // Sign up
+// router.post('/', async (req, res) => {
+//     const { email, password, firstName, lastName, username } = req.body;
+//     const user = await User.signup({ email, username, firstName, lastName, password });
+//     await setTokenCookie(res, user);
+//     return res.json({
+//         user
+//     });
+// });
 
 const validateSignup = [
     check('email')
@@ -44,12 +43,19 @@ const validateSignup = [
 ];
 
 // Sign up
-router.post('/', validateSignup, async (req, res) => {
+router.post('/', validateSignup, requireAuth, async (req, res) => {
     const { email, password, firstName, lastName, username } = req.body;
     const user = await User.signup({ email, username, firstName, lastName, password });
-    await setTokenCookie(res, user);
+    user.toJSON();
+    let token = await setTokenCookie(res, user);
+    user.token = token;
     return res.json({
-        user,
+        "id": user.id,
+        "username": user.username,
+        "email": user.email,
+        "firstName": user.firstName,
+        "lastName": user.lastName,
+        "token": token
     });
 });
 
