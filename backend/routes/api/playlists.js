@@ -76,6 +76,8 @@ router.post('/:playlistId/songs', requireAuth, async (req, res) => {
     return res.json(newSong);
 });
 
+// Get details of a playlist by id
+// Authentication: false
 router.get('/:playlistId', async (req, res) => {
     const playlist = await Playlist.findOne({
         include: [{
