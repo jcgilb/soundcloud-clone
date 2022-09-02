@@ -6,15 +6,15 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
-// Sign up
-router.post('/', async (req, res) => {
-    const { email, password, firstName, lastName, username } = req.body;
-    const user = await User.signup({ email, username, firstName, lastName, password });
-    await setTokenCookie(res, user);
-    return res.json({
-        user
-    });
-});
+// // Sign up
+// router.post('/', async (req, res) => {
+//     const { email, password, firstName, lastName, username } = req.body;
+//     const user = await User.signup({ email, username, firstName, lastName, password });
+//     await setTokenCookie(res, user);
+//     return res.json({
+//         user
+//     });
+// });
 
 const validateSignup = [
     check('email')
@@ -49,6 +49,7 @@ router.post('/', validateSignup, async (req, res) => {
     user.toJSON();
     let token = await setTokenCookie(res, user);
     user.token = token;
+    raw: true
     return res.json({
         "id": user.id,
         "username": user.username,

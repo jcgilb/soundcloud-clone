@@ -48,44 +48,45 @@ router.get('/current', [requireAuth, restoreUser], async (req, res) => {
 
 // Add a Song to a Playlist based on the Playlists's id
 // Authentication: true
-// need to exclude createdAt updatedAt
 router.post('/:playlistId/songs', requireAuth, async (req, res) => {
     const song = await Song.findByPk(req.body.songId);
-    if (song) {
-        const playlist = await Playlist.findByPk(req.params.playlistId);
-        if (playlist) {
-            const newPlaylistSong = await PlaylistSong.create({
-                songId: song.id,
-                playlistId: playlist.id,
-            });
-            return res.json(newPlaylistSong);
-        } else {
-            res.status(404);
-            res.json({
-                "message": "Playlist couldn't be found",
-                "statusCode": 404
-            });
-        }
-    } else {
+    if (!song) {
         res.status(404);
         res.json({
             "message": "Song couldn't be found",
             "statusCode": 404
         });
     }
+    const playlist = await Playlist.findByPk(req.params.playlistId);
+    if (!playlist) {
+        res.status(404);
+        res.json({
+            "message": "Playlist couldn't be found",
+            "statusCode": 404
+        });
+    }
+    const newPlaylistSong = await PlaylistSong.create({
+        songId: song.id,
+        playlistId: playlist.id,
+        attributes: ['id', 'playlistId', 'songId']
+    });
+    const newSong = newPlaylistSong.toJSON();
+    delete newSong.createdAt
+    delete newSong.updatedAt
+    return res.json(newSong);
 });
 
-// Get details of a Playlist from an id
-// Authentication: false
 router.get('/:playlistId', async (req, res) => {
-    const playlist = await Playlist.findByPk(req.params.playlistId, {
+    const playlist = await Playlist.findOne({
         include: [{
-            model: PlaylistSong,
-            where: { playlistId: req.params.playlistId },
-            include: [{ model: Song }],
-        }]
+            model: Song,
+            attributes: [
+                'id', 'userId', 'albumId', 'title', 'description',
+                'url', 'createdAt', 'updatedAt', 'imageUrl'],
+            through: { attributes: [] },
+        }],
+        where: { id: req.params.playlistId }
     });
-    raw: true
     if (!playlist) {
         res.status(404);
         return res.json({
@@ -93,6 +94,7 @@ router.get('/:playlistId', async (req, res) => {
             "statusCode": 404
         });
     }
+    raw: true
     return res.json(playlist);
 });
 
