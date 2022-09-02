@@ -5,7 +5,6 @@ const { setTokenCookie, requireAuth, restoreUser } = require('../../utils/auth')
 const { handleValidationErrors } = require('../../utils/validation');
 const { ResultWithContext } = require('express-validator/src/chain');
 
-
 const router = express.Router();
 
 // Get all Playlists created by the Current User
@@ -142,24 +141,5 @@ router.delete('/:playlistId', requireAuth, async (req, res) => {
         });
     }
 });
-
-
-
-// router.get('/current', [restoreUser, requireAuth], async (req, res) => {
-//     const songs = await Song.findAll({
-//         where: { userId: req.user.id }
-//     });
-//     if (songs) return res.json({ songs });
-//     res.status(401);
-//     return res.json({
-//         "message": "Authentication required",
-//         "statusCode": 401
-//     });
-// });
-
-
-// Get all Songs created by the Current User
-// Authentication: true
-
 
 module.exports = router;

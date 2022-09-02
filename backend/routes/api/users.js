@@ -89,6 +89,4 @@ router.get('/:userId/playlists', async (req, res) => {
     } else return res.json(playlists);
 });
 
-
-
 module.exports = router;
