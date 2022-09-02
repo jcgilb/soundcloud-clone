@@ -182,35 +182,78 @@ router.post('/:songId/comments', requireAuth, async (req, res) => {
 // Create a Song - creates new song w/ or w/o album.
 // Authentication: true
 // make sure a user cannot create a new song on someone else's album
+// router.post('/', requireAuth, async (req, res) => {
+//     const albums = await Album.findAll();
+//     if (req.body.albumId < 0 || req.body.albumId > albums.length) {
+//         res.status(404);
+//         return res.json({
+//             "message": "Album couldn't be found",
+//             "statusCode": 404
+//         })
+//     }
+//     const newSong = await Song.create({
+//         title: req.body.title,
+//         description: req.body.description,
+//         url: req.body.url,
+//         imageUrl: req.body.imageUrl,
+//         albumId: req.body.albumId,
+//         userId: req.user.id
+//     })
+//     if (!newSong) {
+//         res.status(400);
+//         return res.json({
+//             "message": "Validation Error",
+//             "statusCode": 400,
+//             "errors": {
+//                 "title": "Song title is required",
+//                 "url": "Audio is required"
+//             }
+//         });
+//     } else {
+//         return res.json(newSong);
+//     }
+// });
+
+// Create a Song - creates new song w/ or w/o album.
+// Authentication: true
 router.post('/', requireAuth, async (req, res) => {
-    const albums = await Album.findAll();
-    if (req.body.albumId < 0 || req.body.albumId > albums.length) {
+    const album = await Album.findByPk(req.body.albumId);
+    if (req.body.albumId && !album) {
         res.status(404);
         return res.json({
             "message": "Album couldn't be found",
             "statusCode": 404
-        })
-    }
-    const newSong = await Song.create({
-        title: req.body.title,
-        description: req.body.description,
-        url: req.body.url,
-        imageUrl: req.body.imageUrl,
-        albumId: req.body.albumId,
-        userId: req.user.id
-    })
-    if (!newSong) {
-        res.status(400);
-        return res.json({
-            "message": "Validation Error",
-            "statusCode": 400,
-            "errors": {
-                "title": "Song title is required",
-                "url": "Audio is required"
-            }
         });
+    }
+    // make sure a user cannot create a new song on someone else's album
+    if (!album || album.userId === req.user.id) {
+        const newSong = await Song.create({
+            title: req.body.title,
+            description: req.body.description,
+            url: req.body.url,
+            imageUrl: req.body.imageUrl,
+            albumId: req.body.albumId,
+            userId: req.user.id
+        });
+        if (!newSong) {
+            res.status(400);
+            return res.json({
+                "message": "Validation Error",
+                "statusCode": 400,
+                "errors": {
+                    "title": "Song title is required",
+                    "url": "Audio is required"
+                }
+            });
+        } else {
+            return res.json(newSong);
+        }
     } else {
-        return res.json(newSong);
+        res.status(403);
+        return res.json({
+            "message": "Forbidden",
+            "statusCode": 403
+        })
     }
 });
 
@@ -284,7 +327,8 @@ router.delete('/:songId', requireAuth, async (req, res) => {
                 "statusCode": 200
             });
         }
-    } else {
+    }
+    else {
         res.status(401);
         return res.json({
             "message": "Authentication required",

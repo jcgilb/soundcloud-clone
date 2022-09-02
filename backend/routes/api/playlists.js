@@ -133,7 +133,15 @@ router.delete('/:playlistId', requireAuth, async (req, res) => {
             "message": "Playlist couldn't be found",
             "statusCode": 404
         });
-    } else {
+    }
+    if (req.user.id !== playlist.userId) {
+        res.status(403);
+        return res.json({
+            "message": "Forbidden",
+            "statusCode": 403
+        });
+    }
+    else {
         await playlist.destroy();
         return res.json({
             "message": "Successfully deleted",
