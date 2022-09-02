@@ -54,4 +54,20 @@ router.get('/:userId/albums', async (req, res) => {
     } else return res.json(albums[0]);
 });
 
+// Get all playlists of an artist from an id
+// Authentication: false
+router.get('/:userId/playlists', async (req, res) => {
+    const playlists = await User.findByPk(req.params.userId, {
+        attributes: [],
+        include: { model: Playlist }
+    });
+    if (!playlists) {
+        res.status(404);
+        return res.json({
+            "message": "Artist couldn't be found",
+            "statusCode": 404
+        });
+    } else return res.json(playlists);
+});
+
 module.exports = router;

@@ -62,23 +62,22 @@ router.get('/:albumId', async (req, res) => {
 // Create an album 
 // Authentication: true
 router.post('/', requireAuth, async (req, res) => {
+    if (!req.body.title) {
+        res.status(400);
+        return res.json({
+            "message": "Validation Error",
+            "statusCode": 400,
+            "errors": {
+                "title": "Album title is required"
+            }
+        });
+    }
     const newAlbum = await Album.create({
         userId: req.user.id,
         title: req.body.title,
         description: req.body.description,
         imageUrl: req.body.imageUrl
     });
-    if (!newAlbum) {
-        res.status(400);
-        return res.json({
-            "message": "Validation Error",
-            "statusCode": 400,
-            "errors": {
-                "title": "Album title is required",
-                "url": "Audio is required"
-            }
-        });
-    }
     return res.json(newAlbum);
 });
 
