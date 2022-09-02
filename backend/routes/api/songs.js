@@ -115,14 +115,12 @@ router.get('/:songId', async (req, res) => {
 // Authentication: false
 router.get('/:songId/comments', async (req, res) => {
     const comments = await Song.findOne({
-        where: { id: req.params.songId },
         attributes: [],
         include: [{
             model: Comment,
             include: [{
                 model: User,
                 // attributes: ['id', 'username'],
-                // through: { attributes: [] }
             }]
         }]
     });
@@ -132,23 +130,15 @@ router.get('/:songId/comments', async (req, res) => {
             "message": "Song couldn't be found",
             "statusCode": 404
         });
-    } else {
-        return res.json(comments);
     }
-});
+    const newComments = comments.toJSON();
+    delete newComments.Comments[0].User.firstName
+    delete newComments.Comments[0].User.lastName
+    delete newComments.Comments[0].User.previewImage
+    console.log(newComments.Comments[0].User)
+    return res.json(newComments);
 
-// User.find({
-//     where: { id: id },
-//     attributes: [],
-//     include: [{
-//         model: UserRole,
-//         include: [{
-//             model: Permission,
-//             attributes: ['id', 'name'],
-//             through: { attributes: [] }
-//         }]
-//     }]
-// })
+});
 
 // Create a Comment for a Song based on the Song's id
 // Authentication: true
@@ -178,41 +168,6 @@ router.post('/:songId/comments', requireAuth, async (req, res) => {
     });
     return res.json(comment);
 });
-
-// Create a Song - creates new song w/ or w/o album.
-// Authentication: true
-// make sure a user cannot create a new song on someone else's album
-// router.post('/', requireAuth, async (req, res) => {
-//     const albums = await Album.findAll();
-//     if (req.body.albumId < 0 || req.body.albumId > albums.length) {
-//         res.status(404);
-//         return res.json({
-//             "message": "Album couldn't be found",
-//             "statusCode": 404
-//         })
-//     }
-//     const newSong = await Song.create({
-//         title: req.body.title,
-//         description: req.body.description,
-//         url: req.body.url,
-//         imageUrl: req.body.imageUrl,
-//         albumId: req.body.albumId,
-//         userId: req.user.id
-//     })
-//     if (!newSong) {
-//         res.status(400);
-//         return res.json({
-//             "message": "Validation Error",
-//             "statusCode": 400,
-//             "errors": {
-//                 "title": "Song title is required",
-//                 "url": "Audio is required"
-//             }
-//         });
-//     } else {
-//         return res.json(newSong);
-//     }
-// });
 
 // Create a Song - creates new song w/ or w/o album.
 // Authentication: true
