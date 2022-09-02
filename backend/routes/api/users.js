@@ -59,21 +59,35 @@ router.post('/', validateSignup, requireAuth, async (req, res) => {
     });
 });
 
-// // Get all playlists of an artist from an id
-// // Authentication: false
-// router.get('/:userId/playlists', async (req, res) => {
-//     const playlists = await User.findAll({
-//         where: { id: req.params.userId },
-//         attributes: [],
-//         include: { model: Playlist }
-//     });
-//     if (!playlists.length) {
-//         res.status(404);
-//         return res.json({
-//             "message": "Playlist couldn't be found",
-//             "statusCode": 404
-//         });
-//     } else return res.json(playlists[0]);
-// });
+// Get details of an Artist from an id
+// Authentication: false
+router.get('/:userId', async (req, res) => {
+    const artist = await User.findByPk(req.params.userId);
+    if (!artist) {
+        res.status(404);
+        return res.json({
+            "message": "Artist couldn't be found",
+            "statusCode": 404
+        });
+    } else return res.json(artist);
+});
+
+// Get all playlists of an artist from an id
+// Authentication: false
+router.get('/:userId/playlists', async (req, res) => {
+    const playlists = await User.findByPk(req.params.userId, {
+        attributes: [],
+        include: { model: Playlist }
+    });
+    if (!playlists) {
+        res.status(404);
+        return res.json({
+            "message": "Artist couldn't be found",
+            "statusCode": 404
+        });
+    } else return res.json(playlists);
+});
+
+
 
 module.exports = router;

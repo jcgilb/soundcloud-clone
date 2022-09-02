@@ -2,6 +2,7 @@ const express = require('express');
 const { Song, User, Album, Comment } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
 const { handleValidationErrors } = require('../../utils/validation');
+// const Op = Sequelize.Op;
 
 const router = express.Router();
 
@@ -18,8 +19,58 @@ const router = express.Router();
 // Get all songs
 // Authentication: false
 router.get('/', async (req, res) => {
-    const songs = await Song.findAll();
-    return res.json(songs);
+    let { page, size } = req.query;
+    if (!page || isNaN(page)) page = 1;
+    if (!size || isNaN(size)) size = 1;
+    let pagination = {};
+    if (page && page > 0) {
+        if (size && size > 0) {
+            page = parseInt(page);
+            size = parseInt(size);
+            pagination.limit = size;
+            pagination.offset = (page - 1) * size;
+        } else {
+            res.status(400);
+            return res.json({
+                "message": "Validation Error",
+                "statusCode": 400,
+                "errors": {
+                    "size": "Size must be greater than or equal to 0"
+                }
+            });
+        }
+    } else {
+        res.status(400);
+        return res.json({
+            "message": "Validation Error",
+            "statusCode": 400,
+            "errors": {
+                "page": "Page must be greater than or equal to 0"
+
+            }
+        });
+    }
+    const songs = await Song.findAll({
+        order: [
+            ['createdAt', 'DESC'],
+        ],
+        ...pagination
+    });
+    if (songs[0].createdAt > new Date()) {
+        res.status(400);
+        return res.json({
+            "message": "Validation Error",
+            "statusCode": 400,
+            "errors": {
+                "createdAt": "CreatedAt is invalid"
+            }
+        });
+    }
+    return res.json({
+        songs,
+        page,
+        size
+    });
 });
 
 // Get all Songs created by the Current User
@@ -63,24 +114,41 @@ router.get('/:songId', async (req, res) => {
 // Get all Comments by a Song's id
 // Authentication: false
 router.get('/:songId/comments', async (req, res) => {
-    const comments = await Song.findAll({
+    const comments = await Song.findOne({
         where: { id: req.params.songId },
         attributes: [],
-        include: {
+        include: [{
             model: Comment,
-            include: { model: User }
-        }
+            include: [{
+                model: User,
+                // attributes: ['id', 'username'],
+                // through: { attributes: [] }
+            }]
+        }]
     });
-    if (!comments.length) {
+    if (!comments) {
         res.status(404);
         res.json({
             "message": "Song couldn't be found",
             "statusCode": 404
         });
     } else {
-        return res.json(comments[0]);
+        return res.json(comments);
     }
 });
+
+// User.find({
+//     where: { id: id },
+//     attributes: [],
+//     include: [{
+//         model: UserRole,
+//         include: [{
+//             model: Permission,
+//             attributes: ['id', 'name'],
+//             through: { attributes: [] }
+//         }]
+//     }]
+// })
 
 // Create a Comment for a Song based on the Song's id
 // Authentication: true
@@ -151,18 +219,18 @@ router.post('/', requireAuth, async (req, res) => {
 router.put('/:songId', requireAuth, async (req, res) => {
     if (req.user) {
         const song = await Song.findByPk(req.params.songId);
-        if (req.user.id !== song.userId) {
-            res.status(403);
-            return res.json({
-                "message": "Forbidden",
-                "statusCode": 403
-            });
-        }
         if (!song) {
             res.status(404);
             return res.json({
                 "message": "Song couldn't be found",
                 "statusCode": 404
+            });
+        }
+        if (req.user.id !== song.userId) {
+            res.status(403);
+            return res.json({
+                "message": "Forbidden",
+                "statusCode": 403
             });
         }
         if (!req.body.url || !req.body.title) {
@@ -196,13 +264,6 @@ router.put('/:songId', requireAuth, async (req, res) => {
 router.delete('/:songId', requireAuth, async (req, res) => {
     if (req.user) {
         const song = await Song.findByPk(req.params.songId);
-        if (req.user.id !== song.userId) {
-            res.status(403);
-            return res.json({
-                "message": "Forbidden",
-                "statusCode": 403
-            });
-        }
         if (!song) {
             res.status(404);
             return res.json({
@@ -210,11 +271,19 @@ router.delete('/:songId', requireAuth, async (req, res) => {
                 "statusCode": 404
             });
         }
-        await song.destroy();
-        return res.json({
-            "message": "Successfully deleted",
-            "statusCode": 200
-        });
+        if (req.user.id !== song.userId) {
+            res.status(403);
+            return res.json({
+                "message": "Forbidden",
+                "statusCode": 403
+            });
+        } else {
+            await song.destroy();
+            return res.json({
+                "message": "Successfully deleted",
+                "statusCode": 200
+            });
+        }
     } else {
         res.status(401);
         return res.json({

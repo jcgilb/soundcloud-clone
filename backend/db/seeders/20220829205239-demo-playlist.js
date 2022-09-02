@@ -17,7 +17,7 @@ module.exports = {
 
   async down(queryInterface, Sequelize) {
     await queryInterface.bulkDelete('Playlist', {
-      where: { title: playlists.map(playlist => playlist.title) }
+      where: { name: playlists.map(playlist => playlist.name) }
     }, {});
   }
 };

@@ -17,7 +17,7 @@ module.exports = {
 
   async down(queryInterface, Sequelize) {
     await queryInterface.bulkDelete('Comment', {
-      where: { title: comments.map(comment => comment.title) }
+      where: { id: comments.map(comment => comment.id) }
     }, {});
   }
 };
