@@ -35,6 +35,7 @@ router.get('/', restoreUser, (req, res) => {
         return res.json({
             user: user.toSafeObject()
         });
+        raw: true
     } else return res.json({});
 });
 

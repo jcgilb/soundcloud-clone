@@ -7,18 +7,6 @@ const { ResultWithContext } = require('express-validator/src/chain');
 
 const router = express.Router();
 
-// Get details of an Artist from an id
-// Authentication: false
-router.get('/:userId', async (req, res) => {
-    const artist = await User.findByPk(req.params.userId);
-    if (!artist) {
-        res.status(404);
-        return res.json({
-            "message": "Artist couldn't be found",
-            "statusCode": 404
-        });
-    } else return res.json(artist);
-});
 
 // Get all Songs of an Artist from an id
 // Authentication: false
