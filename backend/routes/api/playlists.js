@@ -5,10 +5,8 @@ const { setTokenCookie, requireAuth, restoreUser } = require('../../utils/auth')
 const { handleValidationErrors } = require('../../utils/validation');
 const { ResultWithContext } = require('express-validator/src/chain');
 
-
 const router = express.Router();
 
-<<<<<<< HEAD
 // Create a Playlist
 // Authentication: true
 router.post('/', async (req, res) => {
@@ -31,13 +29,13 @@ router.post('/', async (req, res) => {
     }
 });
 
-=======
 // Get all Playlists created by the Current User
 // Authentication: true
 router.get('/current', [requireAuth, restoreUser], async (req, res) => {
     const playlists = await Playlist.findAll({
         where: { userId: req.user.id }
     });
+    // if (!playlists.length) {
     if (!playlists) {
         res.status(404);
         return res.json({
@@ -46,32 +44,8 @@ router.get('/current', [requireAuth, restoreUser], async (req, res) => {
         });
     }
     return res.json({ playlists });
-
 });
 
-// Create a Playlist
-// Authentication: true
-router.post('/', async (req, res) => {
-    if (req.body.name) {
-        const newPlaylist = await Playlist.create({
-            userId: req.user.id,
-            name: req.body.name,
-            imageUrl: req.body.imageUrl
-        });
-        return res.json(newPlaylist);
-    } else {
-        res.status(400);
-        return res.json({
-            "message": "Validation Error",
-            "statusCode": 400,
-            "errors": {
-                "name": "Playlist name is required"
-            }
-        });
-    }
-});
-
->>>>>>> dev
 // Add a Song to a Playlist based on the Playlists's id
 // Authentication: true
 // need to exclude createdAt updatedAt
@@ -100,23 +74,6 @@ router.post('/:playlistId/songs', requireAuth, async (req, res) => {
         });
     }
 });
-<<<<<<< HEAD
-
-// Get details of a Playlist from an id
-// Authentication: false
-router.get('/:playlistId', async (req, res) => {
-    const playlist = await Playlist.findAll({
-        where: { id: req.params.playlistId },
-        include: {
-            model: PlaylistSong,
-            where: { playlistId: req.params.playlistId },
-            include: { model: Song }
-        }
-    });
-    res.json(playlist)
-
-});
-=======
 
 // Get details of a Playlist from an id
 // Authentication: false
@@ -184,88 +141,5 @@ router.delete('/:playlistId', requireAuth, async (req, res) => {
         });
     }
 });
-
-
-
-// router.get('/current', [restoreUser, requireAuth], async (req, res) => {
-//     const songs = await Song.findAll({
-//         where: { userId: req.user.id }
-//     });
-//     if (songs) return res.json({ songs });
-//     res.status(401);
-//     return res.json({
-//         "message": "Authentication required",
-//         "statusCode": 401
-//     });
-// });
->>>>>>> dev
-
-// Edit a Playlist
-// Authentication: true
-router.put('/:playlistId', requireAuth, async (req, res) => {
-    if (!req.body.name) {
-        res.status(400);
-        return res.json({
-            "message": "Validation Error",
-            "statusCode": 400,
-            "errors": {
-                "name": "Playlist name is required"
-            }
-        });
-    }
-    const playlist = await Playlist.findByPk(req.params.playlistId);
-    if (!playlist) {
-        res.status(404);
-        return res.json({
-            "message": "Playlist couldn't be found",
-            "statusCode": 404
-        });
-    }
-    playlist.name = req.body.name;
-    playlist.imageUrl = req.body.imageUrl;
-    playlist.save();
-    return res.json(playlist);
-});
-
-// Delete a Playlist
-// Authentication: true
-router.delete('/:playlistId', requireAuth, async (req, res) => {
-    const playlist = await Playlist.findByPk(req.params.playlistId);
-    if (!playlist) {
-        res.status(404);
-        return res.json({
-            "message": "Playlist couldn't be found",
-            "statusCode": 404
-        });
-    } else {
-        return res.json({
-            "message": "Successfully deleted",
-            "statusCode": 200
-        });
-    }
-});
-
-// Get all Playlists created by the Current User
-// Authentication: true
-
-router.get('/current', requireAuth, async (req, res) => {
-    if (req.user) {
-        const playlists = await Playlist.findAll({
-            where: { id: req.user.id }
-        });
-        if (!playlists.length) {
-            res.status(404);
-            return res.json({
-                "statusCode": 404,
-                "message": "No playlists to see here"
-            });
-        }
-        return res.json(playlists);
-    }
-});
-
-// Get all Songs created by the Current User
-// Authentication: true
-
 
 module.exports = router;

@@ -49,10 +49,7 @@ router.post('/', validateSignup, requireAuth, async (req, res) => {
     user.toJSON();
     let token = await setTokenCookie(res, user);
     user.token = token;
-<<<<<<< HEAD
-=======
     raw: true
->>>>>>> dev
     return res.json({
         "id": user.id,
         "username": user.username,
@@ -91,7 +88,5 @@ router.get('/:userId/playlists', async (req, res) => {
         });
     } else return res.json(playlists);
 });
-
-
 
 module.exports = router;
