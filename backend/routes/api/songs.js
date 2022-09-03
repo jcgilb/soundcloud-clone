@@ -21,7 +21,7 @@ const router = express.Router();
 router.get('/', async (req, res) => {
     let { page, size } = req.query;
     if (!page || isNaN(page)) page = 1;
-    if (!size || isNaN(size)) size = 1;
+    if (!size || isNaN(size)) size = 20;
     let pagination = {};
     if (page && page > 0) {
         if (size && size > 0) {
@@ -122,22 +122,25 @@ router.get('/:songId/comments', async (req, res) => {
                 model: User,
                 // attributes: ['id', 'username'],
             }]
-        }]
+        }],
+        where: { id: req.params.songId }
     });
     if (!comments) {
         res.status(404);
-        res.json({
+        return res.json({
             "message": "Song couldn't be found",
             "statusCode": 404
         });
     }
     const newComments = comments.toJSON();
-    delete newComments.Comments[0].User.firstName
-    delete newComments.Comments[0].User.lastName
-    delete newComments.Comments[0].User.previewImage
-    console.log(newComments.Comments[0].User)
+    for (let i = 0; i < newComments.Comments.length; i++) {
+        let comment = newComments.Comments[i].User;
+        delete comment.firstName
+        delete comment.lastName
+        delete comment.previewImage
+    }
+    // console.log(newComments.Comments[0].User)
     return res.json(newComments);
-
 });
 
 // Create a Comment for a Song based on the Song's id

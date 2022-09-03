@@ -21,7 +21,7 @@ const router = express.Router();
 // Authentication: false
 router.get('/', async (req, res) => {
     const albums = await Album.findAll();
-    return res.json(albums);
+    return res.json({ Albums: albums });
 });
 
 // Get all albums created by the current user
