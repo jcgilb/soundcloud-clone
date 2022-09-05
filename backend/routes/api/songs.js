@@ -2,7 +2,6 @@ const express = require('express');
 const { Song, User, Album, Comment } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
 const { handleValidationErrors } = require('../../utils/validation');
-// const Op = Sequelize.Op;
 
 const router = express.Router();
 

@@ -21,10 +21,14 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true
     },
     songId: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      // references: { model: 'Songs' },
+      // onDelete: 'CASCADE'
     },
     playlistId: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      // references: { model: 'Playlists' },
+      // onDelete: 'CASCADE'
     },
     order: DataTypes.INTEGER
   }, {
