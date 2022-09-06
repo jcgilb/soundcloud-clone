@@ -21,22 +21,15 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true
     },
     songId: {
-      type: DataTypes.INTEGER,
-      // references: { model: 'Songs' },
-      // onDelete: 'CASCADE'
+      type: DataTypes.INTEGER
     },
     playlistId: {
-      type: DataTypes.INTEGER,
-      // references: { model: 'Playlists' },
-      // onDelete: 'CASCADE'
+      type: DataTypes.INTEGER
     },
     order: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'PlaylistSong',
-    // defaultScope: {
-    //   attributes: { exclude: ["createdAt", "updatedAt"] }
-    // }
+    modelName: 'PlaylistSong'
   });
   return PlaylistSong;
 };
