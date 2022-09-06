@@ -46,18 +46,10 @@ const validateSignup = [
 router.post('/', validateSignup, async (req, res) => {
     const { email, password, firstName, lastName, username } = req.body;
     const user = await User.signup({ email, username, firstName, lastName, password });
-    user.toJSON();
+    let resObj = user.toJSON();
     let token = await setTokenCookie(res, user);
-    user.token = token;
-    raw: true
-    return res.json({
-        "id": user.id,
-        "username": user.username,
-        "email": user.email,
-        "firstName": user.firstName,
-        "lastName": user.lastName,
-        "token": token
-    });
+    resObj.token = token;
+    return res.json(resObj);
 });
 
 // Get details of an Artist from an id
