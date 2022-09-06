@@ -73,6 +73,7 @@ router.post('/:playlistId/songs', requireAuth, async (req, res) => {
     const newSong = newPlaylistSong.toJSON();
     delete newSong.createdAt
     delete newSong.updatedAt
+    delete newSong.order
     return res.json(newSong);
 });
 
