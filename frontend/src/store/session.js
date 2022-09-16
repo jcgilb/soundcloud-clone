@@ -38,6 +38,24 @@ export const restoreUser = () => async dispatch => {
     return response;
 };
 
+// signup thunk action
+export const signup = (user) => async (dispatch) => {
+    const { username, email, password } = user;
+    const response = await csrfFetch("/api/users", {
+        method: "POST",
+        body: JSON.stringify({
+            username,
+            email,
+            password,
+        }),
+    });
+    const data = await response.json();
+    dispatch(setUser(data.user));
+    return response;
+};
+
+// logout thunk action
+
 const initialState = { user: null };
 
 const sessionReducer = (state = initialState, action) => {
