@@ -1,10 +1,7 @@
 # SoundCloud Clone
 
 ## Database Schema Design
-
-![soundcloud-dbdiagram]
-
-[soundcloud-dbdiagram]: ../assets/soundcloud_dbdiagram.png
+<img width="603" alt="soundcloud_dbdiagram" src="https://user-images.githubusercontent.com/106204127/190722252-9d9047af-3fd6-42cd-b48e-e95f389c42d1.png">
 
 ## API Documentation
 
