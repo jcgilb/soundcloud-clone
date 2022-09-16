@@ -21,9 +21,10 @@ router.use('/albums', albumsRouter);
 router.use('/comments', commentsRouter);
 router.use('/playlists', playlistsRouter);
 
-router.post('/test', function (req, res) {
-    res.json({ requestBody: req.body });
-});
+// don't need this after csrf protection is set up in frontend
+// router.post('/test', function (req, res) {
+//     res.json({ requestBody: req.body });
+// });
 
 // GET /api/set-token-cookie
 const { setTokenCookie } = require('../../utils/auth.js');
