@@ -8,7 +8,6 @@ import './SignupForm.css';
 function SignupFormPage() {
     const dispatch = useDispatch();
     const sessionUser = useSelector((state) => state.session.user);
-    // console.log("This is the initial sessionUser", sessionUser)
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
     // const [firstName, setFirstName] = useState("");
@@ -18,8 +17,6 @@ function SignupFormPage() {
     const [errors, setErrors] = useState([]);
 
     if (sessionUser) return <Redirect to="/" />;
-
-    // console.log("These are my session actions:", sessionActions)
 
     const handleSubmit = (e) => {
         e.preventDefault();
