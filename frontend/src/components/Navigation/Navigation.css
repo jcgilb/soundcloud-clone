@@ -2,10 +2,12 @@
 body {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     size: 12px;
+
 }
 
 html {
     background: white;
+
 }
 
 a {
@@ -14,148 +16,73 @@ a {
     padding: 5px;
 }
 
-/* container for the nav bar and carousel */
-.carousel-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    overflow: hidden;
-    position: absolute;
-    z-index: 0;
-    overflow: hidden;
-    /* overflow: -moz-hidden-unscrollable; */
+button {
+    background: transparent;
+    color: white;
+    height: 30px;
+    border: none;
 }
 
-/* stuff inside the carousel container */
-.navbar {
-    background-image: url("../../assets/sc_landing_header_home.jpg");
+button.logout {
+    background-color: rgb(255, 115, 0);
+    border: 1px solid white;
+    cursor: pointer;
+    color: white;
+    height: 30px;
+}
+
+.fas {
+    padding-top: 8px;
+    position: absolute;
+    top: 0;
+    left: 92px;
+    color: white;
+    height: 30px;
+    width: 30px;
+    box-sizing: border-box;
+    border: 1px solid white;
+    border-radius: 5%;
+    cursor: pointer;
+}
+
+.profile-dropdown {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin: 20px auto;
-    height: 450px;
-    max-width: 1240px;
+    justify-content: center;
+    align-items: flex-start;
+    box-sizing: border-box;
+    border: 3px solid rgb(255, 115, 0);
+    background-color: white;
+    margin-left: 10px;
+    padding: 15px;
+    border-radius: 5%;
+}
+
+/* container for the nav bar and background photos */
+.nav-container {
+    background-size: contain;
+    width: 1200px;
+    height: 65px;
+    /* height: 500px; */
+    display: block;
+    background: white;
+    margin: 0 auto;
+    border-left: 20px solid white;
+    border-right: 25px solid white;
+}
+
+/* stuff inside the slide container */
+.navbar {
+    display: block;
+    margin: 0 auto;
+    background-image: url("../../assets/sc_landing_header_home.jpg");
+    /* height: 450px; */
+    height: 65px;
     width: 100%;
-    align-items: top;
     animation-name: slide;
     animation-duration: 60s;
     animation-iteration-count: infinite;
     animation-timing-function: ease-in-out;
-}
-
-.background-overlay {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 80px;
-}
-
-.navbar div.discover {
-    font-stretch: condensed;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 700px;
-    animation-name: discover;
-    animation-duration: 60s;
-    animation-iteration-count: infinite;
-    position: absolute;
-}
-
-.navbar div.next {
-    font-stretch: condensed;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 800px;
-    animation-name: next;
-    animation-duration: 60s;
-    animation-iteration-count: infinite;
-    position: absolute;
-}
-
-@keyframes slide {
-    0% {
-        background-image: url('../../assets/sc_landing_header_home.jpg')
-    }
-
-    20% {
-        background-image: url('../../assets/sc_landing_header_home.jpg')
-    }
-
-    40% {
-        background-image: url('../../assets/sc_landing_header_web_featured_artists.jpg')
-    }
-
-    60% {
-        background-image: url('../../assets/sc_landing_header_web_featured_artists.jpg')
-    }
-
-    80% {
-        background-image: url('../../assets/sc_landing_header_home.jpg')
-    }
-
-    100% {
-        background-image: url('../../assets/sc_landing_header_home.jpg')
-    }
-}
-
-@keyframes discover {
-    0% {
-        opacity: 100%;
-    }
-
-    20% {
-        opacity: 100%;
-    }
-
-    40% {
-        opacity: 0%;
-    }
-
-    60% {
-        opacity: 0%;
-    }
-
-    80% {
-        opacity: 100%;
-    }
-
-    100% {
-        opacity: 100%;
-    }
-}
-
-@keyframes next {
-    0% {
-        opacity: 0%;
-    }
-
-    20% {
-        opacity: 0%;
-    }
-
-    40% {
-        opacity: 100%;
-    }
-
-    60% {
-        opacity: 100%;
-    }
-
-    80% {
-        opacity: 0%;
-    }
-
-    100% {
-        opacity: 0%;
-    }
 }
 
 img {
@@ -172,10 +99,15 @@ svg {
     position: absolute;
 }
 
-span.nav {
-    display: flex;
-    align-items: center;
-    padding-top: 40px;
+div.logo {
+    position: absolute;
+    z-index: 3;
+}
+
+div.nav {
+    display: inline-block;
+    /* padding-top: 40px; */
+    padding-top: 20px;
     width: 100%;
 }
 
@@ -231,3 +163,54 @@ span.create-account {
     border-radius: 5%;
     margin-right: 50px;
 }
+
+@keyframes slide {
+    0% {
+        background-image: url('../../assets/header-image-home.jpg')
+    }
+
+    20% {
+        background-image: url('../../assets/header-image-home.jpg')
+    }
+
+    40% {
+        background-image: url('../../assets/next-home.jpg')
+    }
+
+    60% {
+        background-image: url('../../assets/next-home.jpg')
+    }
+
+    80% {
+        background-image: url('../../assets/header-image-home.jpg')
+    }
+
+    100% {
+        background-image: url('../../assets/header-image-home.jpg')
+    }
+}
+
+/* 
+0% {
+    background-image: url('../../assets/discover-home.jpg')
+}
+
+20% {
+    background-image: url('../../assets/discover-home.jpg')
+}
+
+40% {
+    background-image: url('../../assets/next-home.jpg')
+}
+
+60% {
+    background-image: url('../../assets/next-home.jpg')
+}
+
+80% {
+    background-image: url('../../assets/discover-home.jpg')
+}
+
+100% {
+    background-image: url('../../assets/discover-home.jpg')
+} */

@@ -1,17 +1,17 @@
 form {
-    position: relative;
-    z-index: 2;
+    display: block;
+    margin: 0 auto;
+    height: 50%;
+    width: 50%;
     box-sizing: border-box;
-    background-color: transparent;
     border: 3px solid rgb(255, 115, 0);
     border-radius: 5%;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 350px;
     width: 405px;
     background-color: white;
-    top: 120px;
+    margin-top: 40px;
 }
 
 label {
@@ -21,13 +21,6 @@ label {
 input {
     padding: 8px;
     width: 280px;
-}
-
-.form-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: white;
 }
 
 .the-guts {
@@ -52,3 +45,18 @@ button.signin {
     color: white;
     cursor: pointer;
 }
+
+/* form {
+    position: absolute;
+    left: 460px;
+    z-index: 5;
+    box-sizing: border-box;
+    border: 3px solid rgb(255, 115, 0);
+    border-radius: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 405px;
+    background-color: white;
+    top: 120px;
+} */
