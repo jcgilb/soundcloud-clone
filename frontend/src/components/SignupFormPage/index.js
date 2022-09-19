@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import './SignupForm.css';
 // import signup from "../../store/session"
 
 function SignupFormPage() {
     const dispatch = useDispatch();
+    const history = useHistory();
     const sessionUser = useSelector((state) => state.session.user);
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
@@ -16,7 +17,7 @@ function SignupFormPage() {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errors, setErrors] = useState([]);
 
-    if (sessionUser) return <Redirect to="/" />;
+    if (sessionUser) return <Redirect to="/home" />;
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -28,6 +29,7 @@ function SignupFormPage() {
                     if (data && data.errors) setErrors(data.errors);
                 });
         }
+        if (errors.length === 0) history.push('/home')
         return setErrors(['Confirm Password field must be the same as the Password field']);
     };
 

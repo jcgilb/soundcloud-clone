@@ -62,8 +62,8 @@ button.logout {
 .nav-container {
     background-size: contain;
     width: 1200px;
-    height: 65px;
-    /* height: 500px; */
+    /* height: 65px; */
+    height: 500px;
     display: block;
     background: white;
     margin: 0 auto;
@@ -76,8 +76,8 @@ button.logout {
     display: block;
     margin: 0 auto;
     background-image: url("../../assets/sc_landing_header_home.jpg");
-    /* height: 450px; */
-    height: 65px;
+    height: 450px;
+    /* height: 65px; */
     width: 100%;
     animation-name: slide;
     animation-duration: 60s;
@@ -166,11 +166,11 @@ span.create-account {
 
 @keyframes slide {
     0% {
-        background-image: url('../../assets/header-image-home.jpg')
+        background-image: url('../../assets/discover-home.jpg')
     }
 
     20% {
-        background-image: url('../../assets/header-image-home.jpg')
+        background-image: url('../../assets/discover-home.jpg')
     }
 
     40% {
@@ -182,21 +182,20 @@ span.create-account {
     }
 
     80% {
-        background-image: url('../../assets/header-image-home.jpg')
+        background-image: url('../../assets/discover-home.jpg')
     }
 
     100% {
-        background-image: url('../../assets/header-image-home.jpg')
+        background-image: url('../../assets/discover-home.jpg')
     }
 }
 
-/* 
-0% {
-    background-image: url('../../assets/discover-home.jpg')
+/* 0% {
+    background-image: url('../../assets/header-image-home.jpg')
 }
 
 20% {
-    background-image: url('../../assets/discover-home.jpg')
+    background-image: url('../../assets/header-image-home.jpg')
 }
 
 40% {
@@ -208,9 +207,9 @@ span.create-account {
 }
 
 80% {
-    background-image: url('../../assets/discover-home.jpg')
+    background-image: url('../../assets/header-image-home.jpg')
 }
 
 100% {
-    background-image: url('../../assets/discover-home.jpg')
+    background-image: url('../../assets/header-image-home.jpg')
 } */

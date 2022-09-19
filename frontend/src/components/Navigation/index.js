@@ -34,7 +34,6 @@ function Navigation({ isLoaded }) {
             <div className="navbar">
                 {/* <img src={logo} alt='peace-logo'></img> */}
                 {/* this is just the svg that I saved directly from the website */}
-
                 <div className='nav'>
                     <div className='logo'>
                         <svg xmlns="http://www.w3.org/2000/svg">
@@ -49,13 +48,9 @@ function Navigation({ isLoaded }) {
                         </span>
                         {isLoaded && sessionLinks}
                     </span>
-
                 </div>
-
-
             </div>
         </div >
-
     );
 };
 
