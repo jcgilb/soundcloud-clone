@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 // import { NavLink, Route, useParams } from 'react-router-dom';
 import { getSongs } from "../../store/songs.js"
 
 const GetAllSongs = () => {
-
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -22,9 +21,12 @@ const GetAllSongs = () => {
     }
 
     return (
-        <div>
-            songs placeholder
-        </div>
+        <>
+            <div>
+                songs placeholder
+            </div>
+        </>
+
     );
 };
 
