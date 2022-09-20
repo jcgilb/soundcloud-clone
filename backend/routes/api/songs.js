@@ -174,6 +174,7 @@ router.post('/:songId/comments', requireAuth, async (req, res) => {
 
 // Create a Song - creates new song w/ or w/o album.
 // Authentication: true
+// 
 router.post('/', requireAuth, async (req, res) => {
     const album = await Album.findByPk(req.body.albumId);
     if (req.body.albumId && !album) {

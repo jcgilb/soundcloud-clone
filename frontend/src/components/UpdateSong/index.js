@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from 'react-router-dom';
 import { updateSong, getSongs } from "../../store/songs.js"
-import { restoreUser } from '../../store/session.js';
+// import { restoreUser } from '../../store/session.js';
 // import { NavLink, Route, useParams } from 'react-router-dom';
 
 const EditSong = () => {
@@ -16,9 +16,8 @@ const EditSong = () => {
     songId = parseInt(songId);
 
     useEffect(() => {
-        console.log("getting all songs in my EditSong component")
+        console.log("dispatching in my EditSong useEffect")
         dispatch(getSongs())
-        dispatch(restoreUser)
     }, [dispatch]);
 
     const userId = useSelector(state => state.session.user.id)
@@ -28,7 +27,9 @@ const EditSong = () => {
     console.log("user id is:", userId)
     console.log("songsObj ", songs)
     console.log('this is my song to edit: ', mySong);
-    const curState = useSelector(state => state.songs);
+    console.log("this is my songId from url: ", songId)
+
+    if (!Object.values(songs).length) return null;
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -43,8 +44,6 @@ const EditSong = () => {
             history.push(`/songs/${songId}`);
         }
     };
-
-    if (!Object.values(curState).length) return null;
 
     return (
         <>

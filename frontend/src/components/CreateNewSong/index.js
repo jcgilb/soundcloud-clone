@@ -1,29 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
-import { createSong, getSongs } from "../../store/songs.js"
 // import { NavLink, Route, useParams } from 'react-router-dom';
+import { createSong } from "../../store/songs.js"
 
 const CreateNewSong = () => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [url, setUrl] = useState('');
     const [imageUrl, setImageUrl] = useState('');
-    const [albumId, setAlbumId] = useState('');
+    const [albumId, setAlbumId] = useState(null);
     const dispatch = useDispatch();
     const history = useHistory();
 
-    useEffect(() => {
-        console.log("dispatching in my CreateNewSong useEffect")
-        dispatch(getSongs())
-    }, [dispatch]);
+    const curState = useSelector(state => state.songs);
 
-    const songsObj = useSelector(state => state.songs);
-    const songsArr = Object.values(songsObj);
-    const lastSong = songsArr[songsArr.length - 1];
-    const lastId = lastSong.id;
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const newSong = {
             title,
@@ -32,15 +24,14 @@ const CreateNewSong = () => {
             imageUrl,
             albumId,
         }
-        let song = dispatch(createSong(newSong));
+        let song = await dispatch(createSong(newSong));
         console.log("this is my new song: ", song)
         if (song) {
-            const nextId = lastId + 1;
-            history.push(`/songs/${nextId}`);
+            history.push(`/song/${song.id}`)
         }
     };
 
-    if (!Object.values(songsObj).length) return null;
+    if (!Object.values(curState).length) return null;
 
     return (
         <>
@@ -82,3 +73,5 @@ const CreateNewSong = () => {
 };
 
 export default CreateNewSong;
+
+

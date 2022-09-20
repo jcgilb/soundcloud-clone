@@ -8,6 +8,7 @@ import GetAllSongs from "./components/GetAllSongs";
 import CreateNewSong from "./components/CreateNewSong";
 import EditSong from "./components/UpdateSong"
 import * as sessionActions from "./store/session";
+// import { getSongs } from "./store/songs";
 
 function App() {
   const dispatch = useDispatch();
@@ -16,9 +17,18 @@ function App() {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
+  // the site doesn't hold on to song data when navigating to one /songs/:songId, 
+  // so adding this here appears to fix that problem...
+  // useEffect(() => {
+  //   console.log("getting all songs in my EditSong component")
+  //   dispatch(getSongs())
+  // }, [dispatch]);
+
   return (
     <>
       <Navigation isLoaded={isLoaded} />
+      <GetAllSongs />
+      <CreateNewSong />
       {isLoaded && (
         <Switch>
           <Route path="/login">
@@ -28,10 +38,8 @@ function App() {
             <SignupFormPage />
           </Route>
           <Route path='/home'>
-            <GetAllSongs />
-            <CreateNewSong />
           </Route>
-          <Route path='/songs/:songId'>
+          <Route path='/edit'>
             <EditSong />
           </Route>
         </Switch>
