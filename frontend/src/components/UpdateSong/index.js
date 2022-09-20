@@ -28,6 +28,7 @@ const EditSong = () => {
     console.log("user id is:", userId)
     console.log("songsObj ", songs)
     console.log('this is my song to edit: ', mySong);
+    const curState = useSelector(state => state.songs);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -43,7 +44,7 @@ const EditSong = () => {
         }
     };
 
-    // if (!Object.values(songs).length) return null;
+    if (!Object.values(curState).length) return null;
 
     return (
         <>

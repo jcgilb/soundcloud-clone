@@ -43,21 +43,22 @@ export const getSongs = () => async dispatch => {
 };
 
 // create a song thunk action
-export const createSong = (songBody) => async (dispatch) => {
+export const createSong = (payload) => async (dispatch) => {
     const response = await csrfFetch('/api/songs', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(songBody)
+        body: JSON.stringify(payload)
     });
-
-    const song = await response.json();
-    dispatch(create(song));
-    return song;
+    if (response.ok) {
+        const song = await response.json();
+        dispatch(create(payload));
+        return song;
+    }
 };
 
 // update a song thunk action
 export const updateSong = (song, songId) => async dispatch => {
-    console.log("songBody in thunk ", song)
+    console.log("song body in thunk ", song)
     console.log("is this a valid songId? ", songId)
     const response = await csrfFetch(`/api/songs/${songId}`, {
         method: 'PUT',
@@ -71,7 +72,6 @@ export const updateSong = (song, songId) => async dispatch => {
         const songData = await response.json();
         dispatch(update(songData));
         return songData;
-
     }
 };
 

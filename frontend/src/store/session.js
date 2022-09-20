@@ -16,6 +16,7 @@ const removeUser = () => {
     };
 };
 
+
 // restore session user thunk action
 export const restoreUser = () => async dispatch => {
     const response = await csrfFetch('/api/session');

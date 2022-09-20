@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
-import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import GetAllSongs from "./components/GetAllSongs";
 import CreateNewSong from "./components/CreateNewSong";
 import EditSong from "./components/UpdateSong"
+import * as sessionActions from "./store/session";
+import { getSongs } from "./store/songs.js"
 
 function App() {
   const dispatch = useDispatch();
@@ -15,6 +16,10 @@ function App() {
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getSongs())
+  }, [dispatch])
 
   return (
     <>
