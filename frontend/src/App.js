@@ -7,6 +7,7 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import GetAllSongs from "./components/GetAllSongs";
 import CreateNewSong from "./components/CreateNewSong";
+import EditSong from "./components/UpdateSong"
 
 function App() {
   const dispatch = useDispatch();
@@ -30,8 +31,8 @@ function App() {
             <GetAllSongs />
             <CreateNewSong />
           </Route>
-          <Route path='/mySongs'>
-
+          <Route path='/songs/:songId'>
+            <EditSong />
           </Route>
         </Switch>
       )}

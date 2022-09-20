@@ -43,22 +43,23 @@ export const getSongs = () => async dispatch => {
 };
 
 // create a song thunk action
-export const createSong = (payload) => async (dispatch) => {
+export const createSong = (songBody) => async (dispatch) => {
     const response = await csrfFetch('/api/songs', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(songBody)
     });
-    if (response.ok) {
-        const song = await response.json();
-        dispatch(create(payload));
-        return song;
-    }
+
+    const song = await response.json();
+    dispatch(create(song));
+    return song;
 };
 
 // update a song thunk action
-export const updatePokemon = song => async dispatch => {
-    const response = await csrfFetch(`/api/songs/${song.id}`, {
+export const updateSong = (song, songId) => async dispatch => {
+    console.log("songBody in thunk ", song)
+    console.log("is this a valid songId? ", songId)
+    const response = await csrfFetch(`/api/songs/${songId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -70,12 +71,13 @@ export const updatePokemon = song => async dispatch => {
         const songData = await response.json();
         dispatch(update(songData));
         return songData;
+
     }
 };
 
 // delete a song thunk action
 export const deleteItem = (songId) => async dispatch => {
-    const response = await fetch(`/api/items/${songId}`, {
+    const response = await csrfFetch(`/api/songs/${songId}`, {
         method: 'DELETE',
     });
 
@@ -101,10 +103,13 @@ const songsReducer = (state = initialState, action) => {
                 ...state,
             };
         case CREATE:
-            newState = { ...state }
-            newState[action.song.id] = action.song
-            return newState;
-        case UPDATE:
+            if (!state[action.song.id]) {
+                const newState = {
+                    ...state,
+                    [action.song.id]: action.song
+                };
+                return newState;
+            }
             return {
                 ...state,
                 [action.song.id]: {
@@ -112,11 +117,35 @@ const songsReducer = (state = initialState, action) => {
                     ...action.song
                 }
             };
+        // newState = { ...state }
+        // newState[action.song.id] = action.song
+        // return newState;
+        case UPDATE:
+            if (!state[action.song.id]) {
+                const newState = {
+                    ...state,
+                    [action.song.id]: action.song
+                };
+                return newState;
+            }
+            return {
+                ...state,
+                [action.song.id]: {
+                    ...state[action.song.id],
+                    ...action.song
+                }
+            };
+        // return {
+        //     ...state,
+        //     [action.song.id]: {
+        //         ...state[action.song.id],
+        //         ...action.song
+        //     }
+        // };
         case DELETE:
             newState = { ...state };
             delete newState[action.songId];
             return newState;
-
         default:
             return state;
     }

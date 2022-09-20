@@ -1,57 +1,53 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from 'react-router-dom';
-
+import { useHistory, useParams } from 'react-router-dom';
 // import { NavLink, Route, useParams } from 'react-router-dom';
-import { createSong, getSongs } from "../../store/songs.js"
+import { updateSong, getSongs } from "../../store/songs.js"
+import { restoreUser } from '../../store/session.js';
 
-const CreateNewSong = () => {
+const EditSong = () => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [url, setUrl] = useState('');
-    const [imageUrl, setImageUrl] = useState('');
-    const [albumId, setAlbumId] = useState(null);
+    const [albumId, setAlbumId] = useState('');
     const dispatch = useDispatch();
     const history = useHistory();
-    // const { songId } = useParams();
+    let { songId } = useParams();
+    songId = parseInt(songId);
 
     useEffect(() => {
-        console.log("getting all songs in my CreateNewSong component")
+        console.log("getting all songs in my EditSong component")
         dispatch(getSongs())
+        dispatch(restoreUser)
     }, [dispatch]);
 
+    const userId = useSelector(state => state.session.user.id)
     const songs = useSelector(state => state.songs);
-    const songsArr = Object.values(songs);
-    const lastSong = songsArr[songsArr.length - 1];
-    const lastId = lastSong.id;
+    const mySong = Object.values(songs).find((song) => song.id === songId)
 
-    console.log("last song from createSong ", lastSong)
-    console.log("last id from createSong ", lastId)
-
-    const curState = useSelector(state => state.songs);
+    console.log("user id is:", userId)
+    console.log("songsObj ", songs)
+    console.log('this is my song to edit: ', mySong);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const newSong = {
+        let songBody = {
             title,
             description,
             url,
-            imageUrl,
             albumId,
         }
-        let song = dispatch(createSong(newSong));
-        console.log("this is my new song: ", song)
-        if (song) {
-            const nextId = lastId + 1;
-            history.push(`/songs/${nextId}`);
+        if (userId === mySong.userId) {
+            dispatch(updateSong(songBody, songId));
+            history.push(`/songs/${songId}`);
         }
     };
 
-    if (!Object.values(curState).length) return null;
+    // if (!Object.values(songs).length) return null;
 
     return (
         <>
-            <form className="create-pokemon-form" onSubmit={handleSubmit}>
+            <form className="edit-song-form" onSubmit={handleSubmit}>
                 <input
                     type="title"
                     placeholder="Title"
@@ -71,21 +67,15 @@ const CreateNewSong = () => {
                     onChange={(e) => setUrl(e.target.value)} />
                 {/* <ErrorMessage label={"Url"} message={errorMessages.url} /> */}
                 <input
-                    type="imageUrl"
-                    placeholder="Image URL"
-                    value={imageUrl}
-                    onChange={(e) => setImageUrl(e.target.value)} />
-                {/* <ErrorMessage label={"Image URL"} message={errorMessages.imageUrl} /> */}
-                <input
                     type="albumId"
                     placeholder="Album Id"
                     value={albumId}
                     onChange={(e) => setAlbumId(e.target.value)} />
                 {/* <ErrorMessage label={"AlbumId"} message={errorMessages.albumId} /> */}
-                <button className='new-song' type='submit'>Create new song</button>
+                <button className='edit-song' type='submit'>Edit song details</button>
             </form>
         </>
     );
 };
 
-export default CreateNewSong;
+export default EditSong;
