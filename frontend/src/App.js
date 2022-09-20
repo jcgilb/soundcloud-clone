@@ -18,13 +18,6 @@ function App() {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
 
-  // the site doesn't hold on to song data when navigating to one /songs/:songId, 
-  // so adding this here appears to fix that problem...
-  // useEffect(() => {
-  //   console.log("getting all songs in my EditSong component")
-  //   dispatch(getSongs())
-  // }, [dispatch]);
-
   return (
     <>
       <Navigation isLoaded={isLoaded} />

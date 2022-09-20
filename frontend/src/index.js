@@ -8,7 +8,7 @@ import configureStore from './store';
 import { restoreCSRF, csrfFetch } from './store/csrf';
 import * as sessionActions from './store/session';
 // import * as songActions from './store/songs';
-import { deleteSong } from './store/songs';
+import { deleteSong, getOneSong, getSongs } from './store/songs';
 
 const store = configureStore();
 
@@ -18,6 +18,8 @@ if (process.env.NODE_ENV !== 'production') {
   window.store = store;
   window.sessionActions = sessionActions;
   window.deleteSong = deleteSong;
+  window.getOneSong = getOneSong;
+  window.getSongs = getSongs;
   // window.songActions = songActions // do I need this here?
 };
 
