@@ -8,6 +8,7 @@ import GetAllSongs from "./components/GetAllSongs";
 import CreateNewSong from "./components/CreateNewSong";
 import EditSong from "./components/UpdateSong"
 import DeleteSong from "./components/DeleteSong"
+import SongDetails from "./components/SongDetails"
 import * as sessionActions from "./store/session";
 import { getSongs } from "./store/songs";
 
@@ -31,12 +32,12 @@ function App() {
             <SignupFormPage />
           </Route>
           <Route path='/songs/:songId'>
-            <EditSong />
-            <DeleteSong />
+            <SongDetails />
+            {/* <EditSong />
+            <DeleteSong /> */}
           </Route>
           <Route exact path='/songs'>
             <GetAllSongs />
-            <CreateNewSong />
           </Route>
         </Switch>
       )}

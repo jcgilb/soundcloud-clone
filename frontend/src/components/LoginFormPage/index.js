@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
-import './LoginForm.css';
+// import './LoginForm.css';
 
 function LoginFormPage() {
     const dispatch = useDispatch();
@@ -22,7 +22,7 @@ function LoginFormPage() {
                 const data = await res.json();
                 if (data && data.errors) setErrors(data.errors);
             });
-        if (errors.length === 0) history.push('/home')
+        if (errors.length === 0) history.push('/songs')
         return response
     };
 

@@ -5,7 +5,7 @@ import { deleteSong, getSongs } from "../../store/songs.js"
 
 // import { NavLink, Route, useParams } from 'react-router-dom';
 
-const DeleteSong = () => {
+const DeleteSong = (currentSong = { currentSong }) => {
     const dispatch = useDispatch();
     const history = useHistory();
     let { songId } = useParams();
@@ -23,16 +23,17 @@ const DeleteSong = () => {
 
     console.log("songsObj ", songs)
     console.log("this is my songsArray ", songsArr)
-    console.log("user id is:", userId)
+    console.log("song's userId is:", mySong.userId)
     console.log("this is the id in the url: ", songId)
     console.log('this is my song to delete: ', mySong);
 
     const handleClick = async (e) => {
         e.preventDefault();
-        if (userId === mySong.userId) {
-            let deletedSong = await dispatch(deleteSong(songId));
-            return history.push(`/songs`);
-        }
+        // if (userId === mySong.userId) {
+        // }
+        await dispatch(deleteSong(songId));
+        return history.push(`/songs`);
+
     };
 
     if (!Object.values(songs).length) return null;

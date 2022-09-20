@@ -5,7 +5,7 @@ import { updateSong, getSongs } from "../../store/songs.js"
 
 // import { NavLink, Route, useParams } from 'react-router-dom';
 
-const EditSong = () => {
+const UpdateSong = () => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [url, setUrl] = useState('');
@@ -21,7 +21,7 @@ const EditSong = () => {
     const mySong = songsArr.find((song) => song.id === songId)
 
     useEffect(() => {
-        console.log("getting all songs in my EditSong component")
+        console.log("getting all songs in my UpdateSong component")
         dispatch(getSongs())
     }, [dispatch]);
 
@@ -80,4 +80,4 @@ const EditSong = () => {
     );
 };
 
-export default EditSong;
+export default UpdateSong;
