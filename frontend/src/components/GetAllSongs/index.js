@@ -4,23 +4,20 @@ import { getSongs } from "../../store/songs.js"
 // import { NavLink, Route, useParams } from 'react-router-dom';
 
 const GetAllSongs = () => {
-
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        console.log("dispatching in my GetAllSongs useEffect")
-        dispatch(getSongs())
-    }, [dispatch]);
 
     const songsObj = useSelector(state => state.songs)
     const songsArr = Object.values(songsObj);
 
-    console.log("these are my songs", songsObj)
-    console.log("this is my songs array", songsArr)
+    useEffect(() => {
+        console.log("dispatching in my GetAllSongs useEffect");
+        dispatch(getSongs());
+    }, [dispatch]);
 
-    if (!songsArr.length) {
-        return null;
-    }
+    console.log("these are my songs", songsObj);
+    console.log("this is my songs array", songsArr);
+
+    if (!songsArr.length) return null;
 
     return (
         <>

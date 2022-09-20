@@ -27,7 +27,7 @@ const CreateNewSong = () => {
         let song = await dispatch(createSong(newSong));
         console.log("this is my new song: ", song)
         if (song) {
-            history.push(`/song/${song.id}`)
+            history.push(`/songs/${song.id}`)
         }
     };
 

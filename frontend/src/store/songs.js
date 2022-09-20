@@ -1,7 +1,6 @@
 import { csrfFetch } from './csrf';
 const GET = 'songs/GET';
 const ADD_ONE = 'songs/ADD_ONE';
-const UPDATE = 'songs/UPDATE';
 const DELETE = 'songs/DELETE';
 
 const get = (songs) => {
@@ -14,13 +13,6 @@ const get = (songs) => {
 const addOne = (song) => {
     return {
         type: ADD_ONE,
-        song,
-    };
-};
-
-const update = (song) => {
-    return {
-        type: UPDATE,
         song,
     };
 };
@@ -48,9 +40,9 @@ export const getOneSong = (id) => async dispatch => {
     if (response.ok) {
         const data = await response.json();
         console.log("this is my data in my getOneSong thunk", data)
-        dispatch(get(data));
+        dispatch(addOne(data));
     }
-    // return response
+    return response
 };
 
 // create a song thunk 
@@ -68,32 +60,30 @@ export const createSong = (payload) => async (dispatch) => {
 };
 
 // update a song thunk 
-export const updateSong = song => async dispatch => {
-    const response = await csrfFetch(`/api/songs/${song.id}`, {
+export const updateSong = (songBody, songId) => async dispatch => {
+    const response = await csrfFetch(`/api/songs/${songId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(song)
+        body: JSON.stringify(songBody)
     });
-
     if (response.ok) {
         const songData = await response.json();
-        dispatch(update(songData));
+        dispatch(addOne(songData));
         return songData;
     }
 };
 
 // delete a song thunk 
-export const deleteItem = (songId) => async dispatch => {
-    const response = await fetch(`/api/items/${songId}`, {
+export const deleteSong = (songId) => async dispatch => {
+    const response = await csrfFetch(`/api/songs/${songId}`, {
         method: 'DELETE',
     });
-
     if (response.ok) {
-        const song = await response.json();
-        dispatch(remove(song.id));
-        return console.log("successfully deleted");
+        // const song = await response.json();
+        dispatch(remove(songId));
+        // return console.log("successfully deleted");
     }
 };
 
@@ -123,19 +113,10 @@ const songsReducer = (state = initialState, action) => {
                     ...action.song
                 }
             };
-        case UPDATE:
-            return {
-                ...state,
-                [action.song.id]: {
-                    ...state[action.song.id],
-                    ...action.song
-                }
-            };
         case DELETE:
             newState = { ...state };
             delete newState[action.songId];
             return newState;
-
         default:
             return state;
     }

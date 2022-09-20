@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { Route, Switch } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Route, Switch, useParams } from "react-router-dom";
 import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
 import Navigation from "./components/Navigation";
 import GetAllSongs from "./components/GetAllSongs";
 import CreateNewSong from "./components/CreateNewSong";
 import EditSong from "./components/UpdateSong"
+import DeleteSong from "./components/DeleteSong"
 import * as sessionActions from "./store/session";
-// import { getSongs } from "./store/songs";
+import { getSongs } from "./store/songs";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,8 +28,7 @@ function App() {
   return (
     <>
       <Navigation isLoaded={isLoaded} />
-      <GetAllSongs />
-      <CreateNewSong />
+
       {isLoaded && (
         <Switch>
           <Route path="/login">
@@ -37,10 +37,13 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          <Route path='/home'>
-          </Route>
-          <Route path='/edit'>
+          <Route path='/songs/:songId'>
             <EditSong />
+            <DeleteSong />
+          </Route>
+          <Route exact path='/songs'>
+            <GetAllSongs />
+            <CreateNewSong />
           </Route>
         </Switch>
       )}
