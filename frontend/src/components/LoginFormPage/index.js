@@ -22,7 +22,7 @@ function LoginFormPage() {
                 const data = await res.json();
                 if (data && data.errors) setErrors(data.errors);
             });
-        if (errors.length === 0) history.push('/songs')
+        if (errors.length === 0) history.push('/')
         return response
     };
 

@@ -1,17 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from 'react-router-dom';
 import { deleteSong, getSongs } from "../../store/songs.js"
 
 // import { NavLink, Route, useParams } from 'react-router-dom';
 
-const DeleteSong = (currentSong = { currentSong }) => {
+const DeleteSong = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     let { songId } = useParams();
     songId = parseInt(songId);
 
-    const userId = useSelector(state => state.session.user.id)
+    // const userId = useSelector(state => state.session.user.id)
     const songs = useSelector(state => state.songs);
     const songsArr = Object.values(songs);
     const mySong = songsArr.find((song) => song.id === songId)
@@ -30,9 +30,9 @@ const DeleteSong = (currentSong = { currentSong }) => {
     const handleClick = async (e) => {
         e.preventDefault();
         // if (userId === mySong.userId) {
-        // }
         await dispatch(deleteSong(songId));
         return history.push(`/songs`);
+        // }
     };
 
     if (!Object.values(songs).length) return null;
