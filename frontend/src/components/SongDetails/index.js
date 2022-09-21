@@ -30,29 +30,6 @@ const SongDetails = () => {
 
     if (!currentSong) return null;
 
-    // let pageBody;
-    // if (showSongForm) {
-    //     pageBody = (
-    //         <div>
-    //             <CreateNewSong songs={songs} />
-    //             <button onClick={() => setShowSongForm(false)}> Cancel </button>
-    //         </div>
-    //     )
-    // } else
-    // if (showEditForm) {
-    //     pageBody = (
-    //         <div>
-    //             <div>
-    //                 <UpdateSong currentSong={currentSong} />
-    //                 <button onClick={() => setShowEditForm(false)}> Cancel </button>
-    //             </div>
-    //             <div>
-    //                 < DeleteSong />
-    //             </div>
-    //         </div>
-    //     )
-    // }
-
     return (
         <>
             <div className="one-song">
@@ -80,4 +57,27 @@ const SongDetails = () => {
     );
 };
 
-export default SongDetails; 
+export default SongDetails;
+
+    // let pageBody;
+    // if (showSongForm) {
+    //     pageBody = (
+    //         <div>
+    //             <CreateNewSong songs={songs} />
+    //             <button onClick={() => setShowSongForm(false)}> Cancel </button>
+    //         </div>
+    //     )
+    // } else
+    // if (showEditForm) {
+    //     pageBody = (
+    //         <div>
+    //             <div>
+    //                 <UpdateSong currentSong={currentSong} />
+    //                 <button onClick={() => setShowEditForm(false)}> Cancel </button>
+    //             </div>
+    //             <div>
+    //                 < DeleteSong />
+    //             </div>
+    //         </div>
+    //     )
+    // }

@@ -13,21 +13,6 @@ const CreateNewSong = () => {
     const [showForm, setShowForm] = useState(false);
     const dispatch = useDispatch();
     const history = useHistory();
-    // const curState = useSelector(state => state.songs);
-
-    // const showSongForm = () => {
-    //     if (showForm) return;
-    //     setShowForm(true);
-    // };
-
-    // useEffect(() => {
-    //     if (!showForm) return;
-    //     const hideSongForm = () => {
-    //         setShowForm(false);
-    //     };
-    //     document.addEventListener('click', hideSongForm);
-    //     return () => document.removeEventListener("click", hideSongForm);
-    // }, [showForm]);
 
     const revert = () => {
         setTitle('');
@@ -109,3 +94,18 @@ const CreateNewSong = () => {
 export default CreateNewSong;
 
 
+// const curState = useSelector(state => state.songs);
+
+// const showSongForm = () => {
+//     if (showForm) return;
+//     setShowForm(true);
+// };
+
+// useEffect(() => {
+//     if (!showForm) return;
+//     const hideSongForm = () => {
+//         setShowForm(false);
+//     };
+//     document.addEventListener('click', hideSongForm);
+//     return () => document.removeEventListener("click", hideSongForm);
+// }, [showForm]);

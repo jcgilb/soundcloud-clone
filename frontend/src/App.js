@@ -5,12 +5,12 @@ import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
 import Navigation from "./components/Navigation";
 import GetAllSongs from "./components/GetAllSongs";
-import CreateNewSong from "./components/CreateNewSong";
-import EditSong from "./components/UpdateSong"
-import DeleteSong from "./components/DeleteSong"
 import SongDetails from "./components/SongDetails"
 import * as sessionActions from "./store/session";
-import { getSongs } from "./store/songs";
+// import { getSongs } from "./store/songs";
+// import CreateNewSong from "./components/CreateNewSong";
+// import EditSong from "./components/UpdateSong"
+// import DeleteSong from "./components/DeleteSong"
 
 function App() {
   const dispatch = useDispatch();
@@ -33,8 +33,6 @@ function App() {
           </Route>
           <Route path='/songs/:songId'>
             <SongDetails />
-            {/* <EditSong />
-            <DeleteSong /> */}
           </Route>
           <Route exact path='/songs'>
             <GetAllSongs />
