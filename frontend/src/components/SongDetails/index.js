@@ -27,7 +27,7 @@ const SongDetails = () => {
 
     useEffect(() => {
         dispatch(getOneSong(songId));
-    }, [dispatch]);
+    }, [dispatch, songId]);
 
     if (!currentSong) return null;
     let pageBody;

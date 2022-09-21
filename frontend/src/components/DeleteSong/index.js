@@ -33,7 +33,6 @@ const DeleteSong = (currentSong = { currentSong }) => {
         // }
         await dispatch(deleteSong(songId));
         return history.push(`/songs`);
-
     };
 
     if (!Object.values(songs).length) return null;
