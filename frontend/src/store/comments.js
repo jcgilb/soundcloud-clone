@@ -25,8 +25,8 @@ const remove = (commentId) => {
 };
 
 // get all comments thunk 
-export const getComments = () => async dispatch => {
-    const response = await csrfFetch('/api/comments');
+export const getComments = (songId) => async dispatch => {
+    const response = await csrfFetch(`/api/songs/${songId}/comments`);
     if (response.ok) {
         const data = await response.json();
         console.log("this is my data in my getComments thunk", data)
@@ -47,8 +47,8 @@ export const getOneComment = (id) => async dispatch => {
 };
 
 // create a comment thunk 
-export const createComment = (payload) => async (dispatch) => {
-    const response = await csrfFetch('/api/comments', {
+export const createComment = (payload, songId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/songs/${songId}/comments`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -93,7 +93,7 @@ const commentsReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET:
             const allComments = {}
-            action.comments.comments.forEach(comment => {
+            action.comments.Comments.forEach(comment => {
                 allComments[comment.id] = comment;
             });
             return {

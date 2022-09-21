@@ -1,73 +1,63 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 // import { NavLink, Route, useParams } from 'react-router-dom';
-import { createComment } from "../../store/comments.js"
+import { createComment, getComments } from "../../store/comments.js"
 
 const CreateNewComment = () => {
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [url, setUrl] = useState('');
-    const [imageUrl, setImageUrl] = useState('');
-    const [albumId, setAlbumId] = useState(null);
+    const [body, setBody] = useState('');
+    const [showForm, setShowForm] = useState(false);;
     const dispatch = useDispatch();
     const history = useHistory();
+    let { songId } = useParams();
+    songId = parseInt(songId);
+    const songs = useSelector(state => state.songs)
+    const song = Object.values(songs).find((song) => song.id === parseInt(songId));
 
-    const curState = useSelector(state => state.comments);
+    // useEffect(() => {
+    //     console.log("dispatching in my GetAllComments useEffect");
+    //     dispatch(getComments(songId));
+    // }, [dispatch, songId]);
+
+    // const comments = useSelector(state => state.comments);
+    const revert = () => {
+        setBody('');
+    };
 
     const handleSubmit = async (e) => {
+        setShowForm(false)
         e.preventDefault();
         const newComment = {
-            // title,
-            // description,
-            // url,
-            // imageUrl,
-            // albumId,
+            body
         }
-        let comment = await dispatch(createComment(newComment));
+        let comment = await dispatch(createComment(newComment, songId));
         console.log("this is my new comment: ", comment)
         if (comment) {
-            history.push(`/comments/${comment.id}`)
+            revert();
+            history.push(`/songs/${song.id}`)
         }
     };
 
-    if (!Object.values(curState).length) return null;
+    // if (!Object.values(curState).length) return null;
 
     return (
         <>
-            <form className="create-comment-form" onSubmit={handleSubmit}>
-                <input
-                    type="title"
-                    placeholder="Title"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)} />
-                {/* <ErrorMessage label={"Title"} message={errorMessages.title} /> */}
-                <input
-                    type="description"
-                    placeholder="description"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)} />
-                {/* <ErrorMessage label={"Description"} message={errorMessages.description} /> */}
-                <input
-                    type="url"
-                    placeholder="Url"
-                    value={url}
-                    onChange={(e) => setUrl(e.target.value)} />
-                {/* <ErrorMessage label={"Url"} message={errorMessages.url} /> */}
-                <input
-                    type="imageUrl"
-                    placeholder="Image URL"
-                    value={imageUrl}
-                    onChange={(e) => setImageUrl(e.target.value)} />
-                {/* <ErrorMessage label={"Image URL"} message={errorMessages.imageUrl} /> */}
-                <input
-                    type="albumId"
-                    placeholder="Album Id"
-                    value={albumId}
-                    onChange={(e) => setAlbumId(e.target.value)} />
-                {/* <ErrorMessage label={"AlbumId"} message={errorMessages.albumId} /> */}
-                <button className='new-comment' type='submit'>Create new comment</button>
-            </form>
+            <div>
+                <button onClick={() => setShowForm(true)}> Leave a comment </button>
+            </div>
+            {showForm &&
+                <form className="create-comment-form" onSubmit={handleSubmit}>
+                    <input
+                        type="body"
+                        placeholder="Body"
+                        value={body}
+                        onChange={(e) => setBody(e.target.value)} />
+                    {/* <ErrorMessage label={"Title"} message={errorMessages.title} /> */}
+                    <button className='new-comment' type='submit'> Submit </button>
+                    <div>
+                        <button onClick={() => setShowForm(false)}> Cancel </button>
+                    </div>
+                </form>}
         </>
     );
 };

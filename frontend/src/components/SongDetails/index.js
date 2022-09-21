@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getOneSong } from "../../store/songs";
+import GetAllComments from "../GetAllComments"
+import CreateNewComment from "../CreateAComment"
 // import { GetAllSongs } from "./GetAllSongs";
 import UpdateSong from "../UpdateSong";
 // import CreateNewSong from "../CreateNewSong";
@@ -66,6 +68,13 @@ const SongDetails = () => {
                     <UpdateSong />
                     // <button onClick={() => setShowEditForm(true)}> Edit song details </button>
                 }
+                <div>
+                    <GetAllComments />
+                </div>
+                <br></br>
+                <div>
+                    <CreateNewComment />
+                </div>
             </div>
         </>
     );
