@@ -74,7 +74,7 @@ const UpdateSong = () => {
                     value={albumId}
                     onChange={(e) => setAlbumId(e.target.value)} />
                 {/* <ErrorMessage label={"AlbumId"} message={errorMessages.albumId} /> */}
-                <button className='edit-song' type='submit'>Edit song details</button>
+                <button className='edit-song' type='submit'>Submit</button>
             </form>
         </>
     );

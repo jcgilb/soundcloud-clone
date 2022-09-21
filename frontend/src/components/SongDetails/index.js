@@ -16,7 +16,7 @@ const SongDetails = () => {
     const user = useSelector(state => state.session.user);
 
     const [showSongForm, setShowSongForm] = useState(false);
-    const [showEditForm, setShowEditForm] = useState(user.id);
+    const [showEditForm, setShowEditForm] = useState(false);
     // const [artistId, setArtistId] = useState(null);
 
     songId = parseInt(songId);
@@ -33,16 +33,23 @@ const SongDetails = () => {
     let pageBody;
 
     if (showSongForm) {
-        setShowSongForm(false);
         pageBody = (
-            <CreateNewSong songs={songs} />
+            <div>
+                <CreateNewSong songs={songs} />
+                <button onClick={() => setShowSongForm(false)}> Cancel </button>
+            </div>
         )
-
-    }
-    if (showEditForm) {
-        setShowEditForm(false);
+    } else if (showEditForm) {
         pageBody = (
-            <UpdateSong currentSong={currentSong} />
+            <div>
+                <div>
+                    <UpdateSong currentSong={currentSong} />
+                    <button onClick={() => setShowEditForm(false)}> Cancel </button>
+                </div>
+                <div>
+                    < DeleteSong />
+                </div>
+            </div>
         )
     }
 
@@ -64,11 +71,7 @@ const SongDetails = () => {
                         <button onClick={() => setShowEditForm(true)}> Edit song details </button>
                     }
                 </div>
-                <div>
-                    {user.id === artistId &&
-                        <DeleteSong />
-                    }
-                </div>
+
                 {pageBody}
             </div>
         </>
