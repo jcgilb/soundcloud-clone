@@ -6,7 +6,6 @@ import DeleteAComment from "../DeleteAComment"
 // import { NavLink, Route } from 'react-router-dom';
 
 const GetAllComments = () => {
-    const [userComment, setUserComment] = useState(false);
     const [showDetails, setShowDetails] = useState(false);
     const dispatch = useDispatch();
     const history = useHistory();
@@ -25,11 +24,6 @@ const GetAllComments = () => {
     console.log("these are my comments", commentsObj);
     console.log("this is my comments array", commentsArr);
 
-    // const details = () => {
-    //     if (showDetails) return;
-    //     setShowDetails(true);
-    // }
-
     useEffect(() => {
         if (!showDetails) return;
         const closeDetails = () => {
@@ -39,19 +33,9 @@ const GetAllComments = () => {
         return () => document.removeEventListener("click", closeDetails);
     }, [showDetails]);
 
-    // const handleDelete = async (e) => {
-    //     e.preventDefault();
-    //     if (userId === myComment.userId) {
-    //         let deletedComment = await dispatch(deleteComment());
-    //         return history.push(`/songs/${song.id}`);
-    //     }
-    // }
-
-    // if (!commentsArr.length) return null;
-
     let songComments = commentsArr.filter((comment) => comment.songId === song.id);
-    // let userComments = commentsArr.filter((comment) => comment.userId === user.id);
-    console.log("songComments array", songComments)
+    console.log("songComments array", songComments);
+
     return (
         <>
             <div>
@@ -65,11 +49,11 @@ const GetAllComments = () => {
                         <div key={comment.id} className="comment-body">{comment.body}</div>
                         {showDetails &&
                             <>
-                                <div>hi</div>
+                                <div key={comment.id}>created at: {comment.createdAt}</div>
                                 {comment.userId === user.id &&
-                                    <button onClick={async (e) => {
+                                    <button key={comment.id} onClick={async (e) => {
                                         e.preventDefault();
-                                        let deletedComment = await dispatch(deleteComment(comment.id));
+                                        await dispatch(deleteComment(comment.id));
                                         return history.push(`/songs/${song.id}`);
                                     }}>delete comment</button>
                                 }
