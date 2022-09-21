@@ -5,11 +5,14 @@ import { deleteComment, getComments } from "../../store/comments.js"
 
 // import { NavLink, Route, useParams } from 'react-router-dom';
 
-const DeleteComment = () => {
+const DeleteAComment = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     let { commentId } = useParams();
-    commentId = parseInt(commentId);
+    let { songId } = useParams();
+    songId = parseInt(songId);
+    const songs = useSelector(state => state.songs)
+    const song = Object.values(songs).find((song) => song.id === parseInt(songId));
 
     const userId = useSelector(state => state.session.user.id)
     const comments = useSelector(state => state.comments);
@@ -30,8 +33,8 @@ const DeleteComment = () => {
     const handleClick = async (e) => {
         e.preventDefault();
         if (userId === myComment.userId) {
-            let deletedComment = await dispatch(deleteComment(commentId));
-            return history.push(`/comments`);
+            let deletedComment = await dispatch(deleteComment(myComment.id));
+            return history.push(`/songs/${song.id}`);
         }
     };
 
@@ -45,4 +48,4 @@ const DeleteComment = () => {
     );
 };
 
-export default DeleteComment;
+export default DeleteAComment;
