@@ -3,25 +3,12 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import CreateNewSong from "../CreateNewSong";
-import Player from "../AudioPlayer"
 
 // import './Navigation.css';
 
 function Navigation({ isLoaded }) {
-    // const [showSongForm, setShowSongForm] = useState(false);
     const sessionUser = useSelector(state => state.session.user);
-    // const songs = useSelector(state => state.session.user);
-    // const history = useHistory();
-    // let pageBody;
 
-    // if (showSongForm) {
-    //     pageBody = (
-    //         <div>
-    //             <CreateNewSong songs={songs} />
-    //             <button onClick={() => setShowSongForm(false)}> Cancel </button>
-    //         </div>
-    //     )
-    // }
     let sessionLinks;
     if (sessionUser) {
         sessionLinks = (
@@ -33,11 +20,8 @@ function Navigation({ isLoaded }) {
                 <div className='get-songs'>
                     <NavLink exact to="/songs">Library</NavLink>
                 </div>
-                {/* <div className="create-song-button"> */}
-                {/* <button onClick={() => setShowSongForm(true)}> Upload a new song </button> */}
-                {/* </div> */}
+
                 <CreateNewSong />
-                <Player />
             </>
 
         );

@@ -1,18 +1,19 @@
 import { createContext, useContext, useState } from 'react';
-import { useDispatch, useSelector } from "react-redux";
 
 export const CurrentSongContext = createContext();
 export const useCurrentSong = () => useContext(CurrentSongContext)
 
 export default function CurrentSongProvider(props) {
-    // const firstSong = useSelector(state => state.songs[1])
     const [currentSong, setCurrentSong] = useState(null);
+    // const [isPaused, setIsPaused] = useState(false);
 
     return (
         <CurrentSongContext.Provider
             value={{
                 currentSong,
-                setCurrentSong
+                setCurrentSong,
+                // isPaused,
+                // setIsPaused
             }}
         >
             {props.children}

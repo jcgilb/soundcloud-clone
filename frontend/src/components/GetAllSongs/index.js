@@ -1,28 +1,26 @@
-import { useEffect, state } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { getSongs, getOneSong } from "../../store/songs.js"
+import { getSongs } from "../../store/songs.js"
 import { NavLink } from 'react-router-dom';
 import { useCurrentSong } from "../../context/CurrentSongContext";
-import AudioPlayer from 'react-h5-audio-player';
-import 'react-h5-audio-player/lib/styles.css';
+import { useIsPaused } from '../../context/IsPausedContext.js';
 
 const GetAllSongs = () => {
-    // const [isPlaying, setIsPlaying] = useState(false);
     const dispatch = useDispatch();
     const { currentSong, setCurrentSong } = useCurrentSong();
+    const { setIsPaused } = useIsPaused();
+
     const songsObj = useSelector(state => state.songs)
     const songsArr = Object.values(songsObj);
 
     useEffect(() => {
-        console.log("dispatching in my GetAllSongs useEffect");
+        // console.log("dispatching in my GetAllSongs useEffect");
         dispatch(getSongs());
     }, [dispatch]);
 
-    console.log("these are my songs", songsObj);
-    console.log("this is my songs array", songsArr);
-    console.log("current song in get all songs,", currentSong)
-
-    if (!songsArr.length) return null;
+    // console.log("these are my songs", songsObj);
+    // console.log("this is my songs array", songsArr);
+    // console.log("current song in get all songs,", currentSong)
 
     return (
         <>
@@ -35,7 +33,13 @@ const GetAllSongs = () => {
                             <img alt={song.id} src={song.imageUrl} />
                         </div>
                         <div className="set-current-song">
-                            <button className="press-play" onClick={() => setCurrentSong(song)}>Play</button>
+                            <button className="select-song" onClick={() => setCurrentSong(song)}>Select song</button>
+                            {currentSong === song &&
+                                <>
+                                    <button className="press-play" onClick={() => setIsPaused(false)}>Play</button>
+                                    <button className="press-pause" onClick={() => setIsPaused(true)}>Pause</button>
+                                </>
+                            }
                         </div>
                     </h2>
                 ))}

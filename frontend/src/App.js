@@ -6,13 +6,8 @@ import SignupFormPage from "./components/SignupFormPage";
 import Navigation from "./components/Navigation";
 import GetAllSongs from "./components/GetAllSongs";
 import SongDetails from "./components/SongDetails"
+import Player from "./components/AudioPlayer"
 import * as sessionActions from "./store/session";
-
-
-// import { getSongs } from "./store/songs";
-// import CreateNewSong from "./components/CreateNewSong";
-// import EditSong from "./components/UpdateSong"
-// import DeleteSong from "./components/DeleteSong"
 
 function App() {
   const dispatch = useDispatch();
@@ -44,6 +39,7 @@ function App() {
         </Switch>
       )}
 
+      <Player isLoaded={isLoaded} />
     </>
   );
 }
