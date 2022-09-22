@@ -28,7 +28,7 @@ export const getSongs = () => async dispatch => {
     const response = await csrfFetch('/api/songs');
     if (response.ok) {
         const data = await response.json();
-        console.log("this is my data in my getSongs thunk", data)
+        // console.log("this is my data in my getSongs thunk", data)
         dispatch(get(data));
     }
     return response
@@ -39,7 +39,6 @@ export const getOneSong = (id) => async dispatch => {
     const response = await csrfFetch(`/api/songs/${id}`);
     if (response.ok) {
         const data = await response.json();
-        console.log("this is my data in my getOneSong thunk", data)
         dispatch(addOne(data));
     }
     return response

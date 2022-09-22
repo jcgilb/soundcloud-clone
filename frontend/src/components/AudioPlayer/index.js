@@ -16,7 +16,7 @@ const Player = () => {
         if (currentSong) {
             let audio = document.querySelector("audio.audio")
             audio.pause();
-            console.log("paused is true")
+            // console.log("paused is true")
             setIsPaused(null)
         }
     }

@@ -33,7 +33,7 @@ const CreateNewSong = () => {
             albumId,
         }
         let song = await dispatch(createSong(newSong));
-        console.log("this is my new song: ", song)
+        // console.log("this is my new song: ", song)
         if (song) {
             revert();
             return history.push(`/songs/${song.id}`)

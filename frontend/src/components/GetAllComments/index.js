@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector, useStore } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getComments, deleteComment } from "../../store/comments.js"
 import { useParams, useHistory } from "react-router-dom";
-import DeleteAComment from "../DeleteAComment"
+// import DeleteAComment from "../DeleteAComment"
 // import { NavLink, Route } from 'react-router-dom';
 
 const GetAllComments = () => {
@@ -17,12 +17,12 @@ const GetAllComments = () => {
     const commentsArr = Object.values(commentsObj);
 
     useEffect(() => {
-        console.log("dispatching in my GetAllComments useEffect");
+        // console.log("dispatching in my GetAllComments useEffect");
         dispatch(getComments(songId));
     }, [dispatch, songId]);
 
-    console.log("these are my comments", commentsObj);
-    console.log("this is my comments array", commentsArr);
+    // console.log("these are my comments", commentsObj);
+    // console.log("this is my comments array", commentsArr);
 
     useEffect(() => {
         if (!showDetails) return;
@@ -34,7 +34,7 @@ const GetAllComments = () => {
     }, [showDetails]);
 
     let songComments = commentsArr.filter((comment) => comment.songId === song.id);
-    console.log("songComments array", songComments);
+    // console.log("songComments array", songComments);
 
     return (
         <>

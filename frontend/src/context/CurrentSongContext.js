@@ -5,15 +5,12 @@ export const useCurrentSong = () => useContext(CurrentSongContext)
 
 export default function CurrentSongProvider(props) {
     const [currentSong, setCurrentSong] = useState(null);
-    // const [isPaused, setIsPaused] = useState(false);
 
     return (
         <CurrentSongContext.Provider
             value={{
                 currentSong,
                 setCurrentSong,
-                // isPaused,
-                // setIsPaused
             }}
         >
             {props.children}

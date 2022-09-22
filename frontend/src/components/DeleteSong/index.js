@@ -17,15 +17,15 @@ const DeleteSong = () => {
     const mySong = songsArr.find((song) => song.id === songId)
 
     useEffect(() => {
-        console.log("getting all songs in my DeleteSong component")
+        // console.log("getting all songs in my DeleteSong component")
         dispatch(getSongs())
     }, [dispatch]);
 
-    console.log("songsObj ", songs)
-    console.log("this is my songsArray ", songsArr)
-    console.log("song's userId is:", mySong.userId)
-    console.log("this is the id in the url: ", songId)
-    console.log('this is my song to delete: ', mySong);
+    // console.log("songsObj ", songs)
+    // console.log("this is my songsArray ", songsArr)
+    // console.log("song's userId is:", mySong.userId)
+    // console.log("this is the id in the url: ", songId)
+    // console.log('this is my song to delete: ', mySong);
 
     const handleClick = async (e) => {
         e.preventDefault();

@@ -23,7 +23,7 @@ const UpdateSong = () => {
     const mySong = songsArr.find((song) => song.id === songId)
 
     useEffect(() => {
-        console.log("getting all songs in my UpdateSong component")
+        // console.log("getting all songs in my UpdateSong component")
         dispatch(getSongs())
     }, [dispatch]);
 
@@ -39,11 +39,11 @@ const UpdateSong = () => {
         setAlbumId(null);
     };
 
-    console.log("songsObj ", songs)
-    console.log("this is my songsArray ", songsArr)
-    console.log("user id is:", userId)
-    console.log("this is the id in the url: ", songId)
-    console.log('this is my song to edit: ', mySong);
+    // console.log("songsObj ", songs)
+    // console.log("this is my songsArray ", songsArr)
+    // console.log("user id is:", userId)
+    // console.log("this is the id in the url: ", songId)
+    // console.log('this is my song to edit: ', mySong);
 
     const handleSubmit = async (e) => {
         setShowForm(false);

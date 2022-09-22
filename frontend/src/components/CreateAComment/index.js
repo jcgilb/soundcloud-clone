@@ -31,7 +31,7 @@ const CreateNewComment = () => {
             body
         }
         let comment = await dispatch(createComment(newComment, songId));
-        console.log("this is my new comment: ", comment)
+        // console.log("this is my new comment: ", comment)
         if (comment) {
             revert();
             history.push(`/songs/${song.id}`)

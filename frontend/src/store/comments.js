@@ -29,7 +29,7 @@ export const getComments = (songId) => async dispatch => {
     const response = await csrfFetch(`/api/songs/${songId}/comments`);
     if (response.ok) {
         const data = await response.json();
-        console.log("this is my data in my getComments thunk", data)
+        // console.log("this is my data in my getComments thunk", data)
         dispatch(get(data));
     }
     return response
@@ -37,10 +37,10 @@ export const getComments = (songId) => async dispatch => {
 
 // get one comment thunk 
 export const getOneComment = (id) => async dispatch => {
-    const response = await csrfFetch('/api/comments/id');
+    const response = await csrfFetch(`/api/comments/${id}`);
     if (response.ok) {
         const data = await response.json();
-        console.log("this is my data in my getOneComment thunk", data)
+        // console.log("this is my data in my getOneComment thunk", data)
         dispatch(addOne(data));
     }
     return response
