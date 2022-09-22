@@ -51,6 +51,15 @@ router.get('/', async (req, res) => {
         });
     }
     const songs = await Song.findAll({
+        include:
+            [{
+                model: User, as: "Artist",
+                attributes: ['id', 'username', 'previewImage', 'userId']
+            },
+            {
+                model: Album,
+                attributes: ['id', 'title', 'previewImage']
+            }],
         order: [
             ['createdAt', 'DESC'],
         ],
