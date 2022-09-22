@@ -3,6 +3,8 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import CreateNewSong from "../CreateNewSong";
+import Player from "../AudioPlayer"
+
 // import './Navigation.css';
 
 function Navigation({ isLoaded }) {
@@ -35,6 +37,7 @@ function Navigation({ isLoaded }) {
                 {/* <button onClick={() => setShowSongForm(true)}> Upload a new song </button> */}
                 {/* </div> */}
                 <CreateNewSong />
+                <Player />
             </>
 
         );

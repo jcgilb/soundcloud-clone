@@ -6,7 +6,8 @@ const comments = [
   {
     songId: 1,
     userId: 1,
-    body: 'hi aphextwin'
+    // body: 'hi aphextwin'
+    body: 'nice song'
   }
 ];
 

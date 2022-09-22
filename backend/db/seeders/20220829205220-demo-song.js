@@ -7,7 +7,8 @@ const songs = [
     albumId: 1,
     userId: 1,
     title: 'I - Bells and Piano',
-    description: 'I - Bells and Piano by Gregor Quendel is licensed under a Attribution-NonCommercial-NoDerivatives 4.0 International License. Link to music: https://freemusicarchive.org/music/gregor-quendel/cinematic-film-music/i-bells-and-piano-versionmp3/ ',
+    description: 'I - Bells and Piano by Gregor Quendel is licensed under a Attribution-NonCommercial-NoDerivatives 4.0 International License.',
+    // Link to music: https://freemusicarchive.org/music/gregor-quendel/cinematic-film-music/i-bells-and-piano-versionmp3/ 
     url: 'https://res.cloudinary.com/ddmb8mrlb/video/upload/v1663785125/audioUrl/Gregor_Quendel_-_I_-_Bells_and_Piano_Version.mp3_rgtrk1.mp3',
     imageUrl: 'https://res.cloudinary.com/ddmb8mrlb/image/upload/v1663785637/imageUrl/image_q6nxwq.jpg'
   },
@@ -15,7 +16,8 @@ const songs = [
     albumId: 2,
     userId: 2,
     title: 'themme fatale',
-    description: 'themme fatale by pan is licensed under a Attribution-ShareAlike 4.0 International License. Link to music: https://freemusicarchive.org/music/pan-1/single/themme-fatale/',
+    description: 'themme fatale by pan is licensed under a Attribution-ShareAlike 4.0 International License.',
+    //  Link to music: https://freemusicarchive.org/music/pan-1/single/themme-fatale/
     url: 'https://res.cloudinary.com/ddmb8mrlb/video/upload/v1663786729/audioUrl/pan_-_themme_fatale_ieiuzm.mp3',
     imageUrl: 'https://res.cloudinary.com/ddmb8mrlb/image/upload/v1663786527/imageUrl/image_mia43b.png'
   },
@@ -23,9 +25,10 @@ const songs = [
     albumId: 3,
     userId: 3,
     title: 'Depth In',
-    description: 'Depth In by Ketsa is licensed under a Attribution-NonCommercial-NoDerivatives 4.0 International License. Link to music: https://freemusicarchive.org/music/Ketsa/1000/depth-in/',
+    description: 'Depth In by Ketsa is licensed under a Attribution-NonCommercial-NoDerivatives 4.0 International License.',
+    // Link to music: https://freemusicarchive.org/music/Ketsa/1000/depth-in/
     url: 'https://res.cloudinary.com/ddmb8mrlb/video/upload/v1663787654/audioUrl/Ketsa_-_Depth_In_qiorvw.mp3',
-    imageUrl: 'https://res.cloudinary.com/ddmb8mrlb/image/upload/v1663784406/imageUrl/Plini_-_Handmade_Cities_aqgigu.jpg'
+    imageUrl: 'https://res.cloudinary.com/ddmb8mrlb/image/upload/v1663787444/imageUrl/image_hztzyu.jpg'
   }
   // {
   //   albumId: 1,

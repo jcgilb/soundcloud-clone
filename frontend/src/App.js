@@ -7,6 +7,8 @@ import Navigation from "./components/Navigation";
 import GetAllSongs from "./components/GetAllSongs";
 import SongDetails from "./components/SongDetails"
 import * as sessionActions from "./store/session";
+
+
 // import { getSongs } from "./store/songs";
 // import CreateNewSong from "./components/CreateNewSong";
 // import EditSong from "./components/UpdateSong"
@@ -18,6 +20,8 @@ function App() {
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
+
+  const songs = useSelector(state => state.songs)
 
   return (
     <>
@@ -35,7 +39,7 @@ function App() {
             <SongDetails />
           </Route>
           <Route exact path='/songs'>
-            <GetAllSongs />
+            <GetAllSongs songs={songs} />
           </Route>
         </Switch>
       )}

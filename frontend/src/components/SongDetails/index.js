@@ -4,8 +4,9 @@ import { useParams } from "react-router-dom";
 import { getOneSong } from "../../store/songs";
 import GetAllComments from "../GetAllComments"
 import CreateNewComment from "../CreateAComment"
-// import { GetAllSongs } from "./GetAllSongs";
 import UpdateSong from "../UpdateSong";
+import { useCurrentSong } from "../../context/CurrentSongContext";
+// import { GetAllSongs } from "./GetAllSongs";
 // import CreateNewSong from "../CreateNewSong";
 // import DeleteSong from "../DeleteSong";
 
