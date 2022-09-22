@@ -10,7 +10,7 @@ const UpdateSong = () => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [url, setUrl] = useState('');
-    const [albumId, setAlbumId] = useState(null);
+    const [albumId, setAlbumId] = useState();
     const [showForm, setShowForm] = useState(false);
     const dispatch = useDispatch();
     const history = useHistory();

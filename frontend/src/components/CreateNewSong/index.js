@@ -9,7 +9,7 @@ const CreateNewSong = () => {
     const [description, setDescription] = useState('');
     const [url, setUrl] = useState('');
     const [imageUrl, setImageUrl] = useState('');
-    const [albumId, setAlbumId] = useState(null);
+    const [albumId, setAlbumId] = useState();
     const [showForm, setShowForm] = useState(false);
     const dispatch = useDispatch();
     const history = useHistory();

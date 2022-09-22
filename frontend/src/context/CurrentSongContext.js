@@ -4,7 +4,7 @@ export const CurrentSongContext = createContext();
 export const useCurrentSong = () => useContext(CurrentSongContext)
 
 export default function CurrentSongProvider(props) {
-    const [currentSong, setCurrentSong] = useState(null);
+    const [currentSong, setCurrentSong] = useState();
 
     return (
         <CurrentSongContext.Provider
