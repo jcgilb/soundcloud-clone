@@ -1,6 +1,7 @@
 import { csrfFetch } from './csrf';
 const GET = 'songs/GET';
 const ADD_ONE = 'songs/ADD_ONE';
+const PLAY_SONG = 'song/PLAY_SONG'
 const DELETE = 'songs/DELETE';
 
 const get = (songs) => {
@@ -16,6 +17,13 @@ const addOne = (song) => {
         song,
     };
 };
+
+const playSong = (song) => {
+    return {
+        type: PLAY_SONG,
+        song
+    }
+}
 
 const remove = (songId) => {
     return {
@@ -38,8 +46,8 @@ export const getSongs = () => async dispatch => {
 export const getOneSong = (id) => async dispatch => {
     const response = await csrfFetch(`/api/songs/${id}`);
     if (response.ok) {
-        const data = await response.json();
-        dispatch(addOne(data));
+        const song = await response.json();
+        dispatch(playSong(song));
     }
     return response
 };
@@ -84,7 +92,7 @@ export const deleteSong = (songId) => async dispatch => {
     }
 };
 
-const initialState = {}
+const initialState = { songs: {}, currentSong: {} }
 
 const songsReducer = (state = initialState, action) => {
     let newState;
@@ -96,7 +104,7 @@ const songsReducer = (state = initialState, action) => {
             });
             return {
                 ...allSongs,
-                ...state,
+                ...state
             };
         case ADD_ONE:
             if (!state[action.song.id]) {
@@ -109,6 +117,11 @@ const songsReducer = (state = initialState, action) => {
                     ...state[action.song.id],
                     ...action.song
                 }
+            };
+        case PLAY_SONG:
+            return {
+                ...state,
+                currentSong: { ...action.song }
             };
         case DELETE:
             newState = { ...state };

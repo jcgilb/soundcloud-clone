@@ -1,9 +1,21 @@
 import { useCurrentSong } from "../../context/CurrentSongContext";
 import { useIsPaused } from '../../context/IsPausedContext';
+import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const Player = () => {
     const { currentSong } = useCurrentSong();
-    const { isPaused, setIsPaused } = useIsPaused()
+    const { isPaused, setIsPaused } = useIsPaused();
+    const [trackList, setTrackList] = useState([...songs]);
+    // const [trackIndex, setTrackIndex] = useState();
+    let songs = useSelector(state => state.songs)
+    let songsArr = Object.values(songs)
+
+    // if (currentSong) {
+
+    //     setTrackList(currentSong, ...songsArr)
+    // }
+    // console.log("this is my trackList", trackList)
 
     if (isPaused === false) {
         if (currentSong) {
@@ -37,18 +49,3 @@ const Player = () => {
 }
 
 export default Player;
-
-// import { useEffect, useState } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { getOneSong } from '../../store/songs'
-
-// const dispatch = useDispatch();
-// const songs = useSelector(state => state.songs)
-
-// useEffect(() => {
-//     if (!currentSong) return null;
-//     dispatch(getOneSong(currentSong.id))
-//     console.log("this is my currentSong in my audio player", currentSong)
-// }, [dispatch]);
-
-// if (!currentSong) return null

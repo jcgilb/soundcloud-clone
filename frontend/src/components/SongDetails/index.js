@@ -6,24 +6,15 @@ import GetAllComments from "../GetAllComments"
 import CreateNewComment from "../CreateAComment"
 import UpdateSong from "../UpdateSong";
 import { useCurrentSong } from "../../context/CurrentSongContext";
-// import { GetAllSongs } from "./GetAllSongs";
-// import CreateNewSong from "../CreateNewSong";
-// import DeleteSong from "../DeleteSong";
 
 const SongDetails = () => {
     const dispatch = useDispatch();
     let { songId } = useParams();
     const songs = useSelector(state => state.songs);
     const user = useSelector(state => state.session.user);
-    // const history = useHistory();
-    // const [showSongForm, setShowSongForm] = useState(false);
-    // const [showEditForm, setShowEditForm] = useState(false);
-    // const [artistId, setArtistId] = useState(null);
 
     songId = parseInt(songId);
     const currentSong = Object.values(songs).find(song => song.id === songId);
-    // let artistId;
-    // if (currentSong) artistId = currentSong.userId
 
     useEffect(() => {
         dispatch(getOneSong(songId));

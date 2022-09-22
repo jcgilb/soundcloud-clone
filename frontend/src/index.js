@@ -28,13 +28,13 @@ if (process.env.NODE_ENV !== 'production') {
 function Root() {
   return (
     <ReduxProvider store={store}>
-      <IsPausedProvider>
-        <CurrentSongProvider>
+      <CurrentSongProvider>
+        <IsPausedProvider>
           <BrowserRouter>
             <App />
           </BrowserRouter>
-        </CurrentSongProvider>
-      </IsPausedProvider>
+        </IsPausedProvider>
+      </CurrentSongProvider>
     </ReduxProvider>
   );
 };
