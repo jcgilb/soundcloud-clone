@@ -54,11 +54,11 @@ router.get('/', async (req, res) => {
         include:
             [{
                 model: User, as: "Artist",
-                attributes: ['id', 'username', 'previewImage', 'userId']
+                attributes: ['id', 'username', 'previewImage']
             },
             {
                 model: Album,
-                attributes: ['id', 'title', 'previewImage']
+                attributes: ['id', 'title', 'imageUrl', 'userId']
             }],
         order: [
             ['createdAt', 'DESC'],
