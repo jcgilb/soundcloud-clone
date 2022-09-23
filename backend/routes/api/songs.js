@@ -1,20 +1,23 @@
 const express = require('express');
 const { Song, User, Album, Comment } = require('../../db/models');
-const { requireAuth } = require('../../utils/auth');
+const { requireAuth, setTokenCookie } = require('../../utils/auth');
+const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 // const Op = Sequelize.Op;
 
 const router = express.Router();
 
-// const validateSongRequests = [
-//     check('title')
-//         .exists({ checkFalsy: true })
-//         .withMessage('Song title is required.'),
-//     check('url')
-//         .exists({ checkFalsy: true })
-//         .withMessage('Audio is required.'),
-//     handleValidationErrors
-// ];
+const validateSongs = [
+    check('title')
+        .exists({ checkFalsy: true })
+        .withMessage('Song title is required.'),
+    check('url')
+        .exists({ checkFalsy: true })
+        .withMessage('Audio is required.'),
+    // check('albumId')
+    //     .withMessage("Authorization required."),
+    handleValidationErrors
+];
 
 // Get all songs
 // Authentication: false
@@ -184,12 +187,13 @@ router.post('/:songId/comments', requireAuth, async (req, res) => {
 // Create a Song - creates new song w/ or w/o album.
 // Authentication: true
 // 
-router.post('/', requireAuth, async (req, res) => {
+router.post('/', [validateSongs, requireAuth], async (req, res) => {
     const album = await Album.findByPk(req.body.albumId);
     if (req.body.albumId && !album) {
         res.status(404);
         return res.json({
             "message": "Album couldn't be found",
+            "errors": "Album couldn't be found",
             "statusCode": 404
         });
     }
@@ -214,16 +218,20 @@ router.post('/', requireAuth, async (req, res) => {
                 }
             });
         } else {
+            res.status(201);
             return res.json(newSong);
         }
-    } else {
+    }
+    else {
         res.status(403);
         return res.json({
             "message": "Forbidden",
+            "errors": "Authorization required",
             "statusCode": 403
         })
     }
-});
+}
+);
 
 // Edit a Song - PUT /:songId
 // Authentication: true
