@@ -1,7 +1,7 @@
 const express = require('express');
 const { Song, User, Album, Comment } = require('../../db/models');
-const { requireAuth } = require('../../utils/auth');
-const { check } = require("express-validator");
+const { requireAuth, setTokenCookie } = require('../../utils/auth');
+const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 // const Op = Sequelize.Op;
 
@@ -219,7 +219,8 @@ router.post('/', [validateSongs, requireAuth], async (req, res) => {
             res.status(201);
             return res.json(newSong);
         }
-    } else {
+    }
+    else {
         res.status(403);
         return res.json({
             "message": "Forbidden",
@@ -227,7 +228,8 @@ router.post('/', [validateSongs, requireAuth], async (req, res) => {
             "statusCode": 403
         })
     }
-});
+}
+);
 
 // Edit a Song - PUT /:songId
 // Authentication: true
