@@ -14,8 +14,6 @@ const validateSongs = [
     check('url')
         .exists({ checkFalsy: true })
         .withMessage('Audio is required.'),
-    // check('albumId')
-    //     .withMessage("Authorization required."),
     handleValidationErrors
 ];
 

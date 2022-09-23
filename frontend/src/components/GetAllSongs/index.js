@@ -30,12 +30,15 @@ const GetAllSongs = () => {
                         </div>
                         <div key="play" className="play-current-song">
                             <button onClick={() => {
-                                dispatch(playASong(song.id))
+
                                 setCurrentSong(song)
                             }}> ... </button>
                             {currentSong === song &&
                                 <>
-                                    <button className="press-play" onClick={() => setIsPaused(false)}>Play</button>
+                                    <button className="press-play" onClick={async () => {
+                                        setIsPaused(false)
+                                        await dispatch(playASong(song.id))
+                                    }}>Play</button>
                                     <button className="press-pause" onClick={() => setIsPaused(true)}>Pause</button>
                                 </>
                             }

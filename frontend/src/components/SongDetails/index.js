@@ -34,18 +34,20 @@ const SongDetails = () => {
                     <p>{songFromUrl.description}</p>
                     <p>{songFromUrl.url}</p>
                     <p>{songFromUrl.imageUrl}</p>
-                </div>
-                <div key="play" className="play-current-song">
-                    <button onClick={() => {
-                        dispatch(playASong(songFromUrl.id))
-                        setCurrentSong(songFromUrl)
-                    }}> ... </button>
-                    {currentSong === songFromUrl &&
-                        <>
-                            <button className="press-play" onClick={() => setIsPaused(false)}>Play</button>
-                            <button className="press-pause" onClick={() => setIsPaused(true)}>Pause</button>
-                        </>
-                    }
+                    <div key="play" className="play-current-song">
+                        <button onClick={() => {
+                            setCurrentSong(songFromUrl)
+                        }}> ... </button>
+                        {currentSong === songFromUrl &&
+                            <>
+                                <button className="press-play" onClick={() => {
+                                    dispatch(playASong(songFromUrl.id))
+                                    setIsPaused(false)
+                                }}>Play</button>
+                                <button className="press-pause" onClick={() => setIsPaused(true)}>Pause</button>
+                            </>
+                        }
+                    </div>
                 </div>
                 {user.id === songFromUrl.userId &&
                     <UpdateSong />
