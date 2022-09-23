@@ -72,6 +72,7 @@ export const createSong = (payload) => async (dispatch) => {
     if (response.ok) {
         const song = await response.json();
         dispatch(addOne(song));
+        console.log("song in createSong thunk", song)
         return song;
     }
 };

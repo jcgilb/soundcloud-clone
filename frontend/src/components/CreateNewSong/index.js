@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import { createSong } from "../../store/songs.js"
@@ -10,40 +10,71 @@ const CreateNewSong = () => {
     const [url, setUrl] = useState('');
     const [imageUrl, setImageUrl] = useState('');
     const [albumId, setAlbumId] = useState();
+    const [errors, setErrors] = useState([]);
     const [showForm, setShowForm] = useState(false);
     const dispatch = useDispatch();
     const history = useHistory();
+
+    // useEffect(() => {
+
+    // })
 
     const revert = () => {
         setTitle('');
         setDescription('');
         setUrl('');
         setImageUrl('');
-        setAlbumId();
+        setAlbumId('');
     };
+
+    // const handleSubmit = async (e) => {
+    //     setShowForm(false)
+    //     e.preventDefault();
+    //     const newSong = {
+    //         title,
+    //         description,
+    //         url,
+    //         imageUrl,
+    //         albumId,
+    //     }
+    //     let song = await dispatch(createSong(newSong));
+    //     if (song) {
+    //         revert();
+    //         return history.push(`/songs/${song.id}`);
+    //     }
+    // };
 
     const handleSubmit = async (e) => {
         setShowForm(false)
-        e.preventDefault();
-        const newSong = {
+        // e.preventDefault();
+        setErrors([]);
+        const response = dispatch(createSong({
             title,
             description,
             url,
             imageUrl,
             albumId,
-        }
-        let song = await dispatch(createSong(newSong));
-        if (song) {
+        }))
+            .catch(async (res) => {
+                const data = await res.json();
+                if (data && data.errors) setErrors(data.errors);
+            });
+        if (errors.length === 0) {
             revert();
-            return history.push(`/songs/${song.id}`);
+            history.push(`/songs`);
+            // history.push(`/songs/${data.id}`);
         }
-    };
+        return response
+    }
 
     return (
         <>
             <div>
                 <button onClick={() => setShowForm(true)}> Upload </button>
             </div>
+            <ul>
+                {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+            </ul>
             {showForm &&
                 <form className="create-song-form" onSubmit={handleSubmit}>
                     <input
@@ -77,6 +108,7 @@ const CreateNewSong = () => {
                         onChange={(e) => setAlbumId(e.target.value)} />
                     {/* <ErrorMessage label={"AlbumId"} message={errorMessages.albumId} /> */}
                     <button className='new-song' type='submit'>Upload song</button>
+
                     <div>
                         <button onClick={(e) => {
                             e.preventDefault()
