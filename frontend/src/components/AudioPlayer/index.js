@@ -1,21 +1,12 @@
-import { useCurrentSong } from "../../context/CurrentSongContext";
 import { useIsPaused } from '../../context/IsPausedContext';
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
-const Player = () => {
-    const { currentSong } = useCurrentSong();
+const Player = ({ songs }) => {
     const { isPaused, setIsPaused } = useIsPaused();
-    const [trackList, setTrackList] = useState([...songs]);
+    // const [trackList, setTrackList] = useState([...songs]);
     // const [trackIndex, setTrackIndex] = useState();
-    let songs = useSelector(state => state.songs)
-    let songsArr = Object.values(songs)
-
-    // if (currentSong) {
-
-    //     setTrackList(currentSong, ...songsArr)
-    // }
-    // console.log("this is my trackList", trackList)
+    let currentSong = useSelector(state => state.songs.currentSong)
 
     if (isPaused === false) {
         if (currentSong) {
@@ -36,14 +27,14 @@ const Player = () => {
     return (
         // load up a playlist so the player always shows
         <div className="audio-url">
-            {currentSong &&
-                <audio className="audio"
-                    // autoPlay
-                    play="true"
-                    controls
-                    src={currentSong.url}
-                />
-            }
+
+            <audio className="audio"
+                // autoPlay
+                play="true"
+                controls
+                src={currentSong.url}
+            />
+
         </div>
     )
 }

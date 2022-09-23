@@ -2,8 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider as ReduxProvider } from 'react-redux';
-import CurrentSongProvider from './context/CurrentSongContext'
-import IsPausedProvider from './context/IsPausedContext'
+import IsPausedProvider from './context/IsPausedContext';
 import './index.css';
 import App from './App';
 import configureStore from './store';
@@ -28,13 +27,11 @@ if (process.env.NODE_ENV !== 'production') {
 function Root() {
   return (
     <ReduxProvider store={store}>
-      <CurrentSongProvider>
-        <IsPausedProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </IsPausedProvider>
-      </CurrentSongProvider>
+      <IsPausedProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </IsPausedProvider>
     </ReduxProvider>
   );
 };

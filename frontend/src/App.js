@@ -17,8 +17,6 @@ function App() {
   }, [dispatch]);
 
   const songs = useSelector(state => state.songs)
-  // let songArr = Object.values(songs)
-  // console.log(songArr)
 
   return (
     <>

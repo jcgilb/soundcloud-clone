@@ -49,9 +49,9 @@ const GetAllComments = () => {
                         <div key={comment.id} className="comment-body">{comment.body}</div>
                         {showDetails &&
                             <>
-                                <div key={comment.id}>created at: {comment.createdAt}</div>
+                                <div key="my-comment">created at: {comment.createdAt}</div>
                                 {comment.userId === user.id &&
-                                    <button key={comment.id} onClick={async (e) => {
+                                    <button key="comment" onClick={async (e) => {
                                         e.preventDefault();
                                         await dispatch(deleteComment(comment.id));
                                         return history.push(`/songs/${song.id}`);

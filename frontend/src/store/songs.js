@@ -47,9 +47,19 @@ export const getOneSong = (id) => async dispatch => {
     const response = await csrfFetch(`/api/songs/${id}`);
     if (response.ok) {
         const song = await response.json();
-        dispatch(playSong(song));
+        dispatch(addOne(song));
+        return song;
     }
-    return response
+};
+
+// get one song thunk 
+export const playASong = (id) => async dispatch => {
+    const response = await csrfFetch(`/api/songs/${id}`);
+    if (response.ok) {
+        const song = await response.json();
+        dispatch(playSong(song));
+        return song;
+    }
 };
 
 // create a song thunk 
@@ -65,6 +75,27 @@ export const createSong = (payload) => async (dispatch) => {
         return song;
     }
 };
+
+// export const createSong = (payload) => async (dispatch) => {
+//     const response = await csrfFetch('/api/songs', {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify(payload)
+//     });
+//     if (response.ok) {
+//         const song = await response.json();
+//         const res = await csrfFetch('/api/songs', {
+//             method: 'POST',
+//             headers: { 'Content-Type': 'application/json' },
+//             body: JSON.stringify(song)
+//         });
+//         if (res.ok) {
+//             const newSong = await res.json();
+//             dispatch(addOne(newSong));
+//             return newSong;
+//         }
+//     }
+// };
 
 // update a song thunk 
 export const updateSong = (songBody, songId) => async dispatch => {
@@ -92,7 +123,7 @@ export const deleteSong = (songId) => async dispatch => {
     }
 };
 
-const initialState = { songs: {}, currentSong: {} }
+const initialState = { currentSong: {} }
 
 const songsReducer = (state = initialState, action) => {
     let newState;
