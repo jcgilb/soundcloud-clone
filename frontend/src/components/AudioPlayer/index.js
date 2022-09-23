@@ -29,7 +29,7 @@ const Player = ({ songs }) => {
         <div className="audio-url">
 
             <audio className="audio"
-                // autoPlay
+                autoPlay
                 play="true"
                 controls
                 src={currentSong.url}
