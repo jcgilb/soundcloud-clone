@@ -50,7 +50,7 @@ const UpdateSong = () => {
         if (!url) errors.push("Audio is required.");
         if (isNaN(albumId) && albumId) errors.push(`"${albumId}" is not a valid integer.`)
         if (!thisSong.albumId) {
-            errors.push("Authorization required.")
+
             setIsDisabled(true)
         }
         setValidationErrors(errors);
@@ -59,6 +59,7 @@ const UpdateSong = () => {
     const handleSubmit = async (e) => {
         setShowForm(false);
         e.preventDefault();
+        setValidationErrors([]);
         let songBody = {
             title,
             description,
@@ -76,9 +77,15 @@ const UpdateSong = () => {
 
     return (
         <>
-            <button onClick={() => setShowForm(true)}> Edit song details </button>
+            <div>
+                <button onClick={() => setShowForm(true)}> Edit song details </button>
+            </div>
             {showForm &&
                 <form className="edit-song-form" onSubmit={handleSubmit}>
+                    <ul className="errors">
+                        {validationErrors.length > 0 &&
+                            validationErrors.map((err) => <li key={err}>{err}</li>)}
+                    </ul>
                     <input
                         type="title"
                         placeholder="Title"
@@ -95,6 +102,7 @@ const UpdateSong = () => {
                         value={url}
                         onChange={(e) => setUrl(e.target.value)} />
                     <input
+                        disabled={thisSong.albumId ? false : true}
                         type="albumId"
                         placeholder="Album Id"
                         value={albumId}

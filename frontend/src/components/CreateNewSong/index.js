@@ -46,7 +46,6 @@ const CreateNewSong = () => {
     const handleSubmit = async (e) => {
         setShowForm(false);
         e.preventDefault();
-        setValidationErrors([]);
         const newSong = {
             title,
             description,
@@ -61,6 +60,7 @@ const CreateNewSong = () => {
         });
         if (song) {
             if (validationErrors.length === 0) return history.push(`/songs/${song.id}`);
+            // setValidationErrors([]);
         }
     };
 
