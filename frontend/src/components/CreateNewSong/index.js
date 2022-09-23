@@ -33,7 +33,7 @@ const CreateNewSong = () => {
         if (isNaN(albumId) && albumId) errors.push(`"${albumId}" is not a valid integer.`)
         if (!userAlbums.length && albumId) errors.push("Authorization required.")
         setValidationErrors(errors);
-    }, [title, url, albumId]);
+    }, [title, url, albumId, userAlbums.length]);
 
     const revert = () => {
         setTitle('');
@@ -60,7 +60,6 @@ const CreateNewSong = () => {
         });
         if (song) {
             if (validationErrors.length === 0) return history.push(`/songs/${song.id}`);
-            // setValidationErrors([]);
         }
     };
 
@@ -105,7 +104,6 @@ const CreateNewSong = () => {
                         placeholder="Album Id"
                         value={albumId}
                         onChange={(e) => setAlbumId(e.target.value)} />
-
                     <button className='new-song' type='submit' disabled={!!validationErrors.length}>Upload song</button>
                     <div>
                         <button onClick={() => setShowForm(false)}> Cancel </button>

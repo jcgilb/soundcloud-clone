@@ -1,8 +1,7 @@
 import { useIsPaused } from '../../context/IsPausedContext';
-import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
-const Player = ({ songs }) => {
+const Player = () => {
     const { isPaused, setIsPaused } = useIsPaused();
     // const [trackList, setTrackList] = useState([...songs]);
     // const [trackIndex, setTrackIndex] = useState();

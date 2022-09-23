@@ -4,8 +4,6 @@ import { useHistory, useParams } from 'react-router-dom';
 import { updateSong, getSongs } from "../../store/songs.js"
 import DeleteSong from "../DeleteSong";
 
-// import { NavLink, Route, useParams } from 'react-router-dom';
-
 const UpdateSong = () => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -13,7 +11,6 @@ const UpdateSong = () => {
     const [albumId, setAlbumId] = useState();
     const [showForm, setShowForm] = useState(false);
     const [validationErrors, setValidationErrors] = useState([]);
-    const [isDisabled, setIsDisabled] = useState(false);
     const dispatch = useDispatch();
     const history = useHistory();
     let { songId } = useParams();
@@ -25,7 +22,7 @@ const UpdateSong = () => {
     const thisSong = songsArr.find((song) => song.id === songId)
 
     useEffect(() => {
-        console.log("getting all songs in my UpdateSong component")
+        // console.log("getting all songs in my UpdateSong component")
         dispatch(getSongs())
     }, [dispatch]);
 
@@ -36,11 +33,11 @@ const UpdateSong = () => {
         setAlbumId();
     };
 
-    console.log("songsObj ", songs)
-    console.log("this is my songsArray ", songsArr)
-    console.log("user id is:", userId)
-    console.log("this is the id in the url: ", songId)
-    console.log('this is my song to edit: ', thisSong);
+    // console.log("songsObj ", songs)
+    // console.log("this is my songsArray ", songsArr)
+    // console.log("user id is:", userId)
+    // console.log("this is the id in the url: ", songId)
+    // console.log('this is my song to edit: ', thisSong);
 
     // form validations
     useEffect(() => {
@@ -48,13 +45,9 @@ const UpdateSong = () => {
         setValidationErrors(errors);
         if (!title.length) errors.push("Song title is required.");
         if (!url) errors.push("Audio is required.");
-        if (isNaN(albumId) && albumId) errors.push(`"${albumId}" is not a valid integer.`)
-        if (!thisSong.albumId) {
-
-            setIsDisabled(true)
-        }
+        // if (isNaN(albumId) && albumId) errors.push(`"${albumId}" is not a valid integer.`)
         setValidationErrors(errors);
-    }, [title, url, albumId]);
+    }, [title, url, albumId, thisSong.albumId]);
 
     const handleSubmit = async (e) => {
         setShowForm(false);
@@ -107,7 +100,7 @@ const UpdateSong = () => {
                         placeholder="Album Id"
                         value={albumId}
                         onChange={(e) => setAlbumId(e.target.value)} />
-                    <button className='edit-song' type='submit'>Submit</button>
+                    <button className='edit-song' type='submit' disabled={!!validationErrors.length}>Submit</button>
                     <div>
                         <button onClick={() => setShowForm(false)}> Cancel </button>
                     </div>

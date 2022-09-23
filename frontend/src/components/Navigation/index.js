@@ -20,7 +20,6 @@ function Navigation({ isLoaded }) {
                 <div className='get-songs'>
                     <NavLink exact to="/songs">Library</NavLink>
                 </div>
-
                 <CreateNewSong />
             </>
 

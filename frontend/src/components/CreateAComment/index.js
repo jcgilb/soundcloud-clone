@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from 'react-router-dom';
-// import { NavLink, Route, useParams } from 'react-router-dom';
-import { createComment, getComments } from "../../store/comments.js"
+import { createComment } from "../../store/comments.js"
 
 const CreateNewComment = () => {
     const [body, setBody] = useState('');
@@ -14,12 +13,6 @@ const CreateNewComment = () => {
     const songs = useSelector(state => state.songs)
     const song = Object.values(songs).find((song) => song.id === parseInt(songId));
 
-    // useEffect(() => {
-    //     console.log("dispatching in my GetAllComments useEffect");
-    //     dispatch(getComments(songId));
-    // }, [dispatch, songId]);
-
-    // const comments = useSelector(state => state.comments);
     const revert = () => {
         setBody('');
     };
@@ -31,14 +24,11 @@ const CreateNewComment = () => {
             body
         }
         let comment = await dispatch(createComment(newComment, songId));
-        // console.log("this is my new comment: ", comment)
         if (comment) {
             revert();
             history.push(`/songs/${song.id}`)
         }
     };
-
-    // if (!Object.values(curState).length) return null;
 
     return (
         <>
@@ -52,7 +42,6 @@ const CreateNewComment = () => {
                         placeholder="Body"
                         value={body}
                         onChange={(e) => setBody(e.target.value)} />
-                    {/* <ErrorMessage label={"Title"} message={errorMessages.title} /> */}
                     <button className='new-comment' type='submit'> Submit </button>
                     <div>
                         <button onClick={() => setShowForm(false)}> Cancel </button>
