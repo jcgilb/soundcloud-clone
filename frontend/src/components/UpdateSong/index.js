@@ -10,8 +10,10 @@ const UpdateSong = () => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [url, setUrl] = useState('');
-    const [albumId, setAlbumId] = useState(null);
+    const [albumId, setAlbumId] = useState();
     const [showForm, setShowForm] = useState(false);
+    const [validationErrors, setValidationErrors] = useState([]);
+    const [isDisabled, setIsDisabled] = useState(false);
     const dispatch = useDispatch();
     const history = useHistory();
     let { songId } = useParams();
@@ -20,30 +22,39 @@ const UpdateSong = () => {
     const userId = useSelector(state => state.session.user.id)
     const songs = useSelector(state => state.songs);
     const songsArr = Object.values(songs);
-    const mySong = songsArr.find((song) => song.id === songId)
+    const thisSong = songsArr.find((song) => song.id === songId)
 
     useEffect(() => {
         console.log("getting all songs in my UpdateSong component")
         dispatch(getSongs())
     }, [dispatch]);
 
-    // const showEditForm = () => {
-    //     if (showForm) return;
-    //     setShowForm(true);
-    // };
-
     const revert = () => {
         setTitle('');
         setDescription('');
         setUrl('');
-        setAlbumId(null);
+        setAlbumId();
     };
 
     console.log("songsObj ", songs)
     console.log("this is my songsArray ", songsArr)
     console.log("user id is:", userId)
     console.log("this is the id in the url: ", songId)
-    console.log('this is my song to edit: ', mySong);
+    console.log('this is my song to edit: ', thisSong);
+
+    // form validations
+    useEffect(() => {
+        const errors = [];
+        setValidationErrors(errors);
+        if (!title.length) errors.push("Song title is required.");
+        if (!url) errors.push("Audio is required.");
+        if (isNaN(albumId) && albumId) errors.push(`"${albumId}" is not a valid integer.`)
+        if (!thisSong.albumId) {
+            errors.push("Authorization required.")
+            setIsDisabled(true)
+        }
+        setValidationErrors(errors);
+    }, [title, url, albumId]);
 
     const handleSubmit = async (e) => {
         setShowForm(false);
@@ -54,7 +65,7 @@ const UpdateSong = () => {
             url,
             albumId,
         }
-        if (userId === mySong.userId) {
+        if (userId === thisSong.userId) {
             revert();
             let updatedSong = await dispatch(updateSong(songBody, songId));
             history.push(`/songs/${updatedSong.id}`);
@@ -73,25 +84,21 @@ const UpdateSong = () => {
                         placeholder="Title"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)} />
-                    {/* <ErrorMessage label={"Title"} message={errorMessages.title} /> */}
                     <input
                         type="description"
                         placeholder="description"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)} />
-                    {/* <ErrorMessage label={"Description"} message={errorMessages.description} /> */}
                     <input
                         type="url"
                         placeholder="Url"
                         value={url}
                         onChange={(e) => setUrl(e.target.value)} />
-                    {/* <ErrorMessage label={"Url"} message={errorMessages.url} /> */}
                     <input
                         type="albumId"
                         placeholder="Album Id"
                         value={albumId}
                         onChange={(e) => setAlbumId(e.target.value)} />
-                    {/* <ErrorMessage label={"AlbumId"} message={errorMessages.albumId} /> */}
                     <button className='edit-song' type='submit'>Submit</button>
                     <div>
                         <button onClick={() => setShowForm(false)}> Cancel </button>

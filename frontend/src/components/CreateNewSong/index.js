@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import { getAlbums } from '../../store/albums.js';
 import { createSong } from "../../store/songs.js"
-// import { NavLink, Route, useParams } from 'react-router-dom';
 
 const CreateNewSong = () => {
     const [title, setTitle] = useState('');
@@ -31,8 +30,8 @@ const CreateNewSong = () => {
         setValidationErrors(errors);
         if (!title.length) errors.push("Song title is required.");
         if (!url) errors.push("Audio is required.");
-        // if (isNaN(albumId) && albumId) errors.push(`"${albumId}" is not a valid integer.`)
-        // if (!userAlbums.length && albumId) errors.push("Authorization required.")
+        if (isNaN(albumId) && albumId) errors.push(`"${albumId}" is not a valid integer.`)
+        if (!userAlbums.length && albumId) errors.push("Authorization required.")
         setValidationErrors(errors);
     }, [title, url, albumId]);
 
@@ -41,10 +40,11 @@ const CreateNewSong = () => {
         setDescription('');
         setUrl('');
         setImageUrl('');
-        setAlbumId(null);
+        setAlbumId();
     };
 
     const handleSubmit = async (e) => {
+        setShowForm(false);
         e.preventDefault();
         setValidationErrors([]);
         const newSong = {
@@ -54,10 +54,12 @@ const CreateNewSong = () => {
             imageUrl,
             albumId,
         }
-        let song = await dispatch(createSong(newSong));
+        revert();
+        let song = await dispatch(createSong(newSong)).catch(async (res) => {
+            const data = await res.json();
+            if (data && data.errors) setValidationErrors(data.errors);
+        });
         if (song) {
-            setShowForm(false);
-            revert();
             if (validationErrors.length === 0) return history.push(`/songs/${song.id}`);
         }
     };
@@ -78,31 +80,32 @@ const CreateNewSong = () => {
                         placeholder="Title"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)} />
-                    {/* <ErrorMessage label={"Title"} message={errorMessages.title} /> */}
+
                     <input
                         type="description"
                         placeholder="description"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)} />
-                    {/* <ErrorMessage label={"Description"} message={errorMessages.description} /> */}
+
                     <input
                         type="url"
                         placeholder="Url"
                         value={url}
                         onChange={(e) => setUrl(e.target.value)} />
-                    {/* <ErrorMessage label={"Url"} message={errorMessages.url} /> */}
+
                     <input
                         type="imageUrl"
                         placeholder="Image URL"
                         value={imageUrl}
                         onChange={(e) => setImageUrl(e.target.value)} />
-                    {/* <ErrorMessage label={"Image URL"} message={errorMessages.imageUrl} /> */}
+
                     <input
+                        disabled={userAlbums.length > 0 ? false : true}
                         type="albumId"
                         placeholder="Album Id"
                         value={albumId}
                         onChange={(e) => setAlbumId(e.target.value)} />
-                    {/* <ErrorMessage label={"AlbumId"} message={errorMessages.albumId} /> */}
+
                     <button className='new-song' type='submit' disabled={!!validationErrors.length}>Upload song</button>
                     <div>
                         <button onClick={() => setShowForm(false)}> Cancel </button>
@@ -115,20 +118,3 @@ const CreateNewSong = () => {
 };
 
 export default CreateNewSong;
-
-
-// const curState = useSelector(state => state.songs);
-
-// const showSongForm = () => {
-//     if (showForm) return;
-//     setShowForm(true);
-// };
-
-// useEffect(() => {
-//     if (!showForm) return;
-//     const hideSongForm = () => {
-//         setShowForm(false);
-//     };
-//     document.addEventListener('click', hideSongForm);
-//     return () => document.removeEventListener("click", hideSongForm);
-// }, [showForm]);
