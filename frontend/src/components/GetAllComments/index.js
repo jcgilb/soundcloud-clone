@@ -41,7 +41,7 @@ const GetAllComments = () => {
             <div>
                 <br></br>
                 <h4>Comments</h4>
-                {!!commentsArr.length &&
+                {songComments.length > 0 &&
                     <button className="comment-details" onClick={() => setShowDetails(true)}>{<>{!showDetails && <>show details</>}{showDetails && <>hide details</>}</>}</button>
                 }
                 {songComments.map(comment => (

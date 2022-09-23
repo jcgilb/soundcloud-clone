@@ -14,6 +14,7 @@ const SongDetails = () => {
     const { setIsPaused } = useIsPaused();
     let { songId } = useParams();
     const songs = useSelector(state => state.songs);
+    const comments = useSelector(state => state.comments);
     const user = useSelector(state => state.session.user);
 
     songId = parseInt(songId);
@@ -34,55 +35,32 @@ const SongDetails = () => {
                     <p>{songFromUrl.description}</p>
                     <p>{songFromUrl.url}</p>
                     <p>{songFromUrl.imageUrl}</p>
+                    <div key="play" className="play-current-song">
+                        <button onClick={() => {
+                            dispatch(playASong(songFromUrl.id))
+                            setCurrentSong(songFromUrl)
+                        }}> ... </button>
+                        {currentSong === songFromUrl &&
+                            <>
+                                <button className="press-play" onClick={() => setIsPaused(false)}>Play</button>
+                                <button className="press-pause" onClick={() => setIsPaused(true)}>Pause</button>
+                            </>
+                        }
+                    </div>
                 </div>
-                <div key="play" className="play-current-song">
-                    <button onClick={() => {
-                        dispatch(playASong(songFromUrl.id))
-                        setCurrentSong(songFromUrl)
-                    }}> ... </button>
-                    {currentSong === songFromUrl &&
-                        <>
-                            <button className="press-play" onClick={() => setIsPaused(false)}>Play</button>
-                            <button className="press-pause" onClick={() => setIsPaused(true)}>Pause</button>
-                        </>
-                    }
-                </div>
-                {user.id === currentSong.userId &&
-                    <UpdateSong />
-                }
                 <div>
                     <GetAllComments />
                 </div>
-                <br></br>
                 <div>
                     <CreateNewComment />
                 </div>
+
+                {user.id === songFromUrl.userId &&
+                    <UpdateSong />
+                }
             </div>
         </>
     );
 };
 
 export default SongDetails;
-
-    // let pageBody;
-    // if (showSongForm) {
-    //     pageBody = (
-    //         <div>
-    //             <CreateNewSong songs={songs} />
-    //             <button onClick={() => setShowSongForm(false)}> Cancel </button>
-    //         </div>
-    //     )
-    // } else
-    // if (showEditForm) {
-    //     pageBody = (
-    //         <div>
-    //             <div>
-    //                 <UpdateSong currentSong={currentSong} />
-    //                 <button onClick={() => setShowEditForm(false)}> Cancel </button>
-    //             </div>
-    //             <div>
-    //                 < DeleteSong />
-    //             </div>
-    //         </div>
-    //     )
-    // }

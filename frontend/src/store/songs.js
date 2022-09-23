@@ -76,27 +76,6 @@ export const createSong = (payload) => async (dispatch) => {
     }
 };
 
-// export const createSong = (payload) => async (dispatch) => {
-//     const response = await csrfFetch('/api/songs', {
-//         method: 'POST',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify(payload)
-//     });
-//     if (response.ok) {
-//         const song = await response.json();
-//         const res = await csrfFetch('/api/songs', {
-//             method: 'POST',
-//             headers: { 'Content-Type': 'application/json' },
-//             body: JSON.stringify(song)
-//         });
-//         if (res.ok) {
-//             const newSong = await res.json();
-//             dispatch(addOne(newSong));
-//             return newSong;
-//         }
-//     }
-// };
-
 // update a song thunk 
 export const updateSong = (songBody, songId) => async dispatch => {
     const response = await csrfFetch(`/api/songs/${songId}`, {

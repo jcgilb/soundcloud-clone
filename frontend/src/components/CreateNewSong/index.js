@@ -19,7 +19,7 @@ const CreateNewSong = () => {
         setDescription('');
         setUrl('');
         setImageUrl('');
-        setAlbumId(null);
+        setAlbumId();
     };
 
     const handleSubmit = async (e) => {
@@ -78,7 +78,11 @@ const CreateNewSong = () => {
                     {/* <ErrorMessage label={"AlbumId"} message={errorMessages.albumId} /> */}
                     <button className='new-song' type='submit'>Upload song</button>
                     <div>
-                        <button onClick={() => setShowForm(false)}> Cancel </button>
+                        <button onClick={(e) => {
+                            e.preventDefault()
+                            revert()
+                            setShowForm(false)
+                        }}> Cancel </button>
                     </div>
                 </form>
             }
