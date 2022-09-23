@@ -12,7 +12,6 @@ const GetAllSongs = () => {
 
     const songsObj = useSelector(state => state.songs)
     let myMap = Object.values(songsObj).slice(0, Object.values(songsObj).length - 1)
-    console.log("myMap is: ", myMap)
 
     useEffect(() => {
         dispatch(getSongs());
