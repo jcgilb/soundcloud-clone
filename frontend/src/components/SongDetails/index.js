@@ -47,7 +47,7 @@ const SongDetails = () => {
                         </>
                     }
                 </div>
-                {user.id === currentSong.userId &&
+                {user.id === songFromUrl.userId &&
                     <UpdateSong />
                 }
                 <div>
