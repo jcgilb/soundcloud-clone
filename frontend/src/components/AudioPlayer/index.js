@@ -1,5 +1,8 @@
 import { useIsPaused } from '../../context/IsPausedContext';
 import { useSelector } from "react-redux";
+import AudioPlayer from 'react-h5-audio-player';
+import 'react-h5-audio-player/lib/styles.css';
+import "./Audio.css";
 
 const Player = () => {
     const { isPaused, setIsPaused } = useIsPaused();
@@ -25,17 +28,29 @@ const Player = () => {
 
     return (
         // load up a playlist so the player always shows
-        <div className="audio-url">
-
-            <audio className="audio"
-                autoPlay
-                play="true"
-                controls
-                src={currentSong.url}
-            />
-
-        </div>
+        <footer>
+            <div className="audio-url">
+                <AudioPlayer
+                    className="audio"
+                    src={currentSong.url}
+                    autoPlay
+                    controls
+                />
+            </div>
+        </footer>
     )
 }
+<>
+
+</>
+
 
 export default Player;
+
+{/* <audio className="audio"
+    id="player"
+    autoPlay
+    play="true"
+    controls
+    src={currentSong.url}
+/> */}

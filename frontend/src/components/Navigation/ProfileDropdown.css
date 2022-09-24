@@ -1,0 +1,49 @@
+button.logout {
+    background-color: rgb(255, 115, 0);
+    border: 1px solid white;
+    cursor: pointer;
+    color: white;
+    height: 30px;
+}
+
+.profile {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: rgb(192, 192, 192);
+    cursor: pointer;
+    position: relative;
+
+}
+
+.fa-user-circle {
+    color: rgb(192, 192, 192);
+    border: 2px solid rgb(192, 192, 192);
+    padding: 6px;
+    border-radius: 50%;
+
+}
+
+.fa-chevron-down {
+    padding: 8px;
+
+}
+
+.firstName {
+    padding: 8px;
+    font-weight: lighter;
+    margin-left: 3px;
+}
+
+.dropdown-container {
+    position: absolute;
+}
+
+.profile-dropdown {
+    box-sizing: border-box;
+    border: 3px solid rgb(255, 115, 0);
+    background-color: white;
+    border-radius: 5%;
+
+}

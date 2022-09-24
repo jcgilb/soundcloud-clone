@@ -1,0 +1,79 @@
+.grid {
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    /* grid-column-gap: 8rem; */
+    grid-row-gap: 8rem;
+    margin-top: 8rem;
+    margin-left: 3rem;
+    width: 100%;
+}
+
+.song-card {
+
+    box-sizing: border-box;
+    border: 2px solid aqua;
+    display: flex;
+    flex-direction: row;
+    max-width: 50%;
+    margin: 2rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.album-cover {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    box-sizing: border-box;
+    border: 2px solid blue;
+    position: relative;
+    z-index: 0;
+}
+
+img.card {
+    display: flex;
+    flex-direction: column;
+    height: 10rem;
+    width: 10rem;
+    box-sizing: border-box;
+    border: 2px solid purple;
+
+}
+
+#artist-name {
+    font-size: .8rem;
+    opacity: 60%;
+    box-sizing: border-box;
+    border: 2px solid purple;
+
+}
+
+.title-nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    border: 2px solid rgb(255, 110, 14);
+}
+
+.press-play {
+    opacity: 10%;
+    height: 35px;
+    width: 35px;
+    padding: 2px;
+    border-radius: 35px;
+    background: none;
+    box-sizing: border-box;
+    border: 2px solid rgb(255, 110, 14);
+    position: absolute;
+}
+
+.press-play:hover {
+    opacity: 100%;
+    cursor: pointer;
+}

@@ -1,0 +1,36 @@
+.home {
+    box-sizing: border-box;
+    border: 1px solid blue;
+    font-weight: lighter;
+    color: rgb(192, 192, 192);
+}
+
+.get-songs {
+    box-sizing: border-box;
+    border: 1px solid blue;
+    color: rgb(192, 192, 192);
+}
+
+.sign-in {
+    box-sizing: border-box;
+    border: 1px solid blue;
+}
+
+.create-account {
+    box-sizing: border-box;
+    border: 1px solid blue;
+}
+
+.create-song {
+    color: rgb(192, 192, 192);
+    cursor: pointer;
+    box-sizing: border-box;
+    border: 1px solid blue;
+    position: absolute;
+    right: 0;
+}
+
+.logo {
+    box-sizing: border-box;
+    border: 1px solid blue;
+}

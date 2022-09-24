@@ -17,6 +17,7 @@ function App() {
   }, [dispatch]);
 
   const songs = useSelector(state => state.songs)
+  const user = useSelector(state => state.session.user)
 
   return (
     <>
@@ -38,7 +39,10 @@ function App() {
           </Route>
         </Switch>
       )}
-      <Player isLoaded={isLoaded} />
+      {user &&
+        <Player isLoaded={isLoaded} />
+      }
+
     </>
   );
 }

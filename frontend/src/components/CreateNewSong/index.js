@@ -66,7 +66,7 @@ const CreateNewSong = () => {
     return (
         <>
             <div>
-                <button onClick={() => setShowForm(true)}> Upload </button>
+                <p onClick={() => setShowForm(true)}> Upload </p>
             </div>
             {showForm &&
                 <form className="create-song-form" onSubmit={handleSubmit}>

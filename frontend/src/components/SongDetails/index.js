@@ -29,11 +29,15 @@ const SongDetails = () => {
         <>
             <div className="one-song">
                 <div className="song-details">
-                    <h3>{songFromUrl.title}</h3>
-                    <p>{songFromUrl.userId}</p>
+                    <h2>{songFromUrl.title}</h2>
+                    <div key="desc" className="description">{songFromUrl.description}</div>
+                    <div key="image" className="image-url">
+                        <img alt={songFromUrl.id} src={songFromUrl.imageUrl} />
+                    </div>
+                    {/* <p>{songFromUrl.userId}</p>
                     <p>{songFromUrl.description}</p>
                     <p>{songFromUrl.url}</p>
-                    <p>{songFromUrl.imageUrl}</p>
+                    <p>{songFromUrl.imageUrl}</p> */}
                     <div key="play" className="play-current-song">
                         <button onClick={() => {
                             setCurrentSong(songFromUrl)
