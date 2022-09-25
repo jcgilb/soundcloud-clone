@@ -1,8 +1,9 @@
 .home {
     box-sizing: border-box;
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
     font-weight: lighter;
     color: rgb(192, 192, 192);
+
 }
 
 .get-songs {
@@ -10,13 +11,14 @@
     flex: row;
     align-items: center;
     box-sizing: border-box;
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
     color: rgb(192, 192, 192);
+    font-size: 16px;
 }
 
 .sign-in {
     box-sizing: border-box;
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
     color: rgb(192, 192, 192);
     cursor: pointer;
 }
@@ -24,23 +26,41 @@
 .create-account {
     color: rgb(192, 192, 192);
     box-sizing: border-box;
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
     cursor: pointer;
 
 }
 
 .create-song {
     box-sizing: border-box;
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
     font-weight: lighter;
     margin-left: 30px;
     color: rgb(192, 192, 192);
     position: absolute;
-    top: 2.5px;
+    top: 3.5px;
     right: 0;
+    font-size: 16px;
 }
 
 .logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     box-sizing: border-box;
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
+    color: rgb(192, 192, 192);
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* .fa-soundcloud {
+    margin-right: 15px;
+} */
+
+.logo img {
+    width: 70px;
+    height: 50px;
+    margin-right: 15px;
 }

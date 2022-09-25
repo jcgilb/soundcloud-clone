@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { getComments, deleteComment } from "../../store/comments.js"
 import { useParams, useHistory } from "react-router-dom";
+import "./GetAllComments.css"
 // import DeleteAComment from "../DeleteAComment"
 // import { NavLink, Route } from 'react-router-dom';
 
@@ -15,6 +16,7 @@ const GetAllComments = () => {
     const song = Object.values(songs).find((song) => song.id === parseInt(songId));
     const commentsObj = useSelector(state => state.comments)
     const commentsArr = Object.values(commentsObj);
+
 
     useEffect(() => {
         // console.log("dispatching in my GetAllComments useEffect");
@@ -38,29 +40,32 @@ const GetAllComments = () => {
 
     return (
         <>
-            <div>
+            <div className="get-all-comments">
                 <br></br>
-                <h4>Comments</h4>
-                {!!commentsArr.length &&
-                    <button className="comment-details" onClick={() => setShowDetails(true)}>{<>{!showDetails && <>show details</>}{showDetails && <>hide details</>}</>}</button>
-                }
+                <div> <i class="fa-regular fa-message"></i> {songComments.length} Comments</div>
+                <br></br>
+                <hr></hr>
+                <br></br>
                 {songComments.map(comment => (
-                    <>
+                    <div className="individual-comment">
                         <div key={comment.id} className="comment-body">{comment.body}</div>
-                        {showDetails &&
-                            <>
-                                <div key="my-comment">created at: {comment.createdAt}</div>
-                                {comment.userId === user.id &&
-                                    <button key="comment" onClick={async (e) => {
+
+                        <div className="comment-end">
+                            <div key="my-comment">created: {(comment.createdAt).slice(0, 10)}</div>
+                            {comment.userId === user.id &&
+                                <i class="fa-regular fa-trash-can"
+                                    onClick={async (e) => {
                                         e.preventDefault();
                                         await dispatch(deleteComment(comment.id));
                                         return history.push(`/songs/${song.id}`);
-                                    }}>delete comment</button>
-                                }
-                            </>
-                        }
+                                    }}></i>
+                            }
+                        </div>
 
-                    </>
+
+
+
+                    </div>
                 ))}
             </div>
         </>

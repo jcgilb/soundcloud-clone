@@ -36,9 +36,7 @@ button.logout {
     margin-left: 3px;
 }
 
-.dropdown-container {
-    /* position: absolute; */
-}
+/* .dropdown-container {} */
 
 .profile-dropdown {
     box-sizing: border-box;
@@ -53,7 +51,8 @@ button.logout {
     flex-direction: row;
     position: absolute;
     left: 0;
-
+    width: 250px;
+    justify-content: space-between;
 }
 
 .far-right {

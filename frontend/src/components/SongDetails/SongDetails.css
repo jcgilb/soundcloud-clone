@@ -1,0 +1,56 @@
+.one-song {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    border: 4px solid royalblue;
+    height: 100vh;
+}
+
+
+.song-details {
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    border: 4px solid chartreuse;
+    position: relative;
+    justify-content: space-between;
+}
+
+.description {
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    border: 4px solid plum;
+}
+
+/* 
+.image-url {
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    border: 4px solid navy;
+
+    z-index: 0;
+} */
+
+.play-current-song {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    border: 4px solid royalblue;
+    z-index: 0;
+    height: 60px;
+    width: 60px;
+}
+
+.comments-container {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    border: 4px solid yellow;
+    margin-left: 20px;
+}
+
+.rhap_time {
+    color: #F26F23;
+}

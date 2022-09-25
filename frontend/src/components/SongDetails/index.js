@@ -6,6 +6,7 @@ import GetAllComments from "../GetAllComments"
 import CreateNewComment from "../CreateAComment"
 import UpdateSong from "../UpdateSong";
 import { useIsPaused } from '../../context/IsPausedContext.js';
+import "./SongDetails.css"
 
 const SongDetails = () => {
     const curSong = useSelector(state => state.songs.currentSong)
@@ -29,39 +30,42 @@ const SongDetails = () => {
         <>
             <div className="one-song">
                 <div className="song-details">
-                    <h2>{songFromUrl.title}</h2>
-                    <div key="desc" className="description">{songFromUrl.description}</div>
+
+                    <div key="desc" className="description">
+                        <div key="play" className="play-current-song">
+                            <div className="press-play"
+                                onClick={async (e) => {
+                                    e.preventDefault();
+                                    await dispatch(playASong(songFromUrl.id))
+                                }}>
+                                <i class="fas fa-light fa-circle-play fa-2xl"></i>
+                            </div>
+
+                        </div>
+                        <div className="artist-details">
+                            <h2>{songFromUrl.title}</h2>
+                            {songFromUrl.Artist.username}
+                        </div>
+                    </div>
                     <div key="image" className="image-url">
+
                         <img alt={songFromUrl.id} src={songFromUrl.imageUrl} />
+
                     </div>
-                    {/* <p>{songFromUrl.userId}</p>
-                    <p>{songFromUrl.description}</p>
-                    <p>{songFromUrl.url}</p>
-                    <p>{songFromUrl.imageUrl}</p> */}
-                    <div key="play" className="play-current-song">
-                        <button onClick={() => {
-                            setCurrentSong(songFromUrl)
-                        }}> ... </button>
-                        {currentSong === songFromUrl &&
-                            <>
-                                <button className="press-play" onClick={() => {
-                                    dispatch(playASong(songFromUrl.id))
-                                    setIsPaused(false)
-                                }}>Play</button>
-                                <button className="press-pause" onClick={() => setIsPaused(true)}>Pause</button>
-                            </>
-                        }
-                    </div>
+
                 </div>
-                {user.id === songFromUrl.userId &&
-                    <UpdateSong />
-                }
-                <div>
+                <div className="edit-song-details">
+                    {user.id === songFromUrl.userId &&
+                        <UpdateSong />
+                    }
+                </div>
+
+                <div className="comments-container">
+                    <div className="leave-comment">
+                        <CreateNewComment />
+                    </div>
+
                     <GetAllComments />
-                </div>
-                <br></br>
-                <div>
-                    <CreateNewComment />
                 </div>
             </div>
         </>
@@ -70,25 +74,3 @@ const SongDetails = () => {
 
 export default SongDetails;
 
-    // let pageBody;
-    // if (showSongForm) {
-    //     pageBody = (
-    //         <div>
-    //             <CreateNewSong songs={songs} />
-    //             <button onClick={() => setShowSongForm(false)}> Cancel </button>
-    //         </div>
-    //     )
-    // } else
-    // if (showEditForm) {
-    //     pageBody = (
-    //         <div>
-    //             <div>
-    //                 <UpdateSong currentSong={currentSong} />
-    //                 <button onClick={() => setShowEditForm(false)}> Cancel </button>
-    //             </div>
-    //             <div>
-    //                 < DeleteSong />
-    //             </div>
-    //         </div>
-    //     )
-    // }

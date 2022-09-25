@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from 'react-router-dom';
 import { createComment } from "../../store/comments.js"
+import "./CreateAComment.css"
 
 const CreateNewComment = () => {
     const [body, setBody] = useState('');
-    const [showForm, setShowForm] = useState(false);;
     const dispatch = useDispatch();
     const history = useHistory();
     let { songId } = useParams();
@@ -18,7 +18,6 @@ const CreateNewComment = () => {
     };
 
     const handleSubmit = async (e) => {
-        setShowForm(false)
         e.preventDefault();
         const newComment = {
             body
@@ -31,23 +30,18 @@ const CreateNewComment = () => {
     };
 
     return (
-        <>
-            <div>
-                <button onClick={() => setShowForm(true)}> Leave a comment </button>
-            </div>
-            {showForm &&
-                <form className="create-comment-form" onSubmit={handleSubmit}>
-                    <input
-                        type="body"
-                        placeholder="Body"
-                        value={body}
-                        onChange={(e) => setBody(e.target.value)} />
-                    <button className='new-comment' type='submit'> Submit </button>
-                    <div>
-                        <button onClick={() => setShowForm(false)}> Cancel </button>
-                    </div>
-                </form>}
-        </>
+        <div className="write-comment">
+            <div className="weird-box"><img alt="box" src={"https://res.cloudinary.com/ddmb8mrlb/image/upload/v1664117317/icons/commentsquare_lphvlw.jpg"} /></div>
+            <form className="create-comment-form" onSubmit={handleSubmit}>
+                <input
+                    type="body"
+                    placeholder="Write a comment"
+                    value={body}
+                    onChange={(e) => setBody(e.target.value)} />
+                <button className='new-comment' type='submit'> Submit </button>
+            </form>
+
+        </div>
     );
 };
 

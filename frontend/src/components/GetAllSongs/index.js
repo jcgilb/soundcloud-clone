@@ -40,14 +40,9 @@ const GetAllSongs = () => {
                                     <p id="artist-name"> {song.Artist.username}</p>
                                 </div>
                             </div>
-
-
-
                         </div>
-
                     ))}
                 </div>
-
             </div>
         </div >
     );

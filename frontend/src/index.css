@@ -9,14 +9,16 @@ body {
     height: 100vh;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     size: 10px;
+
 }
 
 .root {
     height: 100vh;
+
 }
 
 footer {
-    position: fixed;
+    position: sticky;
     bottom: 0;
     width: 100%;
 }
@@ -32,8 +34,7 @@ a {
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
-    border: 1px solid hotpink;
-    background-color: rgb(71, 71, 71);
+    background-color: rgb(97, 97, 97);
     position: sticky;
     top: 0;
     width: 100%;
@@ -51,7 +52,6 @@ a {
     justify-content: space-around;
     align-items: center;
     box-sizing: border-box;
-    border: 1px solid grey;
     width: 90%;
     position: relative;
     z-index: 1;
@@ -76,6 +76,11 @@ a {
     align-items: center;
     box-sizing: border-box;
     border: 5px solid grey;
+    padding-bottom: 80px;
     width: 90%;
     height: 90%;
+}
+
+.rhap_time {
+    color: #F26F23;
 }
