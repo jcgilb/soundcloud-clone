@@ -67,76 +67,64 @@ const CreateNewSong = () => {
     };
 
     return (
-
-
         <>
+            <br></br>
+            <br></br>
+
+            <div className="upload-title">Take your music to the next level.</div>
             <div className="upload-container">
+                <br></br>
+                <form className="upload-song-form" onSubmit={handleSubmit}>
 
-                <div className="upload-song-title">Take your music to the next level.</div>
+                    <div className="upload-form-heading">Upload your tracks here</div>
+                    <input
+                        type="title"
+                        placeholder="Title"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)} />
 
-                <div className="another-container">
-                    <div className='columnLeft'></div>
-                    <div className="create-song-form-container">
-                        <div className="upload-heading">Upload your tracks here</div>
+                    <input
+                        type="description"
+                        placeholder="description"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)} />
 
-                        <form className="create-song-form" onSubmit={handleSubmit}>
-                            <input
-                                type="title"
-                                placeholder="Title"
-                                value={title}
-                                onChange={(e) => setTitle(e.target.value)} />
+                    <input
+                        type="url"
+                        placeholder="Audio URL"
+                        value={url}
+                        onChange={(e) => setUrl(e.target.value)} />
 
-                            <input
-                                type="description"
-                                placeholder="description"
-                                value={description}
-                                onChange={(e) => setDescription(e.target.value)} />
+                    <input
+                        type="imageUrl"
+                        placeholder="Image URL"
+                        value={imageUrl}
+                        onChange={(e) => setImageUrl(e.target.value)} />
 
-                            <input
-                                type="url"
-                                placeholder="Audio URL"
-                                value={url}
-                                onChange={(e) => setUrl(e.target.value)} />
+                    <select onChange={updateAlbum} value={albumSelect} placeholder="Select an album">
+                        <option value="" disabled selected>Select an album...</option>
+                        {userAlbums.map(album =>
+                            <option key={album.title}>{album.title}</option>
+                        )}
+                    </select>
 
-                            <input
-                                type="imageUrl"
-                                placeholder="Image URL"
-                                value={imageUrl}
-                                onChange={(e) => setImageUrl(e.target.value)} />
-
-                            <select onChange={updateAlbum} value={albumSelect} placeholder="Select an album">
-                                <option value="" disabled selected>Select an album...</option>
-                                {userAlbums.map(album =>
-                                    <option key={album.title}>{album.title}</option>
-                                )}
-                            </select>
-
-                            {/* <input
+                    {/* <input
                     disabled={userAlbums.length > 0 ? false : true}
                     type="albumId"
                     placeholder="Album Id"
                     value={albumId}
                     onChange={(e) => setAlbumId(e.target.value)} /> */}
-                            <ul className="errors">
-                                {validationErrors.length > 0 &&
-                                    validationErrors.map((err) => <div id="err" key={err}>{err}</div>)}
-                            </ul>
-                            <button className='new-song' type='submit' disabled={!!validationErrors.length}>Upload song</button>
-                            {/* <div> */}
-                            {/* <button onClick={() => revert()}> Cancel </button> */}
-                            {/* </div> */}
-                        </form>
-                    </div>
-                    <div className='columnLeft'></div>
-
-                </div>
-
-
-
+                    <ul className="errors">
+                        {validationErrors.length > 0 &&
+                            validationErrors.map((err) => <div id="err" key={err}>{err}</div>)}
+                    </ul>
+                    <button className='upload-submit' type='submit' disabled={!!validationErrors.length}>Upload song</button>
+                    {/* <div> */}
+                    {/* <button onClick={() => revert()}> Cancel </button> */}
+                    {/* </div> */}
+                </form>
             </div>
-            <div className="upload-footer"></div>
         </>
-
 
 
     );

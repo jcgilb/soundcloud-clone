@@ -1,0 +1,143 @@
+.main-container-div {
+    width: 100%;
+    height: 100%;
+    /* border: 3px solid red; */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.main-top-div {
+    width: 90%;
+    margin: 0 auto;
+    /* border: 3px solid pink; */
+    display: flex;
+    flex-direction: column;
+}
+
+.main-middle-div {
+    width: 90%;
+    margin: 0 auto;
+    /* border: 3px solid chartreuse; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-trending-title {
+    /* border: 3px solid aqua; */
+    margin-top: 80px;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.main-title {
+    /* border: 3px solid aqua; */
+    width: 96.7%;
+    font-size: 24px;
+    /* border: 3px solid orange; */
+    padding-left: 33px;
+    padding-top: 60px
+}
+
+.title-container {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.tiles {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    /* grid-column-gap: 8rem; */
+    grid-row-gap: 8rem;
+    /* margin-top: ; */
+    /* margin-left: 3rem; */
+    width: 100%;
+    /* border: 3px solid pink; */
+}
+
+.tiles-splash {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    /* grid-column-gap: 8rem; */
+    grid-row-gap: .5rem;
+    /* margin-top: ; */
+    /* margin-left: 3rem; */
+    width: 100%;
+}
+
+.song-tile {
+    box-sizing: border-box;
+    /* border: 2px solid aqua; */
+    display: flex;
+    flex-direction: row;
+    max-width: 50%;
+    margin: 2rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.album-art {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    box-sizing: border-box;
+    /* border: 2px solid blue; */
+    position: relative;
+    z-index: 0;
+}
+
+img.tile {
+    display: flex;
+    flex-direction: column;
+    height: 10rem;
+    width: 10rem;
+    box-sizing: border-box;
+    /* border: 2px solid purple; */
+
+}
+
+#artist-name {
+    font-size: .8rem;
+    opacity: 60%;
+    box-sizing: border-box;
+    /* border: 2px solid purple; */
+
+}
+
+.title-nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    /* border: 2px solid rgb(242, 111, 35) */
+}
+
+.play-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 25px;
+    width: 25px;
+    align-items: center;
+    opacity: 10%;
+    color: rgb(242, 111, 35);
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+}
+
+.play-button:hover {
+    opacity: 100%;
+    cursor: pointer;
+}

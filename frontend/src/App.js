@@ -9,6 +9,7 @@ import SongDetails from "./components/SongDetails"
 import Player from "./components/AudioPlayer"
 import CreateNewSong from "./components/CreateNewSong"
 import UpdateSong from "./components/UpdateSong"
+import SplashPage from "./components/SplashPage"
 import * as sessionActions from "./store/session";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
   }, [dispatch]);
 
   const songs = useSelector(state => state.songs)
+  const currentSong = Object.values(songs.currentSong)
   const user = useSelector(state => state.session.user)
 
   return (
@@ -26,6 +28,9 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
+          <Route exact path="/">
+            <SplashPage songs={songs} />
+          </Route>
           <Route path="/login">
             <LoginFormPage />
           </Route>
@@ -46,7 +51,7 @@ function App() {
           </Route>
         </Switch>
       )}
-      {user &&
+      {!!currentSong.length &&
         <Player isLoaded={isLoaded} />
       }
     </>

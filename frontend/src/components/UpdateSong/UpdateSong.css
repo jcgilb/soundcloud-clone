@@ -33,6 +33,7 @@
     height: 380px;
     margin-top: 3%;
     padding: 16px;
+
 }
 
 .edit-song-form input {
@@ -42,6 +43,7 @@
     width: 100%;
     height: 30px;
     padding-left: 4px;
+
 }
 
 .edit-song-submit {

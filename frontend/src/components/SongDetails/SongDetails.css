@@ -49,7 +49,7 @@
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    border: 4px solid yellow;
+    /* border: 4px solid yellow; */
     margin-left: 20px;
 }
 
@@ -62,7 +62,7 @@
     flex-direction: column;
     align-items: flex-end;
     box-sizing: border-box;
-    border: 4px solid royalblue;
+    /* border: 4px solid royalblue; */
     width: 96%;
 
     background: white;
