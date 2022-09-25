@@ -14,7 +14,7 @@ button.logout {
     color: rgb(192, 192, 192);
     cursor: pointer;
     position: relative;
-
+    margin-right: 30px;
 }
 
 .fa-user-circle {
@@ -27,7 +27,7 @@ button.logout {
 
 .fa-chevron-down {
     padding: 8px;
-
+    margin-right: 10
 }
 
 .firstName {
@@ -37,7 +37,7 @@ button.logout {
 }
 
 .dropdown-container {
-    position: absolute;
+    /* position: absolute; */
 }
 
 .profile-dropdown {
@@ -46,4 +46,21 @@ button.logout {
     background-color: white;
     border-radius: 5%;
 
+}
+
+.far-left {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    left: 0;
+
+}
+
+.far-right {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    right: 0;
+    justify-content: space-evenly;
+    width: 350px;
 }

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import { getAlbums } from '../../store/albums.js';
 import { createSong } from "../../store/songs.js"
+import "./CreateNewSong.css"
 
 const CreateNewSong = () => {
     const [title, setTitle] = useState('');
@@ -23,6 +24,7 @@ const CreateNewSong = () => {
     const albums = useSelector(state => state.albums);
     const albumsArr = Object.values(albums);
     let userAlbums = albumsArr.filter(album => album.userId === user.id)
+    console.log(userAlbums)
 
     // form validations
     useEffect(() => {
@@ -66,53 +68,76 @@ const CreateNewSong = () => {
 
     return (
 
-        <form className="create-song-form" onSubmit={handleSubmit}>
-            <input
-                type="title"
-                placeholder="Title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)} />
 
-            <input
-                type="description"
-                placeholder="description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)} />
+        <>
+            <div className="upload-container">
 
-            <input
-                type="url"
-                placeholder="Audio URL"
-                value={url}
-                onChange={(e) => setUrl(e.target.value)} />
+                <div className="upload-song-title">Take your music to the next level.</div>
 
-            <input
-                type="imageUrl"
-                placeholder="Image URL"
-                value={imageUrl}
-                onChange={(e) => setImageUrl(e.target.value)} />
+                <div className="another-container">
+                    <div className='columnLeft'></div>
+                    <div className="create-song-form-container">
+                        <div className="upload-heading">Upload your tracks here</div>
 
-            <select onChange={updateAlbum} value={albumSelect} placeholder="Select an album">
-                <option value="" disabled selected>Select an album...</option>
-                {userAlbums.map(album =>
-                    <option key={album}>{albumSelect}</option>
-                )}
-            </select>
+                        <form className="create-song-form" onSubmit={handleSubmit}>
+                            <input
+                                type="title"
+                                placeholder="Title"
+                                value={title}
+                                onChange={(e) => setTitle(e.target.value)} />
 
-            {/* <input
-                disabled={userAlbums.length > 0 ? false : true}
-                type="albumId"
-                placeholder="Album Id"
-                value={albumId}
-                onChange={(e) => setAlbumId(e.target.value)} /> */}
-            <ul className="errors">
-                {validationErrors.length > 0 &&
-                    validationErrors.map((err) => <li key={err}>{err}</li>)}
-            </ul>
-            <button className='new-song' type='submit' disabled={!!validationErrors.length}>Upload song</button>
-            {/* <div> */}
-            {/* <button onClick={() => revert()}> Cancel </button> */}
-            {/* </div> */}
-        </form>
+                            <input
+                                type="description"
+                                placeholder="description"
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)} />
+
+                            <input
+                                type="url"
+                                placeholder="Audio URL"
+                                value={url}
+                                onChange={(e) => setUrl(e.target.value)} />
+
+                            <input
+                                type="imageUrl"
+                                placeholder="Image URL"
+                                value={imageUrl}
+                                onChange={(e) => setImageUrl(e.target.value)} />
+
+                            <select onChange={updateAlbum} value={albumSelect} placeholder="Select an album">
+                                <option value="" disabled selected>Select an album...</option>
+                                {userAlbums.map(album =>
+                                    <option key={album.title}>{album.title}</option>
+                                )}
+                            </select>
+
+                            {/* <input
+                    disabled={userAlbums.length > 0 ? false : true}
+                    type="albumId"
+                    placeholder="Album Id"
+                    value={albumId}
+                    onChange={(e) => setAlbumId(e.target.value)} /> */}
+                            <ul className="errors">
+                                {validationErrors.length > 0 &&
+                                    validationErrors.map((err) => <div id="err" key={err}>{err}</div>)}
+                            </ul>
+                            <button className='new-song' type='submit' disabled={!!validationErrors.length}>Upload song</button>
+                            {/* <div> */}
+                            {/* <button onClick={() => revert()}> Cancel </button> */}
+                            {/* </div> */}
+                        </form>
+                    </div>
+                    <div className='columnLeft'></div>
+
+                </div>
+
+
+
+            </div>
+            <div className="upload-footer"></div>
+        </>
+
+
 
     );
 };

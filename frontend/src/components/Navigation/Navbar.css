@@ -6,6 +6,9 @@
 }
 
 .get-songs {
+    display: flex;
+    flex: row;
+    align-items: center;
     box-sizing: border-box;
     border: 1px solid blue;
     color: rgb(192, 192, 192);
@@ -23,12 +26,14 @@
     box-sizing: border-box;
     border: 1px solid blue;
     cursor: pointer;
+
 }
 
 .create-song {
     box-sizing: border-box;
     border: 1px solid blue;
     font-weight: lighter;
+    margin-left: 30px;
     color: rgb(192, 192, 192);
     position: absolute;
     top: 2.5px;

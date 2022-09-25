@@ -36,18 +36,15 @@ function Navigation({ isLoaded }) {
     return (
         <div className="navigation">
             <div className="nav-container">
-                <>
+                <div className="far-left">
                     <div className="logo">
                         <img></img>
                     </div>
-                </>
-
-                {isLoaded && sessionLinks}
+                </div>
+                <div className="far-right">
+                    {isLoaded && sessionLinks}
+                </div>
             </div>
-            {/* this is the svg that I saved directly from the website */}
-
-
-
         </div>
     );
 };
