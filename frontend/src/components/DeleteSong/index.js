@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from 'react-router-dom';
 import { deleteSong, getSongs } from "../../store/songs.js"
+import "../UpdateSong/UpdateSong.css"
 
 // import { NavLink, Route, useParams } from 'react-router-dom';
 
@@ -39,8 +40,7 @@ const DeleteSong = () => {
 
     return (
         <>
-            <div>delete song button below</div>
-            <button className='delete-song' onClick={handleClick}>Delete song</button>
+            <i class="fa-regular fa-trash-can" onClick={handleClick}></i>
         </>
     );
 };

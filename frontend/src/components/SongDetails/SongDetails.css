@@ -3,6 +3,7 @@
     flex-direction: column;
     box-sizing: border-box;
     border: 4px solid royalblue;
+
     height: 100vh;
 }
 
@@ -14,6 +15,7 @@
     border: 4px solid chartreuse;
     position: relative;
     justify-content: space-between;
+    height: 400px;
 }
 
 .description {
@@ -53,4 +55,23 @@
 
 .rhap_time {
     color: #F26F23;
+}
+
+.edit-song-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    box-sizing: border-box;
+    border: 4px solid royalblue;
+    width: 96%;
+
+    background: white;
+    bottom: 0;
+}
+
+.show-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
 }

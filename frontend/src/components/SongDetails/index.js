@@ -6,6 +6,7 @@ import GetAllComments from "../GetAllComments"
 import CreateNewComment from "../CreateAComment"
 import UpdateSong from "../UpdateSong";
 import { useIsPaused } from '../../context/IsPausedContext.js';
+import { NavLink } from "react-router-dom";
 import "./SongDetails.css"
 
 const SongDetails = () => {
@@ -56,10 +57,9 @@ const SongDetails = () => {
                 </div>
                 <div className="edit-song-details">
                     {user.id === songFromUrl.userId &&
-                        <UpdateSong />
+                        <NavLink to={`/songs/${songFromUrl.id}/edit`}>Edit song details</NavLink>
                     }
                 </div>
-
                 <div className="comments-container">
                     <div className="leave-comment">
                         <CreateNewComment />

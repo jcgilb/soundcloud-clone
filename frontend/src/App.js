@@ -8,6 +8,7 @@ import GetAllSongs from "./components/GetAllSongs";
 import SongDetails from "./components/SongDetails"
 import Player from "./components/AudioPlayer"
 import CreateNewSong from "./components/CreateNewSong"
+import UpdateSong from "./components/UpdateSong"
 import * as sessionActions from "./store/session";
 
 function App() {
@@ -34,7 +35,10 @@ function App() {
           <Route path="/new">
             <CreateNewSong />
           </Route>
-          <Route path='/songs/:songId'>
+          <Route exact path="/songs/:songId/edit">
+            <UpdateSong />
+          </Route>
+          <Route exact path='/songs/:songId'>
             <SongDetails />
           </Route>
           <Route exact path='/songs'>
