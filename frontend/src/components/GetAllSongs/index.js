@@ -22,23 +22,18 @@ const GetAllSongs = () => {
         <div className="songs">
             <div className="songs-container">
                 <div className="grid">
-
                     {myMap.map((song) => (
                         <div className="song-card">
                             <div key="image" className="image-url">
                                 <div className='album-cover'>
                                     <img className="card" alt={song.id} src={song.imageUrl} />
-                                    <img
-                                        alt="play"
-                                        className="press-play"
-                                        src="https://res.cloudinary.com/ddmb8mrlb/image/upload/v1664039424/icons/icon-soundcloud-play_p4t3k3.png"
+                                    <div className="press-play"
                                         onClick={async (e) => {
                                             e.preventDefault();
                                             await dispatch(playASong(song.id))
-                                        }} />
-
-
-
+                                        }}>
+                                        <i class="fas fa-light fa-circle-play fa-2xl"></i>
+                                    </div>
                                 </div>
                                 <div className="title-nav">
                                     <NavLink className={song.id} key={song.id} to={`/songs/${song.id}`}>{song.title}</NavLink>

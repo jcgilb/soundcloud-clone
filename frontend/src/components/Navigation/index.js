@@ -2,7 +2,6 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
-import CreateNewSong from "../CreateNewSong";
 import './Navbar.css';
 
 function Navigation({ isLoaded }) {
@@ -15,9 +14,8 @@ function Navigation({ isLoaded }) {
                 <div className='get-songs'>
                     <NavLink className='get-songs' exact to="/songs">Home</NavLink>
                 </div>
-
                 <div className='create-song'>
-                    <CreateNewSong />
+                    <NavLink className='create-song' exact to="/new">Upload</NavLink>
                 </div>
                 <ProfileButton user={sessionUser} />
             </>
@@ -26,10 +24,10 @@ function Navigation({ isLoaded }) {
         sessionLinks = (
             <>
                 <div className='sign-in'>
-                    <NavLink to="/login">Sign in</NavLink>
+                    <NavLink className='sign-in' to="/login">Sign in</NavLink>
                 </div>
                 <div className='create-account'>
-                    <NavLink to="/signup">Create account</NavLink>
+                    <NavLink className='create-account' to="/signup">Create account</NavLink>
                 </div>
             </>
         );

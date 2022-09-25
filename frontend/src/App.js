@@ -7,6 +7,7 @@ import Navigation from "./components/Navigation";
 import GetAllSongs from "./components/GetAllSongs";
 import SongDetails from "./components/SongDetails"
 import Player from "./components/AudioPlayer"
+import CreateNewSong from "./components/CreateNewSong"
 import * as sessionActions from "./store/session";
 
 function App() {
@@ -22,7 +23,6 @@ function App() {
   return (
     <>
       <Navigation isLoaded={isLoaded} />
-
       {isLoaded && (
         <Switch>
           <Route path="/login">
@@ -30,6 +30,9 @@ function App() {
           </Route>
           <Route path="/signup">
             <SignupFormPage />
+          </Route>
+          <Route path="/new">
+            <CreateNewSong />
           </Route>
           <Route path='/songs/:songId'>
             <SongDetails />
@@ -42,7 +45,6 @@ function App() {
       {user &&
         <Player isLoaded={isLoaded} />
       }
-
     </>
   );
 }

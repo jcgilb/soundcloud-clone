@@ -14,19 +14,24 @@
 .sign-in {
     box-sizing: border-box;
     border: 1px solid blue;
+    color: rgb(192, 192, 192);
+    cursor: pointer;
 }
 
 .create-account {
+    color: rgb(192, 192, 192);
     box-sizing: border-box;
     border: 1px solid blue;
+    cursor: pointer;
 }
 
 .create-song {
-    color: rgb(192, 192, 192);
-    cursor: pointer;
     box-sizing: border-box;
     border: 1px solid blue;
+    font-weight: lighter;
+    color: rgb(192, 192, 192);
     position: absolute;
+    top: 2.5px;
     right: 0;
 }
 

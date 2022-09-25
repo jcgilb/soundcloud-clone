@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
 import * as sessionActions from "../../store/session";
@@ -11,32 +11,30 @@ function SignupFormPage() {
     const sessionUser = useSelector((state) => state.session.user);
     const [email, setEmail] = useState("");
     const [username, setUsername] = useState("");
-    // const [firstName, setFirstName] = useState("");
-    // const [lastName, setLastName] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errors, setErrors] = useState([]);
 
-    if (sessionUser) return <Redirect to="/" />;
+    if (sessionUser) return <Redirect to="/songs" />;
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (password === confirmPassword) {
             setErrors([]);
-            return dispatch(sessionActions.signup({ email, username, password }))
+            return dispatch(sessionActions.signup({ email, username, firstName, lastName, password }))
                 .catch(async (res) => {
                     const data = await res.json();
                     if (data && data.errors) setErrors(data.errors);
+                    if (!data.errors) return history.push('/songs')
                 });
         }
-        if (errors.length === 0) history.push('/')
         return setErrors(['Confirm Password field must be the same as the Password field']);
     };
 
     return (
-
         <form onSubmit={handleSubmit}>
-
             <div className='the-guts'>
                 <br></br>
                 <label>Email</label>
@@ -53,6 +51,20 @@ function SignupFormPage() {
                     onChange={(e) => setUsername(e.target.value)}
                     required
                 />
+                <label>First name</label>
+                <input
+                    type="text"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                    required
+                />
+                <label>Last name</label>
+                <input
+                    type="text"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    required
+                />
                 <label>Password</label>
                 <input
                     type="password"
@@ -60,7 +72,7 @@ function SignupFormPage() {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 />
-                <label>Confirm Password</label>
+                <label>Confirm password</label>
                 <input
                     type="password"
                     value={confirmPassword}
@@ -68,7 +80,7 @@ function SignupFormPage() {
                     required
                 />
                 <br></br>
-                <button className='signup' type="submit">Sign Up</button>
+                <button className='signup' type="submit" >Sign Up</button>
                 <br></br>
                 <ul>
                     {errors.map((error, idx) => <li key={idx}>{error}</li>)}

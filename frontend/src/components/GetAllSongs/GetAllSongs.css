@@ -58,19 +58,21 @@ img.card {
     flex-direction: column;
     justify-content: flex-start;
     box-sizing: border-box;
-    border: 2px solid rgb(255, 110, 14);
+    border: 2px solid rgb(242, 111, 35)
 }
 
 .press-play {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 25px;
+    width: 25px;
+    align-items: center;
     opacity: 10%;
-    height: 35px;
-    width: 35px;
-    padding: 2px;
-    border-radius: 35px;
-    background: none;
-    box-sizing: border-box;
-    border: 2px solid rgb(255, 110, 14);
+    color: rgb(242, 111, 35);
     position: absolute;
+    background: white;
+    border-radius: 50%;
 }
 
 .press-play:hover {

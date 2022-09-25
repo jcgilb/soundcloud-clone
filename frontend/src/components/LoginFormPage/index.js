@@ -12,7 +12,7 @@ function LoginFormPage() {
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
 
-    if (sessionUser) return <Redirect to="/" />;
+    if (sessionUser) return <Redirect to="/songs" />;
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -21,8 +21,9 @@ function LoginFormPage() {
             .catch(async (res) => {
                 const data = await res.json();
                 if (data && data.errors) setErrors(data.errors);
+                if (!data.errors) return history.push('/songs')
             });
-        if (errors.length === 0) history.push('/')
+        // if (errors.length === 0) history.push('/songs')
         return response
     };
 
@@ -46,6 +47,12 @@ function LoginFormPage() {
                 />
                 <br></br>
                 <button className='signin' type="submit">Log In</button>
+                <button className='demo-user'
+                    onClick={() => {
+                        setCredential("jojoG")
+                        setPassword("password")
+                    }}
+                    type="submit">Demo User</button>
                 <br></br>
                 <ul>
                     {errors.map((error, idx) => <li key={idx}>{error}</li>)}
