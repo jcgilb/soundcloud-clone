@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from 'react-router-dom';
 import { updateSong, getSongs } from "../../store/songs.js"
 import DeleteSong from "../DeleteSong";
+import { getAlbums } from '../../store/albums.js';
 import "./UpdateSong.css"
 
 const UpdateSong = () => {
@@ -11,6 +12,7 @@ const UpdateSong = () => {
     const [url, setUrl] = useState('');
     const [albumId, setAlbumId] = useState();
     const [validationErrors, setValidationErrors] = useState([]);
+    const [albumSelect, setAlbumSelect] = useState([])
     const dispatch = useDispatch();
     const history = useHistory();
     let { songId } = useParams();
@@ -24,6 +26,16 @@ const UpdateSong = () => {
     useEffect(() => {
         dispatch(getSongs())
     }, [dispatch]);
+
+    useEffect(() => {
+        dispatch(getAlbums());
+    }, [dispatch]);
+
+    const user = useSelector(state => state.session.user);
+    const albums = useSelector(state => state.albums);
+    const albumsArr = Object.values(albums);
+    let userAlbums = albumsArr.filter(album => album.userId === user.id)
+    console.log(userAlbums)
 
     const revert = () => {
         setTitle('');
@@ -41,6 +53,8 @@ const UpdateSong = () => {
         // if (isNaN(albumId) && albumId) errors.push(`"${albumId}" is not a valid integer.`)
         setValidationErrors(errors);
     }, [title, url, albumId, thisSong.albumId]);
+
+    const updateAlbum = (e) => setAlbumSelect(e.target.value);
 
     const handleSubmit = async (e) => {
         // setShowForm(false);
@@ -69,7 +83,7 @@ const UpdateSong = () => {
 
                 <form className="edit-song-form" onSubmit={handleSubmit}>
 
-                    <div className="edit-title">Edit song detais below:</div>
+                    <div className="edit-title">Edit song details below:</div>
 
                     <input
                         type="title"
@@ -86,12 +100,18 @@ const UpdateSong = () => {
                         placeholder="Url"
                         value={url}
                         onChange={(e) => setUrl(e.target.value)} />
-                    <input
+                    <select onChange={updateAlbum} value={albumSelect} placeholder="Select an album">
+                        <option value="" disabled selected>Select an album...</option>
+                        {userAlbums.map(album =>
+                            <option key={album.title}>{album.title}</option>
+                        )}
+                    </select>
+                    {/* <input
                         disabled={thisSong.albumId ? false : true}
                         type="albumId"
                         placeholder="Album Id"
                         value={albumId}
-                        onChange={(e) => setAlbumId(e.target.value)} />
+                        onChange={(e) => setAlbumId(e.target.value)} /> */}
                     <ul className="errors">
                         {validationErrors.length > 0 &&
                             validationErrors.map((err) => <li id="err" key={err}>{err}</li>)}

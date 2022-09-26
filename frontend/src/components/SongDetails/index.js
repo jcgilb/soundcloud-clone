@@ -67,7 +67,9 @@ const SongDetails = () => {
                         </div>
                         <div className="artist-details">
                             <h2>{songFromUrl.title}</h2>
-                            {songFromUrl.Artist.username}
+                            <span>
+                                {songFromUrl.Artist.username}
+                            </span>
                         </div>
                     </div>
                     <div key="image" className="image-url">
@@ -79,7 +81,7 @@ const SongDetails = () => {
                 </div>
                 <div className="edit-song-details">
                     {user.id === songFromUrl.userId &&
-                        <NavLink to={`/songs/${songFromUrl.id}/edit`}>Edit song details</NavLink>
+                        <NavLink style={{ color: "black" }} to={`/songs/${songFromUrl.id}/edit`}>Edit song details</NavLink>
                     }
                 </div>
                 <div className="comments-container">

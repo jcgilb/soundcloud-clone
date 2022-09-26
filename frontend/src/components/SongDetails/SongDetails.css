@@ -26,6 +26,22 @@
     margin-bottom: 80px;
 }
 
+.artist-details h2 {
+    border: 1px solid black;
+    margin-bottom: 8px;
+    color: white;
+    background: rgba(0, 0, 0, .8);
+    padding: 3px;
+}
+
+.artist-details span {
+    border: 1px solid black;
+    color: white;
+    background: rgba(0, 0, 0, .8);
+    padding: 3px;
+}
+
+
 .description {
     display: flex;
     flex-direction: row;

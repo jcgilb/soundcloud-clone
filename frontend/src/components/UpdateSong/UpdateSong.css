@@ -1,7 +1,7 @@
 .wrapper-container {
     display: flex;
     flex-direction: column;
-    border: 5px solid green;
+    /* border: 5px solid green; */
     width: 100%;
 }
 
@@ -66,11 +66,19 @@
     font-weight: light;
 }
 
+.edit-song-details {
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 14px;
+    color: black;
+    opacity: 70%;
+    /* border: 1px solid rgb(224, 224, 224); */
+}
+
 .delete-song {
     border: 3px solid chartreuse;
     border-radius: 4px;
     margin: 0 auto;
-
     height: 30px;
 }
 
