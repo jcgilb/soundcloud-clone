@@ -1,5 +1,7 @@
-![sc-logo-200](https://user-images.githubusercontent.com/106204127/190707497-3631cc4d-b566-41de-bc9a-c3491b98d009.jpg)
+
 # Audio Stratus
+![image](https://user-images.githubusercontent.com/106204127/192257188-d3908931-4361-4c46-a90e-b4404609dd76.png)
+
 
 ***
 ### A SoundCloud Clone
