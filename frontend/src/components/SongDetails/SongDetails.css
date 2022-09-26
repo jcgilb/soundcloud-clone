@@ -52,6 +52,7 @@
 
 .fa-circle-play {
     color: #F26F23;
+    cursor: pointer;
 }
 
 .play-current-song {
