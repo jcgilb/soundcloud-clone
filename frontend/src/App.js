@@ -10,6 +10,7 @@ import Player from "./components/AudioPlayer"
 import CreateNewSong from "./components/CreateNewSong"
 import UpdateSong from "./components/UpdateSong"
 import SplashPage from "./components/SplashPage"
+import { getSongs } from "./store/songs";
 import * as sessionActions from "./store/session";
 
 function App() {
@@ -17,6 +18,10 @@ function App() {
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(getSongs())
   }, [dispatch]);
 
   const songs = useSelector(state => state.songs)

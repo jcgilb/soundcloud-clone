@@ -1,10 +1,10 @@
-
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { getSongs, playASong } from "../../store/songs.js"
 import { NavLink } from 'react-router-dom';
 import { useIsPaused } from '../../context/IsPausedContext.js';
 import "./SplashPage.css"
+
 const SplashPage = ({ songs }) => {
 
     const curSong = useSelector(state => state.songs.currentSong)
@@ -12,13 +12,17 @@ const SplashPage = ({ songs }) => {
     const dispatch = useDispatch();
     const { setIsPaused } = useIsPaused();
 
-    // const songsObj = useSelector(state => state.songs)
-    let myMap = Object.values(songs).slice(0, 10);
+    const songsObj = useSelector(state => state.songs)
 
     useEffect(() => {
         dispatch(getSongs());
     }, [dispatch]);
-    // if (!myMap.length) return null;
+
+    // const songsObj = useSelector(state => state.songs)
+    let myMap = Object.values(songs).slice(0, 10);
+    console.log("my songgs", myMap)
+
+    if (!myMap.length) return null;
 
     return (
         <div className="main-container-div">
@@ -38,12 +42,12 @@ const SplashPage = ({ songs }) => {
                                             e.preventDefault();
                                             await dispatch(playASong(song.id))
                                         }}>
-                                        <i class="fas fa-light fa-circle-play fa-2xl"></i>
+                                        <i className="fas fa-light fa-circle-play fa-2x"></i>
                                     </div>
                                 </div>
                                 <div className="title-nav">
-                                    <NavLink className={song.id} key={song.id} to={`/songs/${song.id}`}>{song.title}</NavLink>
-                                    <p id="artist-name"> {song.Artist.username}</p>
+                                    <NavLink key={song.id} to={`/songs/${song.id}`}>{song.title}</NavLink>
+                                    <p id="artist-name"> {song.Artist?.username}</p>
                                 </div>
                             </div>
                         </div>
