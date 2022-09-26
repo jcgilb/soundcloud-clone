@@ -12,6 +12,8 @@ import "./SongDetails.css"
 const SongDetails = () => {
     const curSong = useSelector(state => state.songs.currentSong)
     const [currentSong, setCurrentSong] = useState(curSong)
+    const [color1, setColor1] = useState(1);
+    const [color2, setColor2] = useState(1);
     const dispatch = useDispatch();
     const { setIsPaused } = useIsPaused();
     let { songId } = useParams();
@@ -23,15 +25,35 @@ const SongDetails = () => {
 
     useEffect(() => {
         dispatch(getOneSong(songId));
+        setColor1(one)
+        setColor2(two)
     }, [dispatch, songId]);
+
+    // random color
+    const getColor = () => {
+        const hexChars = "0123456789abcdef";
+        let hex = "#";
+        for (let i = 0; i < 6; i++) {
+            hex += hexChars[Math.floor(Math.random() * hexChars.length)];
+        }
+        return hex;
+    };
+
+    const one = getColor();
+    const two = getColor();
+
+    const randomGradient = {
+        background: `linear-gradient(to right, ${color1}, ${color2})`
+    }
 
     if (!songFromUrl) return null;
 
     return (
         <>
             <div className="one-song">
-                <div className="song-details">
-
+                <div className="song-details"
+                    style={randomGradient}
+                >
                     <div key="desc" className="description">
                         <div key="play" className="play-current-song">
                             <div className="press-play"
@@ -39,7 +61,7 @@ const SongDetails = () => {
                                     e.preventDefault();
                                     await dispatch(playASong(songFromUrl.id))
                                 }}>
-                                <i class="fas fa-light fa-circle-play fa-2xl"></i>
+                                <i className="fas fa-light fa-circle-play fa-4x"></i>
                             </div>
 
                         </div>

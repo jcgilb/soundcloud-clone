@@ -12,13 +12,13 @@ const SplashPage = ({ songs }) => {
     const dispatch = useDispatch();
     const { setIsPaused } = useIsPaused();
 
-    const songsObj = useSelector(state => state.songs)
-    let myMap = Object.values(songsObj).slice(0, 10);
+    // const songsObj = useSelector(state => state.songs)
+    let myMap = Object.values(songs).slice(0, 10);
 
     useEffect(() => {
         dispatch(getSongs());
     }, [dispatch]);
-    if (!myMap.length) return null;
+    // if (!myMap.length) return null;
 
     return (
         <div className="main-container-div">
