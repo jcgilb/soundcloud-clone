@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider as ReduxProvider } from 'react-redux';
+import { ModalProvider } from "./context/Modal";
 import IsPausedProvider from './context/IsPausedContext';
 import './index.css';
 import App from './App';
@@ -28,9 +29,11 @@ function Root() {
   return (
     <ReduxProvider store={store}>
       <IsPausedProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <ModalProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </ModalProvider>
       </IsPausedProvider>
     </ReduxProvider>
   );

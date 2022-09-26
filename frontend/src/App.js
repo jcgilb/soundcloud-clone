@@ -36,12 +36,12 @@ function App() {
           <Route exact path="/">
             <SplashPage songs={songs} />
           </Route>
-          <Route path="/login">
+          {/* <Route path="/login">
             <LoginFormPage />
-          </Route>
-          <Route path="/signup">
+          </Route> */}
+          {/* <Route path="/signup">
             <SignupFormPage />
-          </Route>
+          </Route> */}
           <Route path="/new">
             <CreateNewSong />
           </Route>
