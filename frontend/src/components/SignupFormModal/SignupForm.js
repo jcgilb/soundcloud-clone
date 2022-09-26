@@ -23,13 +23,14 @@ function SignupFormPage() {
         e.preventDefault();
         if (password === confirmPassword) {
             setErrors([]);
-            return dispatch(sessionActions.signup({ email, username, firstName, lastName, password }))
+            dispatch(sessionActions.signup({ email, username, firstName, lastName, password }))
                 .catch(async (res) => {
                     const data = await res.json();
                     if (data && data.errors) setErrors(data.errors);
                     if (!data.errors) return history.push('/songs')
                 });
         }
+        if (errors.length === 0) history.push('/songs')
         return setErrors(['Confirm Password field must be the same as the Password field']);
     };
 

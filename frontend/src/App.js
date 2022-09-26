@@ -30,35 +30,42 @@ function App() {
 
   return (
     <>
+
       <Navigation isLoaded={isLoaded} />
-      {isLoaded && (
-        <Switch>
-          <Route exact path="/">
-            <SplashPage songs={songs} />
-          </Route>
-          {/* <Route path="/login">
+      <div className="overall-container">
+        <div className="inner-container">
+          {isLoaded && (
+            <Switch>
+              <Route exact path="/">
+                <SplashPage songs={songs} />
+              </Route>
+              {/* <Route path="/login">
             <LoginFormPage />
           </Route> */}
-          {/* <Route path="/signup">
+              {/* <Route path="/signup">
             <SignupFormPage />
           </Route> */}
-          <Route path="/new">
-            <CreateNewSong />
-          </Route>
-          <Route exact path="/songs/:songId/edit">
-            <UpdateSong />
-          </Route>
-          <Route exact path='/songs/:songId'>
-            <SongDetails />
-          </Route>
-          <Route exact path='/songs'>
-            <GetAllSongs songs={songs} />
-          </Route>
-        </Switch>
-      )}
-      {!!currentSong.length &&
-        <Player isLoaded={isLoaded} />
-      }
+              <Route path="/new">
+                <CreateNewSong />
+              </Route>
+              <Route exact path="/songs/:songId/edit">
+                <UpdateSong />
+              </Route>
+              <Route exact path='/songs/:songId'>
+                <SongDetails />
+              </Route>
+              <Route exact path='/songs'>
+                <GetAllSongs songs={songs} />
+              </Route>
+
+            </Switch>
+          )}
+        </div>
+        {!!currentSong.length &&
+          <Player isLoaded={isLoaded} />
+        }
+
+      </div>
     </>
   );
 }

@@ -1,8 +1,11 @@
 // frontend/src/components/LoginFormModal/LoginForm.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, useHistory } from 'react-router-dom';
+import { Redirect, useHistory, Link } from 'react-router-dom';
+import { getSongs } from "../../store/songs";
+
+import GetAllSongs from "../GetAllSongs";
 import "./LoginForm.css"
 
 function LoginForm() {
@@ -13,7 +16,7 @@ function LoginForm() {
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState([]);
 
-    if (sessionUser) return <Redirect to="/songs" />;
+    if (sessionUser) <Redirect to="/songs" />
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -21,10 +24,11 @@ function LoginForm() {
         const response = dispatch(sessionActions.login({ credential, password }))
             .catch(async (res) => {
                 const data = await res.json();
+                // console.log("data returned from login", data)
                 if (data && data.errors) setErrors(data.errors);
                 if (!data.errors) return history.push('/songs')
-            }
-            );
+            });
+        if (errors.length === 0) history.push('/songs')
         return response
     };
 

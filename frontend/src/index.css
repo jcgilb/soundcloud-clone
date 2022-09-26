@@ -14,13 +14,33 @@ body {
 
 .root {
     height: 100vh;
+}
 
+.overall-container {
+    background-color: rgb(223, 223, 222);
+    width: 100%;
+
+}
+
+.inner-container {
+    width: 90%;
+    background-color: white;
+    margin: 0 auto;
+
+}
+
+@media screen and (max-width: 900px) {
+    .overall-container {
+        background: white;
+    }
 }
 
 footer {
     position: sticky;
     bottom: 0;
-    width: 100%;
+
+
+    width: 100%
 }
 
 a {

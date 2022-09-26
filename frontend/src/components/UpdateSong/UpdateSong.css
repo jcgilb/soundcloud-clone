@@ -1,3 +1,10 @@
+.wrapper-container {
+    display: flex;
+    flex-direction: column;
+    border: 5px solid green;
+    width: 100%;
+}
+
 .edit-container {
     display: flex;
     flex-direction: column;
@@ -10,7 +17,7 @@
 
 .edit-title {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     padding-bottom: 10px;
@@ -33,6 +40,7 @@
     height: 380px;
     margin-top: 3%;
     padding: 16px;
+    background-color: white;
 
 }
 

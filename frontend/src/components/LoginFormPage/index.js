@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
@@ -14,6 +14,7 @@ function LoginFormPage() {
 
     if (sessionUser) return <Redirect to="/songs" />;
 
+
     const handleSubmit = (e) => {
         e.preventDefault();
         setErrors([]);
@@ -22,6 +23,7 @@ function LoginFormPage() {
                 const data = await res.json();
                 // console.log("data returned from login", data)
                 if (data && data.errors) setErrors(data.errors);
+
                 if (!data.errors) return history.push('/songs')
             });
         // if (errors.length === 0) history.push('/songs')

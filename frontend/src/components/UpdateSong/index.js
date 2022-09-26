@@ -62,45 +62,50 @@ const UpdateSong = () => {
     if (!Object.values(songs).length) return null;
 
     return (
-        <div className='edit-container'>
-            <br></br>
+        <div className="wrapper-container">
 
-            <form className="edit-song-form" onSubmit={handleSubmit}>
+            <div className='edit-container'>
+                <br></br>
 
-                <div className="edit-title">Edit song detais below:</div>
+                <form className="edit-song-form" onSubmit={handleSubmit}>
 
-                <input
-                    type="title"
-                    placeholder="Title"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)} />
-                <input
-                    type="description"
-                    placeholder="description"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)} />
-                <input
-                    type="url"
-                    placeholder="Url"
-                    value={url}
-                    onChange={(e) => setUrl(e.target.value)} />
-                <input
-                    disabled={thisSong.albumId ? false : true}
-                    type="albumId"
-                    placeholder="Album Id"
-                    value={albumId}
-                    onChange={(e) => setAlbumId(e.target.value)} />
-                <ul className="errors">
-                    {validationErrors.length > 0 &&
-                        validationErrors.map((err) => <li id="err" key={err}>{err}</li>)}
-                </ul>
-                <button className='edit-song-submit' type='submit' disabled={!!validationErrors.length}>Submit</button>
-                <div>
-                    < DeleteSong />
-                </div>
-            </form>
+                    <div className="edit-title">Edit song detais below:</div>
+
+                    <input
+                        type="title"
+                        placeholder="Title"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)} />
+                    <input
+                        type="description"
+                        placeholder="description"
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)} />
+                    <input
+                        type="url"
+                        placeholder="Url"
+                        value={url}
+                        onChange={(e) => setUrl(e.target.value)} />
+                    <input
+                        disabled={thisSong.albumId ? false : true}
+                        type="albumId"
+                        placeholder="Album Id"
+                        value={albumId}
+                        onChange={(e) => setAlbumId(e.target.value)} />
+                    <ul className="errors">
+                        {validationErrors.length > 0 &&
+                            validationErrors.map((err) => <li id="err" key={err}>{err}</li>)}
+                    </ul>
+                    <button className='edit-song-submit' type='submit' disabled={!!validationErrors.length}>Submit</button>
+                    <div>
+                        < DeleteSong />
+                    </div>
+                </form>
+
+            </div>
 
         </div>
+
 
 
     );
