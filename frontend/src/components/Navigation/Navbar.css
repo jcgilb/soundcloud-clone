@@ -2,8 +2,13 @@
     box-sizing: border-box;
     /* border: 1px solid blue; */
     font-weight: lighter;
-    color: rgb(192, 192, 192);
+    color: rgb(224, 224, 224);
 
+}
+
+.firstName {
+    font-weight: lighter;
+    color: rgb(224, 224, 224);
 }
 
 .get-songs {
@@ -12,19 +17,19 @@
     align-items: center;
     box-sizing: border-box;
     /* border: 1px solid blue; */
-    color: rgb(192, 192, 192);
+    color: rgb(224, 224, 224);
     font-size: 16px;
 }
 
 .sign-in {
     box-sizing: border-box;
     /* border: 1px solid blue; */
-    color: rgb(192, 192, 192);
+    color: rgb(224, 224, 224);
     cursor: pointer;
 }
 
 .create-account {
-    color: rgb(192, 192, 192);
+    color: rgb(224, 224, 224);
     box-sizing: border-box;
     /* border: 1px solid blue; */
     cursor: pointer;
@@ -36,11 +41,11 @@
     /* border: 1px solid blue; */
     font-weight: lighter;
     margin-left: 30px;
-    color: rgb(192, 192, 192);
+    color: rgb(224, 224, 224);
     position: absolute;
-    top: 3.5px;
+    top: 7px;
     right: 0;
-    font-size: 16px;
+    font-size: 15px;
 }
 
 .logo {
@@ -50,7 +55,7 @@
     justify-content: space-between;
     box-sizing: border-box;
     /* border: 1px solid blue; */
-    color: rgb(192, 192, 192);
+    color: rgb(224, 224, 224);
     font-weight: bold;
     font-size: 18px;
 }
@@ -60,7 +65,12 @@
 } */
 
 .logo img {
-    width: 70px;
-    height: 50px;
+    width: 60px;
+    height: 46px;
     margin-right: 15px;
+    background: rgb(224, 224, 224);
+    border: 1px solid black;
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
+    ;
 }
