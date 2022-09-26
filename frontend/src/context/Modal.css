@@ -34,9 +34,5 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: space-between;
-
-    border-radius: 6px;
     margin: 0 auto;
-
-
 }

@@ -26,9 +26,9 @@ function LoginForm() {
                 const data = await res.json();
                 // console.log("data returned from login", data)
                 if (data && data.errors) setErrors(data.errors);
-                if (!data.errors) return history.push('/songs')
+
             });
-        if (errors.length === 0) history.push('/songs')
+        if (!errors) history.push('/songs')
         return response
     };
 

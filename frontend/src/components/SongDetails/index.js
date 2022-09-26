@@ -68,7 +68,7 @@ const SongDetails = () => {
                         <div className="artist-details">
                             <h2>{songFromUrl.title}</h2>
                             <span>
-                                {songFromUrl.Artist.username}
+                                {songFromUrl?.Artist?.username}
                             </span>
                         </div>
                     </div>

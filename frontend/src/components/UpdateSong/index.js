@@ -52,7 +52,7 @@ const UpdateSong = () => {
         if (!url) errors.push("Audio is required.");
         // if (isNaN(albumId) && albumId) errors.push(`"${albumId}" is not a valid integer.`)
         setValidationErrors(errors);
-    }, [title, url, albumId, thisSong.albumId]);
+    }, [title, url]);
 
     const updateAlbum = (e) => setAlbumSelect(e.target.value);
 
