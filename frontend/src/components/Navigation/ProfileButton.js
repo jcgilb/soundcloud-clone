@@ -44,7 +44,9 @@ function ProfileButton({ user }) {
                 <div className="dropdown-container">
                     <div className="profile-dropdown">
                         <label>{user.username}</label>
+                        <hr></hr>
                         <label>{user.email}</label>
+                        <hr></hr>
                         <label>
                             <button className="logout" onClick={logout}>Log Out</button>
                         </label>
@@ -56,3 +58,7 @@ function ProfileButton({ user }) {
 }
 
 export default ProfileButton;
+
+
+
+

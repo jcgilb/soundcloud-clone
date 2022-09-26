@@ -1,9 +1,13 @@
 button.logout {
-    background-color: rgb(255, 115, 0);
-    border: 1px solid white;
-    cursor: pointer;
-    color: white;
+    border: none;
+    border-radius: 4px;
+    margin: 0 auto;
+    width: 194px;
     height: 30px;
+    background: #F26F23;
+    font-size: 14px;
+    color: white;
+    font-weight: light;
 }
 
 .profile {
@@ -36,15 +40,36 @@ button.logout {
     margin-left: 3px;
 }
 
-/* .dropdown-container {} */
+.dropdown-container {}
 
 .profile-dropdown {
     box-sizing: border-box;
-    border: 3px solid rgb(255, 115, 0);
+    border: 1px solid rgb(224, 224, 224);
     background-color: white;
-    border-radius: 5%;
-
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 100px;
+    top: 43px;
+    right: 30%;
+    font-size: 14px;
+    padding-bottom: none;
+    padding-top: 5px;
 }
+
+.profile-dropdown label {
+    padding: 4px;
+}
+
+hr {
+    width: 100%;
+}
+
+.logout {}
 
 .far-left {
     display: flex;

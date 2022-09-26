@@ -51,7 +51,7 @@ const GetAllComments = () => {
                         <div key={comment.id} className="comment-body">{comment.body}</div>
 
                         <div className="comment-end">
-                            <div key="my-comment">created: {(comment.createdAt).slice(0, 10)}</div>
+                            <div key="my-comment">{user.username} { }: {(comment.createdAt).slice(0, 10)}</div>
                             {comment.userId === user.id &&
                                 <i class="fa-regular fa-trash-can"
                                     onClick={async (e) => {
