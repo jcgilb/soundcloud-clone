@@ -61,10 +61,6 @@ const GetAllComments = () => {
                                     }}></i>
                             }
                         </div>
-
-
-
-
                     </div>
                 ))}
             </div>
