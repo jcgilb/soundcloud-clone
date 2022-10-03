@@ -1,26 +1,27 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { getSongs, playASong } from "../../store/songs.js"
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { useIsPaused } from '../../context/IsPausedContext.js';
 import "./SplashPage.css"
 
 const SplashPage = ({ songs }) => {
-
-    const curSong = useSelector(state => state.songs.currentSong)
-    const [currentSong, setCurrentSong] = useState(curSong)
+    // context for the audio player
+    const { isPaused, setIsPaused } = useIsPaused();
+    // state for controlling whether or not to render the "pause" button
+    const [pauseButton, setPauseButton] = useState(false);
+    const curSong = useSelector(state => state.songs.currentSong);
+    const [currentSong, setCurrentSong] = useState(curSong);
     const dispatch = useDispatch();
-    const { setIsPaused } = useIsPaused();
-
-    const songsObj = useSelector(state => state.songs)
+    const history = useHistory();
 
     useEffect(() => {
         dispatch(getSongs());
     }, [dispatch]);
 
-    // const songsObj = useSelector(state => state.songs)
+    // only show the first 10 songs on the splash page
     let myMap = Object.values(songs).slice(0, 10);
-    console.log("my songgs", myMap)
+    if (!myMap.length) return null;
 
     if (!myMap.length) return null;
 
@@ -37,17 +38,51 @@ const SplashPage = ({ songs }) => {
                             <div key="image" className="image-url">
                                 <div className='album-art'>
                                     <img className="tile" alt={song.id} src={song.imageUrl} />
-                                    <div className="play-button"
-                                        onClick={async (e) => {
-                                            e.preventDefault();
-                                            await dispatch(playASong(song.id))
-                                        }}>
-                                        <i className="fas fa-light fa-circle-play fa-2x"></i>
+                                    <div className="play-pause">
+                                        {/* render a play button on every song */}
+                                        {song !== currentSong &&
+                                            <div className="play-button"
+                                                onClick={async (e) => {
+                                                    e.preventDefault();
+                                                    setCurrentSong(song)
+                                                    await dispatch(playASong(song.id))
+                                                    setIsPaused(false);
+                                                    setPauseButton(true);
+                                                }}><i className="fa-solid fa-play fa-2x"></i>
+                                            </div>
+                                        }
+                                        {!pauseButton &&
+                                            <div className="play-button"
+                                                onClick={async (e) => {
+                                                    e.preventDefault();
+                                                    setCurrentSong(song)
+                                                    await dispatch(playASong(song.id))
+                                                    setIsPaused(false);
+                                                    setPauseButton(true);
+                                                }}><i className="fa-solid fa-play fa-2x"></i>
+                                            </div>
+                                        }
+
+                                        {/* show the paused button after a user presses play */}
+                                        {currentSong === song && pauseButton &&
+                                            <div className="pause-button"
+                                                onClick={async (e) => {
+                                                    e.preventDefault();
+                                                    setIsPaused(true);
+                                                    setPauseButton(false);
+                                                }}><i className="fa-solid fa-pause fa-2x"></i>
+                                            </div>
+                                        }
                                     </div>
                                 </div>
                                 <div className="title-nav">
-                                    <NavLink key={song.id} to={`/songs/${song.id}`}>{song.title}</NavLink>
-                                    <p id="artist-name"> {song.Artist?.username}</p>
+                                    <NavLink style={{ color: "black", textDecoration: "none" }} to={`/songs/${song.id}`}>{song.title}</NavLink>
+                                    <div onClick={(e) => {
+                                        e.preventDefault();
+                                        history.push(`/songs/${song.id}`)
+                                    }}
+                                        className="artist-name">{song.Artist?.username}
+                                    </div>
                                 </div>
                             </div>
                         </div>

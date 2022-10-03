@@ -1,56 +1,61 @@
-import { useIsPaused } from '../../context/IsPausedContext';
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useRef, useEffect } from "react";
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
+import { getSongs } from "../../store/songs"
+import { useIsPaused } from '../../context/IsPausedContext';
 import "./Audio.css";
 
-const Player = () => {
+const Player = ({ songs }) => {
     const { isPaused, setIsPaused } = useIsPaused();
-    // const [trackList, setTrackList] = useState([...songs]);
-    // const [trackIndex, setTrackIndex] = useState();
-    let currentSong = useSelector(state => state.songs.currentSong)
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getSongs())
+    }, [dispatch])
+
+    let currentSong = songs.currentSong;
+    const player = useRef();
 
     if (isPaused === false) {
         if (currentSong) {
-            let audio = document.querySelector("audio.audio")
-            audio.play();
+            player.current.audio.current.play();
             setIsPaused(null);
         }
     }
     if (isPaused) {
         if (currentSong) {
-            let audio = document.querySelector("audio.audio")
-            audio.pause();
-            // console.log("paused is true")
+            player.current.audio.current.pause();
             setIsPaused(null)
         }
     }
 
     return (
-        // load up a playlist so the player always shows
-        <footer>
-            <div className="audio-url">
-                <AudioPlayer
-                    className="audio"
-                    src={currentSong.url}
-                    autoPlay
-                    controls
-                />
+        <>
+            <AudioPlayer className='audio'
+                ref={player}
+                src={currentSong.url}
+                showJumpControls={true}
+                timeFormat={"mm:ss"}
+                onPlay={(e) => {
+                    e.preventDefault();
+                    setIsPaused(false);
+                }}
+                onPause={(e) => {
+                    e.preventDefault();
+                    setIsPaused(true);
+                }}
+                autoPlayAfterSrcChange={true}
+            />
+            <div className="song-details-preview">
+                <img alt='album-art' src={currentSong.imageUrl} />
+                <div>
+                    <div className="track-details">{currentSong.title}</div>
+                    <div className="artist-details">by{" "}{currentSong?.Artist?.username}</div>
+                </div>
             </div>
-        </footer>
-    )
-}
-<>
+        </>
 
-</>
-
+    );
+};
 
 export default Player;
-
-{/* <audio className="audio"
-    id="player"
-    autoPlay
-    play="true"
-    controls
-    src={currentSong.url}
-/> */}
