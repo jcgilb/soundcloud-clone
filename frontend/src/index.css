@@ -1,4 +1,12 @@
 /* Site wide styles */
+:root {
+    --prussian-blue: #023047;
+    --blue-green: #219EBC;
+    --light-cornflower-blue: #8ECAE6;
+    --selective-yellow: #FFB703;
+    --tangerine: #FB8500;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -17,30 +25,70 @@ body {
 }
 
 .overall-container {
-    background-color: rgb(223, 223, 222);
+    background-color: rgba(2, 48, 71, .1);
     width: 100%;
-
+    height: fit-content;
+    padding-bottom: 88px;
+    position: relative;
+    z-index: 0;
 }
 
 .inner-container {
-    width: 90%;
+    width: 85%;
     background-color: white;
     margin: 0 auto;
+    padding-bottom: 300px;
+    position: relative;
+    z-index: 0;
 
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1000px) {
     .overall-container {
         background: white;
     }
+
+    .inner-container {
+        width: 90%
+    }
+
+    footer {
+        padding-left: 1% !important;
+        padding-right: 1% !important;
+    }
 }
 
-footer {
-    position: sticky;
+.rhap_container {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    width: 70%;
+}
+
+/* footer {
+    position: fixed;
     bottom: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    background: rgb(224, 234, 238);
+    padding-left: 10%;
+} */
 
-
-    width: 100%
+footer {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    box-sizing: border-box;
+    display: flex;
+    height: 90px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    background: rgb(224, 234, 238);
+    padding-left: 7.5%;
+    padding-right: 7.5%;
 }
 
 a {
@@ -85,7 +133,6 @@ a {
     box-sizing: border-box;
     border: 5px solid hotpink;
     width: 100%;
-    /* height: 100vh; */
 }
 
 .songs-container {
@@ -102,5 +149,5 @@ a {
 }
 
 .rhap_time {
-    color: #F26F23;
+    color: #023047;
 }

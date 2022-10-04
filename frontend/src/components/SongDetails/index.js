@@ -80,7 +80,7 @@ const SongDetails = () => {
 
                 </div>
                 <div className="edit-song-details">
-                    {user.id === songFromUrl.userId &&
+                    {user?.id === songFromUrl.userId &&
                         <NavLink style={{ color: "black" }} to={`/songs/${songFromUrl.id}/edit`}>Edit song details</NavLink>
                     }
                 </div>

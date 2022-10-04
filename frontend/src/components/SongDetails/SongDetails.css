@@ -3,7 +3,7 @@
     flex-direction: column;
     box-sizing: border-box;
     /* border: 4px solid royalblue; */
-    width: 95%;
+    width: 100%;
     height: 100vh;
     margin: 0 auto;
 }
@@ -18,7 +18,7 @@
     justify-content: space-between;
     height: 420px;
     margin: 20px;
-    margin-top: 0;
+    margin-top: 50px;
 }
 
 .song-details img {
@@ -75,6 +75,8 @@
     box-sizing: border-box;
     /* border: 4px solid yellow; */
     margin-left: 20px;
+    padding-bottom: 120px;
+
 }
 
 .rhap_time {

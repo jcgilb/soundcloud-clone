@@ -6,54 +6,109 @@ import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 import './Navbar.css';
 
+import "../LoginFormModal/LoginForm.css"
+
 function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
     let sessionLinks;
     if (sessionUser) {
         sessionLinks = (
-            <>
-                <div className='get-songs'>
-                    <NavLink className='get-songs' exact to="/songs">Home</NavLink>
+            <div className="session-links">
+                <div id="logged-in-links">
+                    <NavLink style={{ color: "white" }} className='get-songs' exact to="/songs">Home</NavLink>
+                    <ProfileButton user={sessionUser} />
+                    <NavLink style={{ color: "white" }} className='create-song' exact to="/new">Upload</NavLink>
                 </div>
-                <div className='create-song'>
-                    <NavLink className='create-song' exact to="/new">Upload</NavLink>
-                </div>
-                <ProfileButton user={sessionUser} />
-            </>
+
+            </div>
+
         );
     } else {
         sessionLinks = (
-            <>
-                {/* <div className='sign-in'>
-                    <NavLink className='sign-in' to="/login">Sign in</NavLink>
+            <div className="login-signup-links">
+                <div id="login">
+                    <LoginFormModal />
                 </div>
-                <div className='create-account'>
-                    <NavLink className='create-account' to="/signup">Create account</NavLink>
-                </div> */}
-                <LoginFormModal />
-                <SignupFormModal />
-                {/* <NavLink to="/signup">Sign Up</NavLink> */}
-            </>
+                <div id="signup">
+                    <SignupFormModal />
+                </div>
+
+            </div>
         );
     }
 
     return (
-        <div className="navigation">
-            <div className="nav-container">
-                <div className="far-left">
-                    <div className="logo">
-                        <img alt="stratus" src={"https://res.cloudinary.com/ddmb8mrlb/image/upload/v1664089676/icons/1146940_atdw8f.png"} />
-                        {/* <i class="fas fa-brands fa-soundcloud fa-3x" ></i> */}
-                        AUDIO STRATUS
-                    </div>
+        <div className="navbar-container">
+            <div className="outer-empty-nav"></div>
+            <div className="logo-container">
+                <div className="title-container">
+                    AUDIO STRATUS
                 </div>
-                <div className="far-right">
-                    {isLoaded && sessionLinks}
+                <div className="logo">
+                    <img className="logo" alt=" stratus" src={"https://res.cloudinary.com/ddmb8mrlb/image/upload/v1664661127/icons/image_m12nib.png"} />
                 </div>
             </div>
-        </div >
+            <div className="middle-empty-nav"></div>
+            <div className="navbar-links">
+                {isLoaded && sessionLinks}
+            </div>
+            <div className="outer-empty-nav"></div>
+
+        </div>
     );
-};
+}
 
 export default Navigation;
+
+// function Navigation({ isLoaded }) {
+//     const sessionUser = useSelector(state => state.session.user);
+//     let sessionLinks;
+//     if (sessionUser) {
+//         sessionLinks = (
+//             <div className="session-links">
+//                 <div id="logged-in-links">
+//                     <div className='get-songs'>
+//                         <NavLink className='get-songs' exact to="/songs">Home</NavLink>
+//                     </div>
+//                     <div className='create-song'>
+//                         <NavLink className='create-song' exact to="/new">Upload</NavLink>
+//                     </div>
+//                     <ProfileButton user={sessionUser} />
+//                 </div>
+//             </div>
+//         );
+//     } else {
+//         sessionLinks = (
+//             <>
+//                 <div className="login-signup-links">
+//                     <div id="login">
+//                         <LoginFormModal />
+//                     </div>
+//                     <div id="signup">
+//                         <SignupFormModal />
+//                     </div>
+
+//                 </div>
+//             </>
+//         );
+//     }
+
+//     return (
+//         <div className="navigation">
+//             <div className="nav-container">
+//                 <div className="far-left">
+//                     <div className="logo">
+//                         <img alt="stratus" src={"https://res.cloudinary.com/ddmb8mrlb/image/upload/v1664089676/icons/1146940_atdw8f.png"} />
+//                         AUDIO STRATUS
+//                     </div>
+//                 </div>
+//                 <div className="far-right">
+//                     {isLoaded && sessionLinks}
+//                 </div>
+//             </div>
+//         </div >
+//     );
+// };
+
+// export default Navigation;
 

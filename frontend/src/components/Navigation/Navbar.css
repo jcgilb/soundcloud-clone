@@ -1,6 +1,80 @@
-.home {
+.navbar-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 100%;
+    margin: 0 auto;
+    height: 52px;
+    top: 0;
+    background-color: #023047;
+    position: fixed;
+    z-index: 1;
+}
+
+.navbar-links {
+    /* border: 1px solid chartreuse; */
+    width: 30%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#logged-in-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.logo-container {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: center;
+    /* border: 1px solid red; */
+    width: 20%;
+    color: white;
+    font-size: 20px;
+}
+
+.login-signup-links {
+    display: flex;
+    flex-direction: row;
+}
+
+#login,
+#signup {
+    margin-left: 10px;
+}
+
+.logo {
+    width: 60px;
+    margin-right: 10px;
+}
+
+.middle-empty-nav {
+    /* border: 1px solid plum; */
+    width: 30%;
+}
+
+.outer-empty-nav {
+    width: 9.7%;
+    /* border: 1px solid royalblue; */
+}
+
+@media screen and (max-width: 1000px) {
+    .outer-empty-nav {
+        width: 7.5%;
+    }
+
+    .middle-empty-nav {
+        width: 37.5%;
+    }
+}
+
+/* .home {
     box-sizing: border-box;
-    /* border: 1px solid blue; */
     font-weight: lighter;
     color: rgb(224, 224, 224);
 
@@ -16,14 +90,12 @@
     flex: row;
     align-items: center;
     box-sizing: border-box;
-    /* border: 1px solid blue; */
     color: rgb(224, 224, 224);
     font-size: 16px;
 }
 
 .sign-in {
     box-sizing: border-box;
-    /* border: 1px solid blue; */
     color: rgb(224, 224, 224);
     cursor: pointer;
 }
@@ -31,7 +103,6 @@
 .create-account {
     color: rgb(224, 224, 224);
     box-sizing: border-box;
-    /* border: 1px solid blue; */
     cursor: pointer;
 
 }
@@ -44,7 +115,6 @@
 
 .create-song {
     box-sizing: border-box;
-    /* border: 1px solid blue; */
     font-weight: lighter;
     margin-left: 30px;
     color: rgb(224, 224, 224);
@@ -60,20 +130,10 @@
     align-items: center;
     justify-content: space-between;
     box-sizing: border-box;
-    /* border: 1px solid blue; */
     color: rgb(224, 224, 224);
     font-weight: bold;
     font-size: 18px;
 }
-
-/* .fa-soundcloud {
-    margin-right: 15px;
-} */
-
-/* div.logo {
-    border-right: 1px solid black;
-    padding-right: 14px;
-} */
 
 .logo img {
     width: 66px;
@@ -84,4 +144,4 @@
     border-bottom: 2px solid black;
     border-top: 2px solid black;
     ;
-}
+} */

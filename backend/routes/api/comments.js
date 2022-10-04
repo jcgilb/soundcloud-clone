@@ -20,7 +20,9 @@ const router = express.Router();
 // Get all comments
 // Authentication: false
 router.get('/', async (req, res) => {
-    const comments = await Comment.findAll();
+    const comments = await Comment.findAll({
+        include: { model: User }
+    });
     return res.json(comments);
 });
 

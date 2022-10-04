@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSongs, playASong } from "../../store/songs.js"
 import { NavLink } from 'react-router-dom';
 import { useIsPaused } from '../../context/IsPausedContext.js';
-// import "./GetAllSongs.css"
+import "./GetAllSongs.css"
 import "../SplashPage/SplashPage.css"
 
 const GetAllSongs = () => {

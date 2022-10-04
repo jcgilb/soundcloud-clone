@@ -62,7 +62,9 @@ function App() {
           )}
         </div>
         {!!currentSong.length &&
-          <Player songs={songs} isLoaded={isLoaded} />
+          <footer>
+            <Player songs={songs} isLoaded={isLoaded} />
+          </footer>
         }
 
       </div>
