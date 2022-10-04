@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useReducer, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from 'react-router-dom';
 import { createComment } from "../../store/comments.js"
@@ -12,6 +12,7 @@ const CreateNewComment = () => {
     songId = parseInt(songId);
     const songs = useSelector(state => state.songs)
     const song = Object.values(songs).find((song) => song.id === parseInt(songId));
+    const user = useSelector(state => state.session.user)
 
     const revert = () => {
         setBody('');
@@ -19,6 +20,10 @@ const CreateNewComment = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (user === null) {
+            alert("Please log in or create an account to post comments.");
+            revert();
+        }
         const newComment = {
             body
         }
@@ -37,6 +42,7 @@ const CreateNewComment = () => {
                     type="body"
                     placeholder="Write a comment"
                     value={body}
+                    required
                     onChange={(e) => setBody(e.target.value)} />
                 <button className='new-comment' type='submit'> Submit </button>
             </form>

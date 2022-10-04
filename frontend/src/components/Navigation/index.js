@@ -15,9 +15,9 @@ function Navigation({ isLoaded }) {
         sessionLinks = (
             <div className="session-links">
                 <div id="logged-in-links">
-                    <NavLink style={{ color: "white" }} className='get-songs' exact to="/songs">Home</NavLink>
+                    <NavLink style={{ color: "white", marginLeft: "10px", marginRight: "10px" }} className='get-songs' exact to="/songs">Home</NavLink>
+                    <NavLink style={{ color: "white", marginLeft: "10px", marginRight: "10px" }} className='create-song' exact to="/new">Upload</NavLink>
                     <ProfileButton user={sessionUser} />
-                    <NavLink style={{ color: "white" }} className='create-song' exact to="/new">Upload</NavLink>
                 </div>
 
             </div>
