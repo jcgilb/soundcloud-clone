@@ -51,16 +51,22 @@ hr {
 
 }
 
-
-
 .artist-name {
     font-size: 13px;
     /* font-weight: bold; */
-    color: rgba(0, 0, 0, .5)
+    color: rgba(0, 0, 0, .5);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
 }
 
 .artist-info {
     font-size: 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
 }
 
 .song-card {

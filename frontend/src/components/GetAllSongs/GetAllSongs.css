@@ -96,6 +96,10 @@ img.tile {
     font-size: .8rem;
     opacity: 60%;
     box-sizing: border-box;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 160px;
 
 }
 
@@ -104,6 +108,10 @@ img.tile {
     flex-direction: column;
     justify-content: flex-start;
     box-sizing: border-box;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 160px;
 }
 
 .play-pause {
