@@ -17,13 +17,20 @@ hr {
     margin-top: 50px;
 }
 
+.top-splash {
+    width: 95%;
+    margin: 0 auto;
+}
+
+
 .img-splash {
-    /* border: 1px solid red; */
     width: 100%;
 }
 
 .middle-splash {
     /* border: 1px solid chartreuse; */
+    width: 95%;
+    margin: 0 auto;
     height: 120px;
     display: flex;
     flex-direction: row;
@@ -41,7 +48,10 @@ hr {
     width: 150px;
     height: 150px;
     z-index: 0;
+
 }
+
+
 
 .artist-name {
     font-size: 13px;
@@ -59,10 +69,10 @@ hr {
     height: 195px;
     display: flex;
     flex-direction: column;
-    /* border: 1px solid blue; */
     justify-content: flex-end;
     align-items: center;
     z-index: 0;
+    margin: 3px;
 }
 
 #inner-song-card {

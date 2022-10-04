@@ -35,7 +35,6 @@
 }
 
 .login-container label {
-
     margin: 0 auto;
     width: 100%;
     height: 30px;
@@ -51,7 +50,7 @@
     margin: 0 auto;
     width: 100%;
     height: 30px;
-    background: #F26F23;
+    background: var(--selective-yellow);
     font-size: 14px;
     color: white;
     font-weight: light;
@@ -66,7 +65,7 @@
     margin: 0 auto;
     width: 100%;
     height: 30px;
-    background: #F26F23;
+    background: var(--selective-yellow);
     font-size: 14px;
     color: white;
     font-weight: light;
