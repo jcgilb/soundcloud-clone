@@ -37,7 +37,7 @@ const GetAllSongs = () => {
                             <div className="song-tile">
                                 <div key="image" className="image-url">
                                     <div className='album-art'>
-                                        <img className="tile" alt={song.id} src={song.imageUrl} />
+                                        <img style={{ borderRadius: "4px", textDecoration: "none" }} className="tile" alt={song.id} src={song.imageUrl} />
                                         <div className="play-pause">
                                             {/* render a play button on every song */}
                                             {song !== currentSong &&
@@ -76,7 +76,7 @@ const GetAllSongs = () => {
                                         </div>
                                     </div>
                                     <div className="title-nav">
-                                        <NavLink className={song.id} key={song.id} to={`/songs/${song.id}`}>{song.title}</NavLink>
+                                        <NavLink style={{ color: "black", fontSize: "14.5px", textDecoration: "none" }} className={song.id} key={song.id} to={`/songs/${song.id}`}>{song.title}</NavLink>
                                         <p id="artist-name"> {song.Artist.username}</p>
                                     </div>
                                 </div>
@@ -84,54 +84,8 @@ const GetAllSongs = () => {
                         ))}
                     </div>
                 </div>
-
-
             </div >
-
-
         </div>
-        // <div className="songs">
-        //     <div className="songs-container">
-        //         <div className="grid">
-        //             {myMap.map((song) => (
-        //                 <div className="song-card">
-        //                     <div key="image" className="image-url">
-        //                         <div className='album-cover'>
-        //                             <img className="card" alt={song.id} src={song.imageUrl} />
-        //                             <div className="press-play"
-        //                                 onClick={async (e) => {
-        //                                     e.preventDefault();
-        //                                     await dispatch(playASong(song.id))
-        //                                 }}>
-        //                                 <i class="fas fa-light fa-circle-play fa-2xl"></i>
-        //                             </div>
-        //                         </div>
-        //                         <div className="title-nav">
-        //                             <NavLink className={song.id} key={song.id} to={`/songs/${song.id}`}>{song.title}</NavLink>
-        //                             <p id="artist-name"> {song.Artist.username}</p>
-        //                         </div>
-        //                     </div>
-        //                 </div>
-        //             ))}
-        //         </div>
-        //     </div>
-        // </div >
     );
 };
 export default GetAllSongs;
-
-
-{/* <div key="play" className="play-current-song">
-    <button onClick={() => {
-        setCurrentSong(song)
-    }}> ... </button>
-    {currentSong === song &&
-        <>
-            <button className="press-play" onClick={async () => {
-                setIsPaused(false)
-                await dispatch(playASong(song.id))
-            }}>Play</button>
-            <button className="press-pause" onClick={() => setIsPaused(true)}>Pause</button>
-        </>
-    }
-</div> */}

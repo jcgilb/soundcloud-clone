@@ -59,13 +59,6 @@ const SongDetails = () => {
                 >
                     <div key="desc" className="description">
                         <div key="play" className="play-current-song">
-                            {/* <div className="press-play"
-                                onClick={async (e) => {
-                                    e.preventDefault();
-                                    await dispatch(playASong(songFromUrl.id))
-                                }}>
-                                <i className="fas fa-light fa-circle-play fa-4x"></i>
-                            </div> */}
                             {!pauseButton &&
                                 <div className="press-play"
                                     onClick={async (e) => {
@@ -77,7 +70,6 @@ const SongDetails = () => {
                                     }}><i style={{ cursor: "pointer" }} className="fa-solid fa-play fa-4x"></i>
                                 </div>
                             }
-
                             {/* show the paused button after a user presses play */}
                             {currentSong === songFromUrl && pauseButton &&
                                 <div className="press-pause"
@@ -88,7 +80,6 @@ const SongDetails = () => {
                                     }}><i style={{ cursor: "pointer" }} className="fa-solid fa-pause fa-4x"></i>
                                 </div>
                             }
-
                         </div>
                         <div className="artist-details">
                             <h2>{songFromUrl.title}</h2>
@@ -98,11 +89,8 @@ const SongDetails = () => {
                         </div>
                     </div>
                     <div key="image" className="individual-song-image-url">
-
-                        <img alt={songFromUrl.id} src={songFromUrl.imageUrl} />
-
+                        <img style={{ borderRadius: "4px" }} alt={songFromUrl.id} src={songFromUrl.imageUrl} />
                     </div>
-
                 </div>
                 <div className="edit-song-details">
                     {user?.id === songFromUrl.userId &&
@@ -113,7 +101,6 @@ const SongDetails = () => {
                     <div className="leave-comment">
                         <CreateNewComment />
                     </div>
-
                     <GetAllComments />
                 </div>
             </div>

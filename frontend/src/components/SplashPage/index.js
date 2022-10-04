@@ -40,7 +40,7 @@ const SplashPage = ({ songs }) => {
                         <div className="song-card">
                             <div id="inner-song-card">
                                 <div className='album-cover'>
-                                    <img alt="album-cover" src={`${song.imageUrl}`} />
+                                    <img style={{ borderRadius: "4px" }} alt="album-cover" src={`${song.imageUrl}`} />
                                     <div className="play-pause">
                                         {/* render a play button on every song */}
                                         {song !== currentSong &&
@@ -79,7 +79,7 @@ const SplashPage = ({ songs }) => {
                                     </div>
                                 </div>
                                 <div className="artist-info">
-                                    <NavLink style={{ color: "black", textDecoration: "none" }} to={`/songs/${song.id}`}>{song.title}</NavLink>
+                                    <NavLink style={{ color: "black", fontSize: "14.5px", textDecoration: "none" }} to={`/songs/${song.id}`}>{song.title}</NavLink>
                                     <div onClick={(e) => {
                                         e.preventDefault();
                                         history.push(`/songs/${song.id}`)
