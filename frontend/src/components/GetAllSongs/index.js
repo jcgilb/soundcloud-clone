@@ -7,10 +7,13 @@ import "./GetAllSongs.css"
 import "../SplashPage/SplashPage.css"
 
 const GetAllSongs = () => {
-    const curSong = useSelector(state => state.songs.currentSong)
-    const [currentSong, setCurrentSong] = useState(curSong)
+    // context for the audio player
+    const { isPaused, setIsPaused } = useIsPaused();
+    // state for controlling whether or not to render the "pause" button
+    const [pauseButton, setPauseButton] = useState(false);
+    const curSong = useSelector(state => state.songs.currentSong);
+    const [currentSong, setCurrentSong] = useState(curSong);
     const dispatch = useDispatch();
-    const { setIsPaused } = useIsPaused();
 
     const songsObj = useSelector(state => state.songs)
     let myMap = Object.values(songsObj).slice(0, Object.values(songsObj).length - 1)
@@ -23,7 +26,7 @@ const GetAllSongs = () => {
 
         <div className="main-container-div">
             <div className='main-top-div'>
-                {/* <img alt="main-background" src={"https://res.cloudinary.com/ddmb8mrlb/image/upload/v1664141664/backgrounds/sc_landing_header_web_b-447230ef_pzqzhn.jpg"} /> */}
+
             </div>
             <div className='main-middle-div'>
                 <div className='title-container'>
@@ -35,12 +38,41 @@ const GetAllSongs = () => {
                                 <div key="image" className="image-url">
                                     <div className='album-art'>
                                         <img className="tile" alt={song.id} src={song.imageUrl} />
-                                        <div className="play-button"
-                                            onClick={async (e) => {
-                                                e.preventDefault();
-                                                await dispatch(playASong(song.id))
-                                            }}>
-                                            <i class="fas fa-light fa-circle-play fa-2xl"></i>
+                                        <div className="play-pause">
+                                            {/* render a play button on every song */}
+                                            {song !== currentSong &&
+                                                <div className="play-button"
+                                                    onClick={async (e) => {
+                                                        e.preventDefault();
+                                                        setCurrentSong(song)
+                                                        await dispatch(playASong(song.id))
+                                                        setIsPaused(false);
+                                                        setPauseButton(true);
+                                                    }}><i className="fa-solid fa-play fa-2x"></i>
+                                                </div>
+                                            }
+                                            {!pauseButton &&
+                                                <div className="play-button"
+                                                    onClick={async (e) => {
+                                                        e.preventDefault();
+                                                        setCurrentSong(song)
+                                                        await dispatch(playASong(song.id))
+                                                        setIsPaused(false);
+                                                        setPauseButton(true);
+                                                    }}><i className="fa-solid fa-play fa-2x"></i>
+                                                </div>
+                                            }
+
+                                            {/* show the paused button after a user presses play */}
+                                            {currentSong === song && pauseButton &&
+                                                <div className="pause-button"
+                                                    onClick={async (e) => {
+                                                        e.preventDefault();
+                                                        setIsPaused(true);
+                                                        setPauseButton(false);
+                                                    }}><i className="fa-solid fa-pause fa-2x"></i>
+                                                </div>
+                                            }
                                         </div>
                                     </div>
                                     <div className="title-nav">

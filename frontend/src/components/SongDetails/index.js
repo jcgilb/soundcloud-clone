@@ -10,12 +10,15 @@ import { NavLink } from "react-router-dom";
 import "./SongDetails.css"
 
 const SongDetails = () => {
-    const curSong = useSelector(state => state.songs.currentSong)
-    const [currentSong, setCurrentSong] = useState(curSong)
+    // context for the audio player
+    const { isPaused, setIsPaused } = useIsPaused();
+    // state for controlling whether or not to render the "pause" button
+    const [pauseButton, setPauseButton] = useState(false);
+    const curSong = useSelector(state => state.songs.currentSong);
+    const [currentSong, setCurrentSong] = useState(curSong);
     const [color1, setColor1] = useState(1);
     const [color2, setColor2] = useState(1);
     const dispatch = useDispatch();
-    const { setIsPaused } = useIsPaused();
     let { songId } = useParams();
     const songs = useSelector(state => state.songs);
     const user = useSelector(state => state.session.user);
@@ -56,13 +59,35 @@ const SongDetails = () => {
                 >
                     <div key="desc" className="description">
                         <div key="play" className="play-current-song">
-                            <div className="press-play"
+                            {/* <div className="press-play"
                                 onClick={async (e) => {
                                     e.preventDefault();
                                     await dispatch(playASong(songFromUrl.id))
                                 }}>
                                 <i className="fas fa-light fa-circle-play fa-4x"></i>
-                            </div>
+                            </div> */}
+                            {!pauseButton &&
+                                <div className="press-play"
+                                    onClick={async (e) => {
+                                        e.preventDefault();
+                                        setCurrentSong(songFromUrl)
+                                        await dispatch(playASong(songFromUrl.id))
+                                        setIsPaused(false);
+                                        setPauseButton(true);
+                                    }}><i style={{ cursor: "pointer" }} className="fa-solid fa-play fa-4x"></i>
+                                </div>
+                            }
+
+                            {/* show the paused button after a user presses play */}
+                            {currentSong === songFromUrl && pauseButton &&
+                                <div className="press-pause"
+                                    onClick={async (e) => {
+                                        e.preventDefault();
+                                        setIsPaused(true);
+                                        setPauseButton(false);
+                                    }}><i style={{ cursor: "pointer" }} className="fa-solid fa-pause fa-4x"></i>
+                                </div>
+                            }
 
                         </div>
                         <div className="artist-details">

@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
     width: 80%;
     margin: 0 auto;
     height: 100vh;
@@ -37,6 +36,7 @@
     background: black;
     height: 55px;
 }
+
 
 .upload-song-form {
     display: flex;

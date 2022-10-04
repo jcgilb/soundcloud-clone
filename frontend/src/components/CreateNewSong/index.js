@@ -23,7 +23,7 @@ const CreateNewSong = () => {
     const user = useSelector(state => state.session.user);
     const albums = useSelector(state => state.albums);
     const albumsArr = Object.values(albums);
-    let userAlbums = albumsArr.filter(album => album.userId === user.id)
+    let userAlbums = albumsArr.filter(album => album.userId === user?.id)
     console.log(userAlbums)
 
     // form validations
