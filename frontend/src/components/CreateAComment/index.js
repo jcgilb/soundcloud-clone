@@ -46,7 +46,6 @@ const CreateNewComment = () => {
                     onChange={(e) => setBody(e.target.value)} />
                 <button className='new-comment' type='submit'> Submit </button>
             </form>
-
         </div>
     );
 };
