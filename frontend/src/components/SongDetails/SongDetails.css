@@ -26,10 +26,12 @@
     justify-content: flex-start;
     align-items: flex-end;
     width: fit-content;
-    padding-top: 60px;
+    /* padding-top: 60px;
     padding-bottom: 80px;
-    padding-right: 60px;
+    padding-right: 60px; */
     padding-left: none;
+    margin-top: 60px;
+    margin-right: 60px;
 
 }
 
