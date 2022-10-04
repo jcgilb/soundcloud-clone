@@ -72,7 +72,7 @@ const SongDetails = () => {
                             </span>
                         </div>
                     </div>
-                    <div key="image" className="image-url">
+                    <div key="image" className="individual-song-image-url">
 
                         <img alt={songFromUrl.id} src={songFromUrl.imageUrl} />
 

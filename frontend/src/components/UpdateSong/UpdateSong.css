@@ -1,7 +1,7 @@
 .wrapper-container {
     display: flex;
     flex-direction: column;
-    /* border: 5px solid green; */
+    margin-top: 50px;
     width: 100%;
 }
 
@@ -60,7 +60,7 @@
     margin: 0 auto;
     width: 100%;
     height: 30px;
-    background: #F26F23;
+    background: var(--selective-yellow);
     font-size: 14px;
     color: white;
     font-weight: light;
@@ -76,7 +76,6 @@
 }
 
 .delete-song {
-    border: 3px solid chartreuse;
     border-radius: 4px;
     margin: 0 auto;
     height: 30px;
