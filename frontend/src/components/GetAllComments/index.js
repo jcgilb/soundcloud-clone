@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getComments, deleteComment } from "../../store/comments.js"
 import { useParams, useHistory } from "react-router-dom";
 import "./GetAllComments.css"
-// import DeleteAComment from "../DeleteAComment"
-// import { NavLink, Route } from 'react-router-dom';
 
 const GetAllComments = () => {
     const [showDetails, setShowDetails] = useState(false);
@@ -17,14 +15,9 @@ const GetAllComments = () => {
     const commentsObj = useSelector(state => state.comments)
     const commentsArr = Object.values(commentsObj);
 
-
     useEffect(() => {
-        // console.log("dispatching in my GetAllComments useEffect");
         dispatch(getComments(songId));
     }, [dispatch, songId]);
-
-    // console.log("these are my comments", commentsObj);
-    // console.log("this is my comments array", commentsArr);
 
     useEffect(() => {
         if (!showDetails) return;
@@ -36,7 +29,6 @@ const GetAllComments = () => {
     }, [showDetails]);
 
     let songComments = commentsArr.filter((comment) => comment.songId === song.id);
-    // console.log("songComments array", songComments);
 
     return (
         <>
@@ -49,7 +41,6 @@ const GetAllComments = () => {
                 {songComments.map(comment => (
                     <div className="individual-comment">
                         <div key={comment.id} className="comment-body">{comment.body}</div>
-
                         <div className="comment-end">
                             <div key="my-comment">{comment?.User?.username}{" "}{(comment.createdAt).slice(0, 10)}</div>
                             {comment.userId === user?.id &&
@@ -65,7 +56,6 @@ const GetAllComments = () => {
                 ))}
             </div>
         </>
-
     );
 };
 export default GetAllComments;

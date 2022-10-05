@@ -6,25 +6,28 @@ import { createSong } from "../../store/songs.js"
 import "./CreateNewSong.css"
 
 const CreateNewSong = () => {
+    // getters and setters for the form
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [url, setUrl] = useState('');
     const [imageUrl, setImageUrl] = useState('');
     const [albumId, setAlbumId] = useState();
     const [validationErrors, setValidationErrors] = useState([]);
-    const [albumSelect, setAlbumSelect] = useState([])
+    const [albumSelect, setAlbumSelect] = useState([]);
+
     const dispatch = useDispatch();
     const history = useHistory();
 
+    // get albums
     useEffect(() => {
         dispatch(getAlbums());
     }, [dispatch]);
 
+    // find all albums belonging to the user
     const user = useSelector(state => state.session.user);
     const albums = useSelector(state => state.albums);
     const albumsArr = Object.values(albums);
     let userAlbums = albumsArr.filter(album => album.userId === user?.id)
-    console.log(userAlbums)
 
     // form validations
     useEffect(() => {
@@ -37,8 +40,10 @@ const CreateNewSong = () => {
         setValidationErrors(errors);
     }, [title, url, albumId, userAlbums.length]);
 
+    // set the user albums
     const updateAlbum = (e) => setAlbumSelect(e.target.value);
 
+    // helper function for clearing the form
     const revert = () => {
         setTitle('');
         setDescription('');
@@ -47,6 +52,7 @@ const CreateNewSong = () => {
         setAlbumId();
     };
 
+    // handle submit onClick event
     const handleSubmit = async (e) => {
         e.preventDefault();
         const newSong = {
@@ -70,63 +76,45 @@ const CreateNewSong = () => {
         <>
             <br></br>
             <br></br>
-
             <div className="upload-title">Take your music to the next level.</div>
             <div className="upload-container">
                 <br></br>
                 <form className="upload-song-form" onSubmit={handleSubmit}>
-
                     <div className="upload-form-heading">Upload your tracks here</div>
                     <input
                         type="title"
                         placeholder="Title"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)} />
-
                     <input
                         type="description"
                         placeholder="description"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)} />
-
                     <input
                         type="url"
                         placeholder="Audio URL"
                         value={url}
                         onChange={(e) => setUrl(e.target.value)} />
-
                     <input
                         type="imageUrl"
                         placeholder="Image URL"
                         value={imageUrl}
                         onChange={(e) => setImageUrl(e.target.value)} />
-
                     <select onChange={updateAlbum} value={albumSelect} placeholder="Select an album">
                         <option value="" disabled selected>Select an album...</option>
                         {userAlbums.map(album =>
                             <option key={album.title}>{album.title}</option>
                         )}
                     </select>
-
-                    {/* <input
-                    disabled={userAlbums.length > 0 ? false : true}
-                    type="albumId"
-                    placeholder="Album Id"
-                    value={albumId}
-                    onChange={(e) => setAlbumId(e.target.value)} /> */}
                     <ul className="errors">
                         {validationErrors.length > 0 &&
                             validationErrors.map((err) => <div id="err" key={err}>{err}</div>)}
                     </ul>
                     <button className='upload-submit' type='submit' disabled={!!validationErrors.length}>Upload song</button>
-                    {/* <div> */}
-                    {/* <button onClick={() => revert()}> Cancel </button> */}
-                    {/* </div> */}
                 </form>
             </div>
         </>
-
-
     );
 };
 

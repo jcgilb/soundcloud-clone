@@ -1,21 +1,21 @@
-// frontend/src/components/LoginFormModal/LoginForm.js
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, useHistory, Link } from 'react-router-dom';
-import { getSongs } from "../../store/songs";
-
-import GetAllSongs from "../GetAllSongs";
+import { Redirect, useHistory } from 'react-router-dom';
+// import { getSongs } from "../../store/songs";
+// import GetAllSongs from "../GetAllSongs";
 import "./LoginForm.css"
 
 function LoginForm() {
     const dispatch = useDispatch();
     const history = useHistory();
     const sessionUser = useSelector(state => state.session.user);
+    // getters and setters for the login form
     const [credential, setCredential] = useState("");
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState([]);
 
+    // if logged in, redirect to all songs
     if (sessionUser) <Redirect to="/songs" />
 
     const handleSubmit = (e) => {
@@ -24,16 +24,13 @@ function LoginForm() {
         const response = dispatch(sessionActions.login({ credential, password }))
             .catch(async (res) => {
                 const data = await res.json();
-                // console.log("data returned from login", data)
                 if (data && data.errors) setErrors(data.errors);
-
             });
         if (!errors) history.push('/songs')
         return response
     };
 
     return (
-
         <div className="login-container">
             <form className="l-form" onSubmit={handleSubmit}>
                 <ul id="err">
@@ -59,16 +56,14 @@ function LoginForm() {
                 <button className='signin' type="submit">Log In</button>
                 <button className='demo-user'
                     onClick={() => {
+                        // demo user login credentials
                         setCredential("jojoG")
                         setPassword("password")
                     }}
                     type="submit">Demo User</button>
                 <br></br>
-
             </form>
-
         </div>
-
     );
 }
 

@@ -7,26 +7,31 @@ import { getAlbums } from '../../store/albums.js';
 import "./UpdateSong.css"
 
 const UpdateSong = () => {
+    const dispatch = useDispatch();
+    const history = useHistory();
+    // get song id from url
+    let { songId } = useParams();
+    songId = parseInt(songId);
+    // getters and setters for update song form
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [url, setUrl] = useState('');
     const [albumId, setAlbumId] = useState();
     const [validationErrors, setValidationErrors] = useState([]);
     const [albumSelect, setAlbumSelect] = useState([])
-    const dispatch = useDispatch();
-    const history = useHistory();
-    let { songId } = useParams();
-    songId = parseInt(songId);
 
     const userId = useSelector(state => state.session.user.id)
     const songs = useSelector(state => state.songs);
     const songsArr = Object.values(songs);
+    // identify the song that matches the id from url
     const thisSong = songsArr.find((song) => song.id === songId)
 
+    // get songs
     useEffect(() => {
         dispatch(getSongs())
     }, [dispatch]);
 
+    // get albums
     useEffect(() => {
         dispatch(getAlbums());
     }, [dispatch]);
@@ -34,9 +39,10 @@ const UpdateSong = () => {
     const user = useSelector(state => state.session.user);
     const albums = useSelector(state => state.albums);
     const albumsArr = Object.values(albums);
+    // identify all albums belonging to the current user
     let userAlbums = albumsArr.filter(album => album.userId === user.id)
-    console.log(userAlbums)
 
+    // helper function for clearing the form after submit
     const revert = () => {
         setTitle('');
         setDescription('');
@@ -54,10 +60,10 @@ const UpdateSong = () => {
         setValidationErrors(errors);
     }, [title, url]);
 
+    // set user albums for form select
     const updateAlbum = (e) => setAlbumSelect(e.target.value);
 
     const handleSubmit = async (e) => {
-        // setShowForm(false);
         e.preventDefault();
         setValidationErrors([]);
         let songBody = {
@@ -66,6 +72,7 @@ const UpdateSong = () => {
             url,
             albumId,
         }
+        // a song needs to belong to the user in order to allow editing
         if (userId === thisSong.userId) {
             revert();
             let updatedSong = await dispatch(updateSong(songBody, songId));
@@ -77,14 +84,10 @@ const UpdateSong = () => {
 
     return (
         <div className="wrapper-container">
-
             <div className='edit-container'>
                 <br></br>
-
                 <form className="edit-song-form" onSubmit={handleSubmit}>
-
                     <div className="edit-title">Edit song details below:</div>
-
                     <input
                         type="title"
                         placeholder="Title"
@@ -106,12 +109,6 @@ const UpdateSong = () => {
                             <option key={album.title}>{album.title}</option>
                         )}
                     </select>
-                    {/* <input
-                        disabled={thisSong.albumId ? false : true}
-                        type="albumId"
-                        placeholder="Album Id"
-                        value={albumId}
-                        onChange={(e) => setAlbumId(e.target.value)} /> */}
                     <ul className="errors">
                         {validationErrors.length > 0 &&
                             validationErrors.map((err) => <li id="err" key={err}>{err}</li>)}
@@ -121,13 +118,8 @@ const UpdateSong = () => {
                         < DeleteSong />
                     </div>
                 </form>
-
             </div>
-
         </div>
-
-
-
     );
 };
 

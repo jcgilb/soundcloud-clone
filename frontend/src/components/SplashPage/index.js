@@ -6,23 +6,23 @@ import { useIsPaused } from '../../context/IsPausedContext.js';
 import "./SplashPage.css"
 
 const SplashPage = ({ songs }) => {
-    // context for the audio player
-    const { isPaused, setIsPaused } = useIsPaused();
-    // state for controlling whether or not to render the "pause" button
-    const [pauseButton, setPauseButton] = useState(false);
-    const curSong = useSelector(state => state.songs.currentSong);
-    const [currentSong, setCurrentSong] = useState(curSong);
     const dispatch = useDispatch();
     const history = useHistory();
+    // context for the audio player
+    const { setIsPaused } = useIsPaused();
+    // state for controlling whether or not to render the "pause" button
+    const [pauseButton, setPauseButton] = useState(false);
+    // identify the "current song" from songs object
+    const curSong = useSelector(state => state.songs.currentSong);
+    const [currentSong, setCurrentSong] = useState(curSong);
 
+    // get songs
     useEffect(() => {
         dispatch(getSongs());
     }, [dispatch]);
 
     // only show the first 10 songs on the splash page
     let myMap = Object.values(songs).slice(0, 10);
-    if (!myMap.length) return null;
-
     if (!myMap.length) return null;
 
     return (
@@ -65,7 +65,6 @@ const SplashPage = ({ songs }) => {
                                                 }}><i className="fa-solid fa-play fa-2x"></i>
                                             </div>
                                         }
-
                                         {/* show the paused button after a user presses play */}
                                         {currentSong === song && pauseButton &&
                                             <div className="pause-button"
@@ -94,6 +93,8 @@ const SplashPage = ({ songs }) => {
             </div>
         </div >
     )
+
+    // old code - song cards are centered not left aligned. 
 
     // return (
     //     <div className="main-container-div">
@@ -132,7 +133,6 @@ const SplashPage = ({ songs }) => {
     //                                             }}><i className="fa-solid fa-play fa-2x"></i>
     //                                         </div>
     //                                     }
-
     //                                     {/* show the paused button after a user presses play */}
     //                                     {currentSong === song && pauseButton &&
     //                                         <div className="pause-button"

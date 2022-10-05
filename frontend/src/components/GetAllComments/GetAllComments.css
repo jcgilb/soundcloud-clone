@@ -1,8 +1,6 @@
 .get-all-comments {
     display: flex;
     flex-direction: column;
-    /* border: 3px solid hotpink; */
-    /* margin-left: 54px; */
     width: 68%;
     padding: 10px;
 }
@@ -10,10 +8,8 @@
 .individual-comment {
     display: flex;
     flex-direction: row;
-    /* border: 3px solid royalblue; */
     padding-top: 15px;
     justify-content: space-between;
-
 }
 
 .comment-end {

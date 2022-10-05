@@ -4,36 +4,27 @@ import { useHistory, useParams } from 'react-router-dom';
 import { deleteSong, getSongs } from "../../store/songs.js"
 import "../UpdateSong/UpdateSong.css"
 
-// import { NavLink, Route, useParams } from 'react-router-dom';
-
 const DeleteSong = () => {
     const dispatch = useDispatch();
     const history = useHistory();
+    // identify the song from the url
     let { songId } = useParams();
     songId = parseInt(songId);
 
-    // const userId = useSelector(state => state.session.user.id)
     const songs = useSelector(state => state.songs);
-    const songsArr = Object.values(songs);
-    const mySong = songsArr.find((song) => song.id === songId)
+    // const songsArr = Object.values(songs);
+    // const mySong = songsArr.find((song) => song.id === songId)
 
+    // get songs
     useEffect(() => {
-        // console.log("getting all songs in my DeleteSong component")
         dispatch(getSongs())
     }, [dispatch]);
 
-    // console.log("songsObj ", songs)
-    // console.log("this is my songsArray ", songsArr)
-    // console.log("song's userId is:", mySong.userId)
-    // console.log("this is the id in the url: ", songId)
-    // console.log('this is my song to delete: ', mySong);
-
+    // onClick, delete the song from the url 
     const handleClick = async (e) => {
         e.preventDefault();
-        // if (userId === mySong.userId) {
         await dispatch(deleteSong(songId));
         return history.push(`/songs`);
-        // }
     };
 
     if (!Object.values(songs).length) return null;

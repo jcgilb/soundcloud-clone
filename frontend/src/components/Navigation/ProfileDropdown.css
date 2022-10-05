@@ -20,14 +20,12 @@ button.logout {
     position: relative;
     margin-right: 10px;
     margin-left: 10px;
-
 }
 
 .fa-user-circle {
     color: white;
     padding: 6px;
     border-radius: 50%;
-
 }
 
 .fa-chevron-down {
@@ -62,8 +60,6 @@ button.logout {
 
 .profile-dropdown label {
     padding: 4px;
-
-
 }
 
 #username,

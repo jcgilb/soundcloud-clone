@@ -7,31 +7,31 @@ import "./GetAllSongs.css"
 import "../SplashPage/SplashPage.css"
 
 const GetAllSongs = () => {
+    const dispatch = useDispatch();
     // context for the audio player
-    const { isPaused, setIsPaused } = useIsPaused();
+    const { setIsPaused } = useIsPaused();
     // state for controlling whether or not to render the "pause" button
     const [pauseButton, setPauseButton] = useState(false);
+    // get the current song in order to set the current song
     const curSong = useSelector(state => state.songs.currentSong);
     const [currentSong, setCurrentSong] = useState(curSong);
-    const dispatch = useDispatch();
 
     const songsObj = useSelector(state => state.songs)
+    // slice off the "current song" because there's no need to map it
     let myMap = Object.values(songsObj).slice(0, Object.values(songsObj).length - 1)
 
+    // get songs
     useEffect(() => {
         dispatch(getSongs());
     }, [dispatch]);
 
     return (
-
         <div className="main-container-div">
             <div className='main-top-div'>
-
             </div>
             <div className='main-middle-div'>
                 <div className='title-container'>
                     <div className="main-title">All songs</div>
-
                     <div className="tiles">
                         {myMap.map((song) => (
                             <div className="song-tile">
@@ -51,6 +51,7 @@ const GetAllSongs = () => {
                                                     }}><i className="fa-solid fa-play fa-2x"></i>
                                                 </div>
                                             }
+                                            {/**show a play button after a user presses pause */}
                                             {!pauseButton &&
                                                 <div className="play-button"
                                                     onClick={async (e) => {
@@ -62,7 +63,6 @@ const GetAllSongs = () => {
                                                     }}><i className="fa-solid fa-play fa-2x"></i>
                                                 </div>
                                             }
-
                                             {/* show the paused button after a user presses play */}
                                             {currentSong === song && pauseButton &&
                                                 <div className="pause-button"
@@ -77,7 +77,7 @@ const GetAllSongs = () => {
                                     </div>
                                     <div className="title-nav">
                                         <NavLink style={{ color: "black", fontSize: "14.5px", textDecoration: "none" }} className={song.id} key={song.id} to={`/songs/${song.id}`}>{song.title}</NavLink>
-                                        <p id="artist-name"> {song.Artist.username}</p>
+                                        <p id="artist-name">{song.Artist.username}</p>
                                     </div>
                                 </div>
                             </div>

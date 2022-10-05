@@ -8,14 +8,15 @@ function ProfileButton({ user }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const [showMenu, setShowMenu] = useState(false);
-
     const songs = useSelector(state => state.songs)
 
+    // open menu onClick event
     const openMenu = () => {
         if (showMenu) return;
         setShowMenu(true);
     };
 
+    // close the menu if a user clicks anywhere outside of it
     useEffect(() => {
         if (!showMenu) return;
         const closeMenu = () => {
@@ -25,6 +26,7 @@ function ProfileButton({ user }) {
         return () => document.removeEventListener("click", closeMenu);
     }, [showMenu]);
 
+    // logout onClick event handler
     const logout = (e) => {
         e.preventDefault();
         songs.currentSong = {};
@@ -40,6 +42,7 @@ function ProfileButton({ user }) {
                 <div className="firstName">{user.username}</div>
                 <i className="fas fa-solid fa-chevron-down "></i>
             </div>
+            {/* render this div if showMenu is set to true */}
             {showMenu && (
                 <div className="dropdown-container">
                     <div className="profile-dropdown">

@@ -26,7 +26,6 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    background-color: var(--ash-grey);
     width: 40%;
     height: 64px;
     margin-left: 20px;

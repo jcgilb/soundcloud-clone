@@ -7,7 +7,6 @@ hr {
     border-top: 1px solid var(--ash-grey);
     color: rgba(2, 48, 71, .1);
     margin-bottom: 10px;
-
 }
 
 .splash-container {
@@ -22,13 +21,11 @@ hr {
     margin: 0 auto;
 }
 
-
 .img-splash {
     width: 100%;
 }
 
 .middle-splash {
-    /* border: 1px solid chartreuse; */
     width: 95%;
     margin: 0 auto;
     height: 120px;
@@ -40,7 +37,6 @@ hr {
 }
 
 .bottom-splash img {
-    /* border: 1px solid rgb(204, 0, 255); */
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -48,12 +44,10 @@ hr {
     width: 150px;
     height: 150px;
     z-index: 0;
-
 }
 
 .artist-name {
     font-size: 13px;
-    /* font-weight: bold; */
     color: rgba(0, 0, 0, .5);
     white-space: nowrap;
     overflow: hidden;
@@ -85,13 +79,11 @@ hr {
     display: flex;
     width: 150px;
     flex-direction: column;
-    /* border: 1px solid blue; */
     justify-content: center;
     align-items: flex-start;
 }
 
 .album-cover {
-    /* border: 1px solid red; */
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -122,7 +114,6 @@ hr {
 
 .fa-play {
     color: #FFB703;
-
 }
 
 .fa-pause {
@@ -137,7 +128,6 @@ hr {
 }
 
 .bottom-splash {
-    /* border: 1px solid plum; */
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -148,5 +138,3 @@ hr {
     grid-row-gap: 65px;
     padding-bottom: 200px;
 }
-
-/* **************************************************************************** */

@@ -4,47 +4,56 @@ import { useParams } from "react-router-dom";
 import { getOneSong, playASong } from "../../store/songs";
 import GetAllComments from "../GetAllComments"
 import CreateNewComment from "../CreateAComment"
-import UpdateSong from "../UpdateSong";
+// import UpdateSong from "../UpdateSong";
 import { useIsPaused } from '../../context/IsPausedContext.js';
 import { NavLink } from "react-router-dom";
 import "./SongDetails.css"
 
 const SongDetails = () => {
+    const dispatch = useDispatch();
     // context for the audio player
-    const { isPaused, setIsPaused } = useIsPaused();
+    const { setIsPaused } = useIsPaused();
     // state for controlling whether or not to render the "pause" button
     const [pauseButton, setPauseButton] = useState(false);
     const curSong = useSelector(state => state.songs.currentSong);
     const [currentSong, setCurrentSong] = useState(curSong);
+    // get and set two random colors for gradient
     const [color1, setColor1] = useState(1);
     const [color2, setColor2] = useState(1);
-    const dispatch = useDispatch();
     let { songId } = useParams();
     const songs = useSelector(state => state.songs);
     const user = useSelector(state => state.session.user);
 
+    // identify song from url
     songId = parseInt(songId);
     const songFromUrl = Object.values(songs).find(song => song.id === songId);
 
     useEffect(() => {
         dispatch(getOneSong(songId));
-        setColor1(one)
-        setColor2(two)
+        // put these in a useEffect so a new gradient doesn't render every time a
+        // user posts a comment or presses play/pause
+        setColor1(one);
+        setColor2(two);
     }, [dispatch, songId]);
 
     // random color
     const getColor = () => {
+        // all possible hex characters
         const hexChars = "0123456789abcdef";
         let hex = "#";
+        // loop through and concatenate 6 random chars onto "#"
         for (let i = 0; i < 6; i++) {
             hex += hexChars[Math.floor(Math.random() * hexChars.length)];
         }
+        // return the random color
         return hex;
     };
 
+    // call random color generator twice to get two random colors
     const one = getColor();
     const two = getColor();
 
+    // define inline gradient style
     const randomGradient = {
         background: `linear-gradient(to right, ${color1}, ${color2})`
     }
@@ -54,11 +63,11 @@ const SongDetails = () => {
     return (
         <>
             <div className="one-song">
-                <div className="song-details"
-                    style={randomGradient}
-                >
+                {/* use the random gradient as a background */}
+                <div className="song-details" style={randomGradient}>
                     <div key="desc" className="description">
                         <div key="play" className="play-current-song">
+                            {/* show play button initially or if paused */}
                             {!pauseButton &&
                                 <div className="press-play"
                                     onClick={async (e) => {
@@ -94,6 +103,7 @@ const SongDetails = () => {
                 </div>
                 <div className="edit-song-details">
                     {user?.id === songFromUrl.userId &&
+                        // get rid of NavLink default styling
                         <NavLink style={{ color: "black" }} to={`/songs/${songFromUrl.id}/edit`}>Edit song details</NavLink>
                     }
                 </div>
