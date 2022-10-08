@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { getSongs, playASong } from "../../store/songs.js"
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { useIsPaused } from '../../context/IsPausedContext.js';
 import "./GetAllSongs.css"
 import "../SplashPage/SplashPage.css"
 
 const GetAllSongs = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
     // context for the audio player
     const { setIsPaused } = useIsPaused();
     // state for controlling whether or not to render the "pause" button
@@ -75,8 +76,8 @@ const GetAllSongs = () => {
                                             }
                                         </div>
                                     </div>
-                                    <div className="title-nav">
-                                        <NavLink style={{ color: "black", fontSize: "14.5px", textDecoration: "none" }} className={song.id} key={song.id} to={`/songs/${song.id}`}>{song.title}</NavLink>
+                                    <div className="title-nav" >
+                                        <NavLink style={{ color: "black", fontSize: "14.5px", textDecoration: "none" }} key={song.id} to={`/songs/${song.id}`}>{song.title}</NavLink>
                                         <p id="artist-name">{song.Artist.username}</p>
                                     </div>
                                 </div>

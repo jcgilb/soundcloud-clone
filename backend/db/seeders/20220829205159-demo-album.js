@@ -21,7 +21,32 @@ const albums = [
     title: 'Kesta 1000',
     description: 'International, Novelty, Soundtrack, Ambient Electronic, Ambient, Glitch, Chill-out, Downtempo, Instrumental, Lo-fi Instrumental',
     imageUrl: 'https://res.cloudinary.com/ddmb8mrlb/image/upload/v1663787444/imageUrl/image_hztzyu.jpg'
-  }
+  },
+  {
+    userId: 4,
+    title: 'Perfect Timing',
+    description: 'Released Jul 15, 2022',
+    imageUrl: 'https://res.cloudinary.com/ddmb8mrlb/image/upload/v1665000880/imageUrl/image_tum7j8.webp'
+  },
+  {
+    userId: 4,
+    title: 'Clarity',
+    description: 'Released Jul 8, 2022',
+    imageUrl: 'https://res.cloudinary.com/ddmb8mrlb/image/upload/v1665001752/imageUrl/image_yckf2d.webp'
+  },
+  {
+    userId: 5,
+    title: 'Unix Time',
+    description: 'Released Jul 18, 2022',
+    imageUrl: 'https://res.cloudinary.com/ddmb8mrlb/image/upload/v1665002069/audioUrl/image_mjiqgq.webp'
+  },
+  {
+    userId: 4,
+    title: 'Reflection',
+    description: 'Released Jul 10, 2022',
+    imageUrl: 'https://res.cloudinary.com/ddmb8mrlb/image/upload/v1665007160/imageUrl/image_lczhif.webp'
+  },
+
   // {
   //   userId: 1,
   //   title: 'Collapse EP',

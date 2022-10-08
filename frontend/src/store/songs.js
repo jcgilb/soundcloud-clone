@@ -3,6 +3,7 @@ const GET = 'songs/GET';
 const ADD_ONE = 'songs/ADD_ONE';
 const PLAY_SONG = 'song/PLAY_SONG'
 const DELETE = 'songs/DELETE';
+const REMOVE = 'songs/REMOVE';
 
 const get = (songs) => {
     return {
@@ -31,6 +32,14 @@ const remove = (songId) => {
         songId,
     };
 };
+
+const removeCurrent = (songId) => {
+    return {
+        type: REMOVE,
+        songId,
+    };
+};
+
 // get all songs thunk 
 export const getSongs = () => async dispatch => {
     const response = await csrfFetch('/api/songs');
@@ -102,6 +111,12 @@ export const deleteSong = (songId) => async dispatch => {
     }
 };
 
+
+// remove current song thunk 
+export const clearCurrentSong = (songId) => async dispatch => {
+    dispatch(removeCurrent(songId));
+};
+
 const initialState = { currentSong: {} }
 
 const songsReducer = (state = initialState, action) => {
@@ -136,6 +151,10 @@ const songsReducer = (state = initialState, action) => {
         case DELETE:
             newState = { ...state };
             delete newState[action.songId];
+            return newState;
+        case REMOVE:
+            newState = { ...state };
+            newState.currentSong = {};
             return newState;
         default:
             return state;

@@ -1,18 +1,25 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useLayoutEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getOneSong, playASong } from "../../store/songs";
 import GetAllComments from "../GetAllComments"
 import CreateNewComment from "../CreateAComment"
-// import UpdateSong from "../UpdateSong";
+import Waves from "../Wave";
+// import MyWave from "../WaveForm";
 import { useIsPaused } from '../../context/IsPausedContext.js';
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import "./SongDetails.css"
+import ReactDom from 'react-dom';
+import { unmountComponentAtNode } from 'react-dom';
 
 const SongDetails = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
     // context for the audio player
     const { setIsPaused } = useIsPaused();
+    const theWaveNode = useRef();
+    const [randomState, setRandomState] = useState(null)
+
     // state for controlling whether or not to render the "pause" button
     const [pauseButton, setPauseButton] = useState(false);
     const curSong = useSelector(state => state.songs.currentSong);
@@ -34,7 +41,24 @@ const SongDetails = () => {
         // user posts a comment or presses play/pause
         setColor1(one);
         setColor2(two);
+
+        // return () => {
+        //     let el = ReactDom.findDOMNode(theWaveNode.current)
+        //     console.log("this is the component to DESTROY", el)
+        //     unmountComponentAtNode(el);
+        //     // document.body.removeChild(el);
+        // }
+
     }, [dispatch, songId]);
+
+    useLayoutEffect(() => {
+        return () => {
+            // let el = ReactDom.findDOMNode(theWaveNode.current)
+            // console.log("this is the component to DESTROY", el)
+            // unmountComponentAtNode(el);
+            // // document.body.removeChild(el);
+        }
+    }, [currentSong])
 
     // random color
     const getColor = () => {
@@ -65,36 +89,56 @@ const SongDetails = () => {
             <div className="one-song">
                 {/* use the random gradient as a background */}
                 <div className="song-details" style={randomGradient}>
-                    <div key="desc" className="description">
-                        <div key="play" className="play-current-song">
-                            {/* show play button initially or if paused */}
-                            {!pauseButton &&
-                                <div className="press-play"
-                                    onClick={async (e) => {
-                                        e.preventDefault();
-                                        setCurrentSong(songFromUrl)
-                                        await dispatch(playASong(songFromUrl.id))
-                                        setIsPaused(false);
-                                        setPauseButton(true);
-                                    }}><i style={{ cursor: "pointer" }} className="fa-solid fa-play fa-4x"></i>
-                                </div>
-                            }
-                            {/* show the paused button after a user presses play */}
-                            {currentSong === songFromUrl && pauseButton &&
-                                <div className="press-pause"
-                                    onClick={async (e) => {
-                                        e.preventDefault();
-                                        setIsPaused(true);
-                                        setPauseButton(false);
-                                    }}><i style={{ cursor: "pointer" }} className="fa-solid fa-pause fa-4x"></i>
-                                </div>
-                            }
+                    <div className="left-wrapper">
+                        <div key="desc" className="description">
+                            <div key="play" className="play-current-song">
+                                {/* show play button initially or if paused */}
+                                {!pauseButton &&
+                                    <div className="press-play"
+                                        onClick={async (e) => {
+                                            if (currentSong !== songFromUrl) {
+                                                const count = sessionStorage.getItem('count');
+                                                if (count < 1) {
+                                                    sessionStorage.setItem('count', String(count + 1));
+                                                    window.location.reload();
+                                                } else {
+                                                    sessionStorage.removeItem('count');
+                                                    setCurrentSong(songFromUrl)
+                                                    // e.preventDefault();
+                                                    await dispatch(playASong(songFromUrl.id))
+                                                    setIsPaused(false);
+                                                    setPauseButton(true);
+                                                }
+                                            }
+                                            setCurrentSong(songFromUrl)
+                                            e.preventDefault();
+                                            await dispatch(playASong(songFromUrl.id))
+                                            setIsPaused(false);
+                                            setPauseButton(true);
+                                        }}><i style={{ cursor: "pointer" }} className="fa-solid fa-play fa-4x"></i>
+                                    </div>
+                                }
+                                {/* show the paused button after a user presses play */}
+                                {currentSong === songFromUrl && pauseButton &&
+                                    <div className="press-pause"
+                                        onClick={async (e) => {
+                                            e.preventDefault();
+                                            setIsPaused(true);
+                                            setPauseButton(false);
+                                        }}><i style={{ cursor: "pointer" }} className="fa-solid fa-pause fa-4x"></i>
+                                    </div>
+                                }
+                            </div>
+                            <div className="artist-details">
+                                <h2>{songFromUrl.title}</h2>
+                                <span>
+                                    {songFromUrl?.Artist?.username}
+                                </span>
+                            </div>
                         </div>
-                        <div className="artist-details">
-                            <h2>{songFromUrl.title}</h2>
-                            <span>
-                                {songFromUrl?.Artist?.username}
-                            </span>
+                        <div ref={theWaveNode} className="audio-visualizer">
+                            <Waves />
+                            {/* <MyWave /> */}
                         </div>
                     </div>
                     <div key="image" className="individual-song-image-url">

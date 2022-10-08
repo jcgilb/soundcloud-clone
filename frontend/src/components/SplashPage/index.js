@@ -21,6 +21,14 @@ const SplashPage = ({ songs }) => {
         dispatch(getSongs());
     }, [dispatch]);
 
+    // reload the page when navigating to song details so the wave can show on every song
+    // function refreshPage() {
+    //     setTimeout(() => {
+    //         window.location.reload(false);
+    //     }, 100);
+    //     console.log('page to reload');
+    // }
+
     // only show the first 10 songs on the splash page
     let myMap = Object.values(songs).slice(0, 10);
     if (!myMap.length) return null;
@@ -78,9 +86,11 @@ const SplashPage = ({ songs }) => {
                                     </div>
                                 </div>
                                 <div className="artist-info">
+                                    {/* <NavLink onClick={refreshPage} style={{ color: "black", fontSize: "14.5px", textDecoration: "none" }} to={`/songs/${song.id}`}>{song.title}</NavLink> */}
                                     <NavLink style={{ color: "black", fontSize: "14.5px", textDecoration: "none" }} to={`/songs/${song.id}`}>{song.title}</NavLink>
                                     <div onClick={(e) => {
                                         e.preventDefault();
+                                        // refreshPage();
                                         history.push(`/songs/${song.id}`)
                                     }}
                                         className="artist-name">{song.Artist?.username} </div>

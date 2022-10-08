@@ -57,6 +57,22 @@
     flex-direction: row;
     box-sizing: border-box;
     margin-top: 60px;
+    height: 150px;
+}
+
+.left-wrapper {
+    width: 50%;
+    margin-right: 40px;
+
+}
+
+.audio-visualizer {
+    width: 80%;
+    height: 100px;
+    margin-left: 60px;
+    z-index: 3;
+    margin-top: 35px;
+    margin-bottom: 40px;
 }
 
 .fa-circle-play {

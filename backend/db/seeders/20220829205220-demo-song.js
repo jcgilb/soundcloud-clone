@@ -29,7 +29,71 @@ const songs = [
     // Link to music: https://freemusicarchive.org/music/Ketsa/1000/depth-in/
     url: 'https://res.cloudinary.com/ddmb8mrlb/video/upload/v1663787654/audioUrl/Ketsa_-_Depth_In_qiorvw.mp3',
     imageUrl: 'https://res.cloudinary.com/ddmb8mrlb/image/upload/v1663787444/imageUrl/image_hztzyu.jpg'
-  }
+  },
+  {
+    albumId: 4,
+    userId: 4,
+    title: 'Perfect Timing',
+    description: 'A single by Makaih Beats',
+    url: 'https://res.cloudinary.com/ddmb8mrlb/video/upload/v1665000851/audioUrl/Makaih_Beats_-_Perfect_Timing_yutuo5.mp3',
+    imageUrl: 'https://res.cloudinary.com/ddmb8mrlb/image/upload/v1665000880/imageUrl/image_tum7j8.webp'
+  },
+  {
+    albumId: 5,
+    userId: 4,
+    title: 'Clarity',
+    description: 'A single by Makaih Beats',
+    url: 'https://res.cloudinary.com/ddmb8mrlb/video/upload/v1665001723/audioUrl/Makaih_Beats_-_Clarity_lscvow.mp3',
+    imageUrl: 'https://res.cloudinary.com/ddmb8mrlb/image/upload/v1665001752/imageUrl/image_yckf2d.webp'
+  },
+  {
+    albumId: 6,
+    userId: 5,
+    title: 'Galvanize',
+    description: 'from the album Unix Time',
+    url: 'https://res.cloudinary.com/ddmb8mrlb/video/upload/v1665002161/audioUrl/Viscid_-_Galvanize_fnfcsi.mp3',
+    imageUrl: 'https://res.cloudinary.com/ddmb8mrlb/image/upload/v1665002069/audioUrl/image_mjiqgq.webp'
+  },
+  {
+    albumId: 6,
+    userId: 5,
+    title: 'Galvanize',
+    description: 'from the album Unix Time',
+    url: 'https://res.cloudinary.com/ddmb8mrlb/video/upload/v1665002161/audioUrl/Viscid_-_Galvanize_fnfcsi.mp3',
+    imageUrl: 'https://res.cloudinary.com/ddmb8mrlb/image/upload/v1665002069/audioUrl/image_mjiqgq.webp'
+  },
+  {
+    albumId: 6,
+    userId: 5,
+    title: 'Humdrum',
+    description: 'from the album Unix Time',
+    url: 'https://res.cloudinary.com/ddmb8mrlb/video/upload/v1665002478/audioUrl/Viscid_-_Humdrum_ouqisg.mp3',
+    imageUrl: 'https://res.cloudinary.com/ddmb8mrlb/image/upload/v1665002069/audioUrl/image_mjiqgq.webp'
+  },
+  {
+    albumId: 6,
+    userId: 5,
+    title: 'Duplicate',
+    description: 'from the album Unix Time',
+    url: 'https://res.cloudinary.com/ddmb8mrlb/video/upload/v1665002542/audioUrl/Viscid_-_Duplicate_t3xuat.mp3',
+    imageUrl: 'https://res.cloudinary.com/ddmb8mrlb/image/upload/v1665002069/audioUrl/image_mjiqgq.webp'
+  },
+  {
+    albumId: 6,
+    userId: 5,
+    title: 'Surge',
+    description: 'from the album Unix Time',
+    url: 'https://res.cloudinary.com/ddmb8mrlb/video/upload/v1665002556/audioUrl/Viscid_-_Surge_hfocih.mp3',
+    imageUrl: 'https://res.cloudinary.com/ddmb8mrlb/image/upload/v1665002069/audioUrl/image_mjiqgq.webp'
+  },
+  {
+    albumId: 7,
+    userId: 4,
+    title: 'Waves',
+    description: 'A single by Makaih Beats',
+    url: 'https://res.cloudinary.com/ddmb8mrlb/video/upload/v1663968406/audioUrl/Makaih_Beats_-_Waves_pt._2_makaih.com_gjurhm.mp3',
+    imageUrl: 'https://res.cloudinary.com/ddmb8mrlb/image/upload/v1665007160/imageUrl/image_lczhif.webp'
+  },
   // {
   //   albumId: 1,
   //   userId: 1,

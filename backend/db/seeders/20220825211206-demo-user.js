@@ -27,6 +27,22 @@ module.exports = {
         lastName: 'Music',
         hashedPassword: bcrypt.hashSync('password3'),
         previewImage: "https://res.cloudinary.com/ddmb8mrlb/image/upload/v1663787236/previewImage/image_eas8ux.jpg"
+      },
+      {
+        email: 'makaih@user.io',
+        username: 'Makaih Beats',
+        firstName: 'Makaih',
+        lastName: 'Beats',
+        hashedPassword: bcrypt.hashSync('password'),
+        previewImage: "https://res.cloudinary.com/ddmb8mrlb/image/upload/v1665000880/imageUrl/image_tum7j8.webp"
+      },
+      {
+        email: 'viscid@user.io',
+        username: 'Viscid',
+        firstName: 'Viscid',
+        lastName: 'Music',
+        hashedPassword: bcrypt.hashSync('password'),
+        previewImage: "https://res.cloudinary.com/ddmb8mrlb/image/upload/v1665000880/imageUrl/image_tum7j8.webp"
       }
       // {
       //   email: 'rdjames@user.io',
