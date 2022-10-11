@@ -15,8 +15,9 @@
 html,
 body {
     height: 100vh;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
     size: 10px;
+    font-family: 'Montserrat Alternates', sans-serif;
 
 }
 
