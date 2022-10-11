@@ -4,22 +4,18 @@ import { useParams } from "react-router-dom";
 import { getOneSong, playASong } from "../../store/songs";
 import GetAllComments from "../GetAllComments"
 import CreateNewComment from "../CreateAComment"
-import Waves from "../Wave";
-// import MyWave from "../WaveForm";
-import { useIsPaused } from '../../context/IsPausedContext.js';
+import { Wave } from "@foobar404/wave";
+import { useIsPlaying } from '../../context/IsPlayingContext';
 import { NavLink, useHistory } from "react-router-dom";
-import "./SongDetails.css"
-import ReactDom from 'react-dom';
-import { unmountComponentAtNode } from 'react-dom';
+import { useAudioElement } from '../../context/AudioElementContext';
+import { useIsPaused } from '../../context/IsPausedContext';
+import "./SongDetails.css";
 
 const SongDetails = () => {
     const dispatch = useDispatch();
-    const history = useHistory();
     // context for the audio player
-    const { setIsPaused } = useIsPaused();
-    const theWaveNode = useRef();
-    const [randomState, setRandomState] = useState(null)
-
+    const { isPaused, setIsPaused } = useIsPaused();
+    const { isPlaying, setIsPlaying } = useIsPlaying();
     // state for controlling whether or not to render the "pause" button
     const [pauseButton, setPauseButton] = useState(false);
     const curSong = useSelector(state => state.songs.currentSong);
@@ -30,10 +26,16 @@ const SongDetails = () => {
     let { songId } = useParams();
     const songs = useSelector(state => state.songs);
     const user = useSelector(state => state.session.user);
-
     // identify song from url
     songId = parseInt(songId);
     const songFromUrl = Object.values(songs).find(song => song.id === songId);
+    const [audioSource, setAudioSource] = useState(currentSong.url);
+    const [playing, setPlaying] = useState(false);
+    const [curTime, setCurrentTime] = useState(0);
+    const [trashState, setTrashState] = useState()
+    const thisWave = useRef()
+    const { audioElement } = useAudioElement();
+    // console.log("song from URl", songFromUrl)
 
     useEffect(() => {
         dispatch(getOneSong(songId));
@@ -41,24 +43,64 @@ const SongDetails = () => {
         // user posts a comment or presses play/pause
         setColor1(one);
         setColor2(two);
-
-        // return () => {
-        //     let el = ReactDom.findDOMNode(theWaveNode.current)
-        //     console.log("this is the component to DESTROY", el)
-        //     unmountComponentAtNode(el);
-        //     // document.body.removeChild(el);
-        // }
-
     }, [dispatch, songId]);
 
+    let wave;
+    let myAudio;
     useLayoutEffect(() => {
-        return () => {
-            // let el = ReactDom.findDOMNode(theWaveNode.current)
-            // console.log("this is the component to DESTROY", el)
-            // unmountComponentAtNode(el);
-            // // document.body.removeChild(el);
+        if (!trashState) {
+            if (audioElement && currentSong === songFromUrl) {
+                myAudio = new Audio(songFromUrl.url);
+                myAudio.crossOrigin = "anonymous";
+                myAudio.autoplay = "false"
+                myAudio.currentTime = curTime
+                console.log("audio currentTime", myAudio.currentTime)
+                setAudioSource(currentSong.url);
+                let canvasElement = document.querySelector("#output");
+                wave = new Wave(myAudio, canvasElement);
+                wave.clearAnimations()
+                wave.addAnimation(new wave.animations.Wave());
+                const constraints = { audio: true };
+                async function getMedia(constraints) {
+                    let stream = null;
+                    try {
+                        stream = await navigator.mediaDevices.getUserMedia(constraints);
+                    } catch (err) { console.log(err.message) }
+                }
+                getMedia(constraints)
+            }
+            setTrashState(true)
         }
-    }, [currentSong])
+        if (isPlaying) {
+            if (audioElement && currentSong === songFromUrl) {
+                myAudio = new Audio(songFromUrl.url);
+                myAudio.crossOrigin = "anonymous";
+                myAudio.autoplay = "false"
+                myAudio.currentTime = curTime
+                console.log("audio currentTime", myAudio.currentTime)
+                setAudioSource(currentSong.url);
+                let canvasElement = document.querySelector("#output");
+                wave = new Wave(myAudio, canvasElement);
+                wave.clearAnimations()
+                wave.addAnimation(new wave.animations.Wave());
+                const constraints = { audio: true };
+                async function getMedia(constraints) {
+                    let stream = null;
+                    try {
+                        stream = await navigator.mediaDevices.getUserMedia(constraints);
+                    } catch (err) {
+                        console.log(err.message);
+                    }
+                }
+                getMedia(constraints)
+            }
+        }
+        if (myAudio) {
+            return () => {
+                if (myAudio) { myAudio.src = null }
+            }
+        }
+    }, [currentSong, isPlaying, trashState]);
 
     // random color
     const getColor = () => {
@@ -97,24 +139,19 @@ const SongDetails = () => {
                                     <div className="press-play"
                                         onClick={async (e) => {
                                             if (currentSong !== songFromUrl) {
-                                                const count = sessionStorage.getItem('count');
-                                                if (count < 1) {
-                                                    sessionStorage.setItem('count', String(count + 1));
-                                                    window.location.reload();
-                                                } else {
-                                                    sessionStorage.removeItem('count');
-                                                    setCurrentSong(songFromUrl)
-                                                    // e.preventDefault();
-                                                    await dispatch(playASong(songFromUrl.id))
-                                                    setIsPaused(false);
-                                                    setPauseButton(true);
-                                                }
+                                                if (currentSong.url) setIsPlaying(false)
+                                                setCurrentSong(songFromUrl)
+                                                console.log(audioElement.audio.current.currentTime)
+                                                setCurrentTime(parseFloat(audioElement.audio.current.currentTime))
                                             }
-                                            setCurrentSong(songFromUrl)
                                             e.preventDefault();
                                             await dispatch(playASong(songFromUrl.id))
                                             setIsPaused(false);
+                                            setIsPlaying(true)
                                             setPauseButton(true);
+                                            setCurrentTime(parseFloat(audioElement.audio.current.currentTime))
+                                            console.log(audioElement.audio.current.currentTime)
+
                                         }}><i style={{ cursor: "pointer" }} className="fa-solid fa-play fa-4x"></i>
                                     </div>
                                 }
@@ -124,7 +161,11 @@ const SongDetails = () => {
                                         onClick={async (e) => {
                                             e.preventDefault();
                                             setIsPaused(true);
+                                            setIsPlaying(false);
                                             setPauseButton(false);
+                                            setCurrentTime(parseFloat(audioElement.audio.current.currentTime))
+                                            console.log(audioElement.audio.current.currentTime)
+
                                         }}><i style={{ cursor: "pointer" }} className="fa-solid fa-pause fa-4x"></i>
                                     </div>
                                 }
@@ -136,9 +177,10 @@ const SongDetails = () => {
                                 </span>
                             </div>
                         </div>
-                        <div ref={theWaveNode} className="audio-visualizer">
-                            <Waves />
-                            {/* <MyWave /> */}
+                        <div className="audio-visualizer">
+                            <div ref={thisWave} className="wave">
+                                <canvas id="output" height="70" width="235" />
+                            </div>
                         </div>
                     </div>
                     <div key="image" className="individual-song-image-url">

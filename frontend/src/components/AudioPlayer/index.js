@@ -57,10 +57,14 @@ const Player = ({ songs }) => {
                 onPlay={(e) => {
                     e.preventDefault();
                     setIsPaused(false);
+                    setIsPlaying(true);
+
                 }}
                 onPause={(e) => {
                     e.preventDefault();
                     setIsPaused(true);
+                    setIsPlaying(false);
+
                 }}
                 autoPlayAfterSrcChange={true}
             />
