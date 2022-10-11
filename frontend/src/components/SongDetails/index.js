@@ -1,14 +1,13 @@
 import { useEffect, useState, useLayoutEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { getOneSong, playASong } from "../../store/songs";
+import { useIsPlaying } from '../../context/IsPlayingContext';
+import { useAudioElement } from '../../context/AudioElementContext';
+import { useIsPaused } from '../../context/IsPausedContext';
 import GetAllComments from "../GetAllComments"
 import CreateNewComment from "../CreateAComment"
 import { Wave } from "@foobar404/wave";
-import { useIsPlaying } from '../../context/IsPlayingContext';
-import { NavLink, useHistory } from "react-router-dom";
-import { useAudioElement } from '../../context/AudioElementContext';
-import { useIsPaused } from '../../context/IsPausedContext';
 import "./SongDetails.css";
 
 const SongDetails = () => {
@@ -50,13 +49,13 @@ const SongDetails = () => {
     useLayoutEffect(() => {
         if (!trashState) {
             if (audioElement && currentSong === songFromUrl) {
-                console.log("audio is muted")
+                // console.log("audio is muted")
                 myAudio = new Audio(songFromUrl.url);
                 myAudio.crossOrigin = "anonymous";
                 myAudio.autoplay = "false"
                 myAudio.currentTime = curTime
                 audioElement.audio.current.volume = 0;
-                console.log("audio currentTime", myAudio.currentTime)
+                // console.log("audio currentTime", myAudio.currentTime)
                 setAudioSource(currentSong.url);
                 let canvasElement = document.querySelector("#output");
                 wave = new Wave(myAudio, canvasElement);
@@ -75,12 +74,12 @@ const SongDetails = () => {
         }
         if (isPlaying) {
             if (audioElement && currentSong === songFromUrl) {
-                console.log("audio is muted")
+                // console.log("audio is muted")
                 myAudio = new Audio(songFromUrl.url);
                 myAudio.crossOrigin = "anonymous";
                 myAudio.autoplay = "false"
                 myAudio.currentTime = curTime;
-                console.log("audio currentTime", myAudio.currentTime)
+                // console.log("audio currentTime", myAudio.currentTime)
                 audioElement.audio.current.volume = 0;
                 setAudioSource(currentSong.url);
                 let canvasElement = document.querySelector("#output");
@@ -93,7 +92,7 @@ const SongDetails = () => {
                     try {
                         stream = await navigator.mediaDevices.getUserMedia(constraints);
                     } catch (err) {
-                        console.log(err.message);
+                        // console.log(err.message);
                     }
                 }
                 getMedia(constraints)
@@ -101,7 +100,7 @@ const SongDetails = () => {
         }
         if (myAudio) {
             return () => {
-                console.log("cleaning up audio")
+                // console.log("cleaning up audio")
                 if (myAudio) { myAudio.src = null }
                 audioElement.audio.current.volume = 1;
             }
@@ -147,7 +146,7 @@ const SongDetails = () => {
                                             if (currentSong !== songFromUrl) {
                                                 if (currentSong.url) setIsPlaying(false)
                                                 setCurrentSong(songFromUrl)
-                                                console.log(audioElement.audio.current.currentTime)
+                                                // console.log(audioElement.audio.current.currentTime)
                                                 setCurrentTime(parseFloat(audioElement.audio.current.currentTime))
                                             }
                                             e.preventDefault();
@@ -168,8 +167,7 @@ const SongDetails = () => {
                                             setIsPlaying(false);
                                             setPauseButton(false);
                                             setCurrentTime(parseFloat(audioElement.audio.current.currentTime))
-                                            console.log(audioElement.audio.current.currentTime)
-
+                                            // console.log(audioElement.audio.current.currentTime)
                                         }}><i style={{ cursor: "pointer" }} className="fa-solid fa-pause fa-4x"></i>
                                     </div>
                                 }
