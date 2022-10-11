@@ -17,7 +17,8 @@ body {
     height: 100vh;
     /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
     size: 10px;
-    font-family: 'Montserrat Alternates', sans-serif;
+    /* font-family: 'Montserrat Alternates', sans-serif; */
+    font-family: 'Encode Sans', sans-serif;
 
 }
 
@@ -151,4 +152,8 @@ a {
 
 .rhap_time {
     color: #023047;
+}
+
+.rhap_volume-container {
+    display: none !important;
 }
