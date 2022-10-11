@@ -12,11 +12,16 @@
 }
 
 .navbar-links {
-    width: 30%;
+    width: 35%;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
+}
+
+.get-songs,
+.create-song {
+    font-size: 16px !important;
 }
 
 #logged-in-links {
@@ -56,7 +61,7 @@
 }
 
 .outer-empty-nav {
-    width: 12.5%;
+    width: 7.5%;
 }
 
 @media screen and (max-width: 1000px) {
@@ -65,79 +70,6 @@
     }
 
     .middle-empty-nav {
-        width: 37.5%;
+        width: 30%;
     }
 }
-
-/* .home {
-    box-sizing: border-box;
-    font-weight: lighter;
-    color: rgb(224, 224, 224);
-
-}
-
-.firstName {
-    font-weight: lighter;
-    color: rgb(224, 224, 224);
-}
-
-.get-songs {
-    display: flex;
-    flex: row;
-    align-items: center;
-    box-sizing: border-box;
-    color: rgb(224, 224, 224);
-    font-size: 16px;
-}
-
-.sign-in {
-    box-sizing: border-box;
-    color: rgb(224, 224, 224);
-    cursor: pointer;
-}
-
-.create-account {
-    color: rgb(224, 224, 224);
-    box-sizing: border-box;
-    cursor: pointer;
-
-}
-
-.signup-nav {
-    background-color: #F26F23;
-    height: 30px;
-    padding: 8px;
-}
-
-.create-song {
-    box-sizing: border-box;
-    font-weight: lighter;
-    margin-left: 30px;
-    color: rgb(224, 224, 224);
-    position: absolute;
-    top: 7px;
-    right: 0;
-    font-size: 15px;
-}
-
-.logo {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    box-sizing: border-box;
-    color: rgb(224, 224, 224);
-    font-weight: bold;
-    font-size: 18px;
-}
-
-.logo img {
-    width: 66px;
-    height: 46px;
-    margin-right: 15px;
-    background: rgb(224, 224, 224);
-    border: 1px solid black;
-    border-bottom: 2px solid black;
-    border-top: 2px solid black;
-    ;
-} */

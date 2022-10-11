@@ -183,7 +183,7 @@ const SongDetails = () => {
                         </div>
                         <div className="audio-visualizer">
                             <div ref={thisWave} className="wave">
-                                <canvas id="output" height="70" width="235" />
+                                <canvas id="output" />
                             </div>
                         </div>
                     </div>

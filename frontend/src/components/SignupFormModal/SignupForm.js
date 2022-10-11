@@ -45,20 +45,6 @@ function SignupFormPage() {
                     {errors.map((error, idx) => <li key={idx}>{error}</li>)}
                 </ul>
                 <br></br>
-                <label>Email</label>
-                <input
-                    type="text"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                />
-                <label>Username</label>
-                <input
-                    type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                />
                 <label>First name</label>
                 <input
                     type="text"
@@ -71,6 +57,20 @@ function SignupFormPage() {
                     type="text"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
+                    required
+                />
+                <label>Username</label>
+                <input
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
+                />
+                <label>Email</label>
+                <input
+                    type="text"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     required
                 />
                 <label>Password</label>
