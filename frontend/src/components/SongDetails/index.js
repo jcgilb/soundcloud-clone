@@ -50,10 +50,12 @@ const SongDetails = () => {
     useLayoutEffect(() => {
         if (!trashState) {
             if (audioElement && currentSong === songFromUrl) {
+                console.log("audio is muted")
                 myAudio = new Audio(songFromUrl.url);
                 myAudio.crossOrigin = "anonymous";
                 myAudio.autoplay = "false"
                 myAudio.currentTime = curTime
+                audioElement.audio.current.volume = 0;
                 console.log("audio currentTime", myAudio.currentTime)
                 setAudioSource(currentSong.url);
                 let canvasElement = document.querySelector("#output");
@@ -73,11 +75,13 @@ const SongDetails = () => {
         }
         if (isPlaying) {
             if (audioElement && currentSong === songFromUrl) {
+                console.log("audio is muted")
                 myAudio = new Audio(songFromUrl.url);
                 myAudio.crossOrigin = "anonymous";
                 myAudio.autoplay = "false"
-                myAudio.currentTime = curTime
+                myAudio.currentTime = curTime;
                 console.log("audio currentTime", myAudio.currentTime)
+                audioElement.audio.current.volume = 0;
                 setAudioSource(currentSong.url);
                 let canvasElement = document.querySelector("#output");
                 wave = new Wave(myAudio, canvasElement);
@@ -97,7 +101,9 @@ const SongDetails = () => {
         }
         if (myAudio) {
             return () => {
+                console.log("cleaning up audio")
                 if (myAudio) { myAudio.src = null }
+                audioElement.audio.current.volume = 1;
             }
         }
     }, [currentSong, isPlaying, trashState]);
@@ -150,8 +156,6 @@ const SongDetails = () => {
                                             setIsPlaying(true)
                                             setPauseButton(true);
                                             setCurrentTime(parseFloat(audioElement.audio.current.currentTime))
-                                            console.log(audioElement.audio.current.currentTime)
-
                                         }}><i style={{ cursor: "pointer" }} className="fa-solid fa-play fa-4x"></i>
                                     </div>
                                 }
