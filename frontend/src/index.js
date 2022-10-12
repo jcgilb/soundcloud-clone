@@ -1,21 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import { Provider as ReduxProvider } from 'react-redux';
+import React from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
+import { Provider as ReduxProvider } from "react-redux";
 import { ModalProvider } from "./context/Modal";
-import IsPlayingProvider from './context/IsPlayingContext';
-import IsPausedProvider from './context/IsPausedContext';
-import './index.css';
-import App from './App';
-import configureStore from './store';
-import { restoreCSRF, csrfFetch } from './store/csrf';
-import * as sessionActions from './store/session';
-import { deleteSong, getOneSong, getSongs } from './store/songs';
-import AudioElementProvider from './context/AudioElementContext';
+import IsPlayingProvider from "./context/IsPlayingContext";
+import IsPausedProvider from "./context/IsPausedContext";
+import CurrentTimeProvider from "./context/CurrentTimeContext";
+import "./index.css";
+import App from "./App";
+import configureStore from "./store";
+import { restoreCSRF, csrfFetch } from "./store/csrf";
+import * as sessionActions from "./store/session";
+import { deleteSong, getOneSong, getSongs } from "./store/songs";
+import AudioElementProvider from "./context/AudioElementContext";
 
 const store = configureStore();
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== "production") {
   restoreCSRF();
   window.csrfFetch = csrfFetch;
   window.store = store;
@@ -23,8 +24,7 @@ if (process.env.NODE_ENV !== 'production') {
   window.deleteSong = deleteSong;
   window.getOneSong = getOneSong;
   window.getSongs = getSongs;
-  // window.songActions = songActions // do I need this here?
-};
+}
 
 function Root() {
   return (
@@ -32,21 +32,23 @@ function Root() {
       <ModalProvider>
         <BrowserRouter>
           <IsPlayingProvider>
-            <IsPausedProvider>
-              <AudioElementProvider >
-                <App />
-              </AudioElementProvider>
-            </IsPausedProvider>
+            <CurrentTimeProvider>
+              <IsPausedProvider>
+                <AudioElementProvider>
+                  <App />
+                </AudioElementProvider>
+              </IsPausedProvider>
+            </CurrentTimeProvider>
           </IsPlayingProvider>
         </BrowserRouter>
       </ModalProvider>
     </ReduxProvider>
   );
-};
+}
 
 ReactDOM.render(
   <React.StrictMode>
     <Root />
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );

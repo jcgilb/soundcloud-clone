@@ -1,24 +1,32 @@
 .get-all-comments {
-    display: flex;
-    flex-direction: column;
-    width: 68%;
-    padding: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 68%;
+  padding: 10px;
 }
 
 .individual-comment {
-    display: flex;
-    flex-direction: row;
-    padding-top: 15px;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-top: 15px;
+}
+
+.comment-author {
+  font-size: 14px;
+  opacity: 70%;
+  padding-bottom: 4px;
 }
 
 .comment-end {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 35%;
+  font-size: 14px;
+  opacity: 70%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 35%;
 }
 
 .fa-trash-can {
-    cursor: pointer;
+  cursor: pointer;
 }

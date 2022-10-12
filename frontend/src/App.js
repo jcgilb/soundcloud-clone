@@ -5,11 +5,11 @@ import LoginFormPage from "./components/LoginFormPage";
 import SignupFormPage from "./components/SignupFormPage";
 import Navigation from "./components/Navigation";
 import GetAllSongs from "./components/GetAllSongs";
-import SongDetails from "./components/SongDetails"
-import Player from "./components/AudioPlayer"
-import CreateNewSong from "./components/CreateNewSong"
-import UpdateSong from "./components/UpdateSong"
-import SplashPage from "./components/SplashPage"
+import SongDetails from "./components/SongDetails";
+import Player from "./components/AudioPlayer";
+import CreateNewSong from "./components/CreateNewSong";
+import UpdateSong from "./components/UpdateSong";
+import SplashPage from "./components/SplashPage";
 import { getSongs } from "./store/songs";
 import * as sessionActions from "./store/session";
 
@@ -21,16 +21,15 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(getSongs())
+    dispatch(getSongs());
   }, [dispatch]);
 
-  const songs = useSelector(state => state.songs)
-  const currentSong = Object.values(songs.currentSong)
-  const user = useSelector(state => state.session.user)
+  const songs = useSelector((state) => state.songs);
+  const currentSong = Object.values(songs.currentSong);
+  const user = useSelector((state) => state.session.user);
 
   return (
     <>
-
       <Navigation isLoaded={isLoaded} />
       <div className="overall-container">
         <div className="inner-container">
@@ -51,22 +50,20 @@ function App() {
               <Route exact path="/songs/:songId/edit">
                 <UpdateSong />
               </Route>
-              <Route exact path='/songs/:songId'>
+              <Route exact path="/songs/:songId">
                 <SongDetails />
               </Route>
-              <Route exact path='/songs'>
+              <Route exact path="/songs">
                 <GetAllSongs songs={songs} />
               </Route>
-
             </Switch>
           )}
         </div>
-        {!!currentSong.length &&
+        {!!currentSong.length && (
           <footer>
             <Player songs={songs} isLoaded={isLoaded} />
           </footer>
-        }
-
+        )}
       </div>
     </>
   );
