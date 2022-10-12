@@ -5,7 +5,6 @@ import { Provider as ReduxProvider } from "react-redux";
 import { ModalProvider } from "./context/Modal";
 import IsPlayingProvider from "./context/IsPlayingContext";
 import IsPausedProvider from "./context/IsPausedContext";
-import CurrentTimeProvider from "./context/CurrentTimeContext";
 import "./index.css";
 import App from "./App";
 import configureStore from "./store";
@@ -32,13 +31,11 @@ function Root() {
       <ModalProvider>
         <BrowserRouter>
           <IsPlayingProvider>
-            <CurrentTimeProvider>
-              <IsPausedProvider>
-                <AudioElementProvider>
-                  <App />
-                </AudioElementProvider>
-              </IsPausedProvider>
-            </CurrentTimeProvider>
+            <IsPausedProvider>
+              <AudioElementProvider>
+                <App />
+              </AudioElementProvider>
+            </IsPausedProvider>
           </IsPlayingProvider>
         </BrowserRouter>
       </ModalProvider>
