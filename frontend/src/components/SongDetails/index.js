@@ -30,6 +30,7 @@ const SongDetails = () => {
   // identify song from url
   songId = parseInt(songId);
   const songFromUrl = Object.values(songs).find((song) => song.id === songId);
+  const [audioSource, setAudioSource] = useState(currentSong.url);
   //   const [curTime, setCurrentTime] = useState(0);
   //   const { curTime, setCurTime } = useCurrentTime();
   const [initialConnection, setInitialConnection] = useState(true);
