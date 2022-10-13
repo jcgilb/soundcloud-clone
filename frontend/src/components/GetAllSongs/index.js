@@ -51,8 +51,7 @@ const GetAllSongs = () => {
                       {song !== currentSong && (
                         <div
                           className="play-button"
-                          onClick={async (e) => {
-                            e.preventDefault();
+                          onClick={async () => {
                             setCurrentSong(song);
                             await dispatch(playASong(song.id));
                             setIsPaused(false);
@@ -66,8 +65,7 @@ const GetAllSongs = () => {
                       {!pauseButton && (
                         <div
                           className="play-button"
-                          onClick={async (e) => {
-                            e.preventDefault();
+                          onClick={async () => {
                             setCurrentSong(song);
                             await dispatch(playASong(song.id));
                             setIsPaused(false);
@@ -81,8 +79,7 @@ const GetAllSongs = () => {
                       {currentSong === song && pauseButton && (
                         <div
                           className="pause-button"
-                          onClick={async (e) => {
-                            e.preventDefault();
+                          onClick={async () => {
                             setIsPaused(true);
                             setPauseButton(false);
                           }}
