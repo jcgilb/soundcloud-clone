@@ -5,10 +5,11 @@ import { getOneSong, playASong } from "../../store/songs";
 import { useIsPlaying } from "../../context/IsPlayingContext";
 import { useAudioElement } from "../../context/AudioElementContext";
 import { useIsPaused } from "../../context/IsPausedContext";
-// import { useCurrentTime } from "../../context/CurrentTimeContext";
 import GetAllComments from "../GetAllComments";
 import CreateNewComment from "../CreateAComment";
+import LikeSong from "../LikeSong";
 import { Wave } from "@foobar404/wave";
+import ReactWaves from "@dschoon/react-waves";
 import "./SongDetails.css";
 
 const SongDetails = () => {
@@ -16,7 +17,6 @@ const SongDetails = () => {
   // context for the audio player
   const { isPaused, setIsPaused } = useIsPaused();
   const { isPlaying, setIsPlaying } = useIsPlaying();
-  console.log("state of isPlaying context", isPlaying);
   // state for controlling whether or not to render the "pause" button
   const [pauseButton, setPauseButton] = useState(false);
   const curSong = useSelector((state) => state.songs.currentSong);
@@ -30,9 +30,6 @@ const SongDetails = () => {
   // identify song from url
   songId = parseInt(songId);
   const songFromUrl = Object.values(songs).find((song) => song.id === songId);
-  const [audioSource, setAudioSource] = useState(currentSong.url);
-  //   const [curTime, setCurrentTime] = useState(0);
-  //   const { curTime, setCurTime } = useCurrentTime();
   const [trashState, setTrashState] = useState();
   const thisWave = useRef();
   const { audioElement } = useAudioElement();
@@ -44,78 +41,45 @@ const SongDetails = () => {
     setColor1(one);
     setColor2(two);
   }, [dispatch, songId]);
+  //////////////////////////////////////////////
 
-  let wave;
-  let myAudio;
-  useLayoutEffect(() => {
-    if (!trashState) {
-      if (audioElement && currentSong === songFromUrl) {
-        // console.log("audio is muted")
-        myAudio = new Audio(songFromUrl.url);
-        myAudio.crossOrigin = "anonymous";
-        myAudio.autoplay = "false";
-        myAudio.currentTime = parseFloat(
-          audioElement.audio.current.currentTime
-        );
-        audioElement.audio.current.volume = 0;
-        // console.log("audio currentTime", myAudio.currentTime)
-        setAudioSource(currentSong.url);
-        let canvasElement = document.querySelector("#output");
-        wave = new Wave(myAudio, canvasElement);
-        wave.clearAnimations();
-        wave.addAnimation(new wave.animations.Wave());
-        const constraints = { audio: true };
-        async function getMedia(constraints) {
-          let stream = null;
-          try {
-            stream = await navigator.mediaDevices.getUserMedia(constraints);
-          } catch (err) {
-            console.log(err.message);
-          }
-        }
-        getMedia(constraints);
-      }
-      setTrashState(true);
+  const [playing, setPlaying] = useState(false);
+  const [position, setPosition] = useState(0);
+  const [vol, setVol] = useState(0);
+  const wavesurfer = useRef();
+
+  // const changePosition = () => {
+  //   console.log("changing position", position);
+  //   audioElement.audio.current.currentTime = position;
+  // };
+
+  // const skipAhead = () => {
+  //   if (currentSong.url === songFromUrl.url) {
+  //     console.log("seeking to", position);
+  //     audioElement.audio.current.currentTime = position;
+  //     setPosition(parseFloat(audioElement.audio.current.currentTime));
+  //     wavesurfer.current.volume(vol);
+  //   }
+  // };
+
+  console.log("currentsong", currentSong);
+  console.log("songFromUrl", songFromUrl);
+  useEffect(() => {
+    if (currentSong === songFromUrl) {
+      if (isPlaying === true) setPlaying(true);
+      else setPlaying(false);
     }
+  }, [isPlaying, currentSong]);
+
+  useEffect(() => {
     if (isPlaying) {
       if (audioElement && currentSong.url === songFromUrl.url) {
-        // console.log("audio is muted")
-        myAudio = new Audio(songFromUrl.url);
-        myAudio.crossOrigin = "anonymous";
-        myAudio.autoplay = "true";
-        myAudio.currentTime = parseFloat(
-          audioElement.audio.current.currentTime
-        );
-        // console.log("audio currentTime", myAudio.currentTime)
-        console.log("audio autoplay status", myAudio.autoplay);
-        audioElement.audio.current.volume = 0;
-        setAudioSource(currentSong.url);
-        let canvasElement = document.querySelector("#output");
-        wave = new Wave(myAudio, canvasElement);
-        wave.clearAnimations();
-        wave.addAnimation(new wave.animations.Wave());
-        const constraints = { audio: true };
-        async function getMedia(constraints) {
-          let stream = null;
-          try {
-            stream = await navigator.mediaDevices.getUserMedia(constraints);
-          } catch (err) {
-            // console.log(err.message);
-          }
-        }
-        getMedia(constraints);
+        setPosition(parseFloat(audioElement.audio.current.currentTime));
+        wavesurfer.current.volume = 0;
       }
     }
-    if (myAudio) {
-      return () => {
-        // console.log("cleaning up audio")
-        if (myAudio) {
-          myAudio.src = null;
-        }
-        audioElement.audio.current.volume = 1;
-      };
-    }
-  }, [currentSong, isPlaying, trashState]);
+  }, []);
+  //////////////////////////////////////////////////
 
   // random color
   const getColor = () => {
@@ -157,18 +121,11 @@ const SongDetails = () => {
                       if (currentSong !== songFromUrl) {
                         if (currentSong.url) setIsPlaying(false);
                         setCurrentSong(songFromUrl);
-                        // console.log(audioElement.audio.current.currentTime)
-                        // setCurrentTime(
-                        //   parseFloat(audioElement.audio.current.currentTime)
-                        // );
                       }
                       await dispatch(playASong(songFromUrl.id));
                       setIsPaused(false); // for AudioPlayer component
                       setIsPlaying(true);
                       setPauseButton(true);
-                      //   setCurrentTime(
-                      //     parseFloat(audioElement.audio.current.currentTime)
-                      //   );
                     }}
                   >
                     <i
@@ -185,9 +142,6 @@ const SongDetails = () => {
                       setIsPaused(true); // for AudioPlayer component
                       setIsPlaying(false);
                       setPauseButton(false);
-                      //   setCurrentTime(
-                      //     parseFloat(audioElement.audio.current.currentTime)
-                      //   );
                     }}
                   >
                     <i
@@ -206,9 +160,6 @@ const SongDetails = () => {
                       setIsPaused(false); // for AudioPlayer component
                       setIsPlaying(true);
                       setPauseButton(true);
-                      //   setCurrentTime(
-                      //     parseFloat(audioElement.audio.current.currentTime)
-                      //   );
                     }}
                   >
                     <i
@@ -225,18 +176,12 @@ const SongDetails = () => {
                       if (currentSong !== songFromUrl) {
                         if (currentSong.url) setIsPlaying(false);
                         setCurrentSong(songFromUrl);
-                        // setCurrentTime(
-                        //   parseFloat(audioElement.audio.current.currentTime)
-                        // );
                       }
                       setCurrentSong(songFromUrl);
                       await dispatch(playASong(songFromUrl.id));
                       setIsPaused(false); // for AudioPlayer component
                       setIsPlaying(true);
                       setPauseButton(true);
-                      //   setCurrentTime(
-                      //     parseFloat(audioElement.audio.current.currentTime)
-                      //   );
                     }}
                   >
                     <i
@@ -252,9 +197,28 @@ const SongDetails = () => {
               </div>
             </div>
             <div className="audio-visualizer">
-              <div ref={thisWave} className="wave">
+              {/* <div ref={thisWave} className="wave">
                 <canvas id="output" />
-              </div>
+              </div> */}
+              <ReactWaves
+                ref={wavesurfer}
+                audioFile={songFromUrl.url}
+                playing={playing}
+                pos={position}
+                volume={0}
+                zoom={1}
+                options={{
+                  barWidth: 3,
+                  barRadius: 2,
+                  hideScrollbar: true,
+                  cursorWidth: 0,
+                  progressColor: "#4159FB",
+                  waveColor: "rgba(65, 89, 251, 0.4)",
+                  responsive: true,
+                }}
+                // onPosChange={changePosition}
+                // onSeek={skipAhead}
+              />
             </div>
           </div>
           <div key="image" className="individual-song-image-url">
@@ -265,6 +229,7 @@ const SongDetails = () => {
             />
           </div>
         </div>
+        <LikeSong song={songFromUrl}></LikeSong>
         <div className="edit-song-details">
           {user?.id === songFromUrl.userId && (
             // get rid of NavLink default styling
@@ -288,3 +253,56 @@ const SongDetails = () => {
 };
 
 export default SongDetails;
+
+// let wave;
+// let myAudio;
+// useLayoutEffect(() => {
+//   if (!trashState) {
+//     if (audioElement && currentSong === songFromUrl) {
+//       myAudio = new Audio(songFromUrl.url);
+//       if (!myAudio.src) {
+//         console.log("second attempt at connecting");
+//         myAudio = new Audio(songFromUrl.url);
+//       }
+//       myAudio.crossOrigin = "anonymous";
+//       myAudio.autoplay = "false";
+//       myAudio.currentTime = parseFloat(
+//         audioElement.audio.current.currentTime
+//       );
+//       audioElement.audio.current.volume = 0;
+//       let canvasElement = document.querySelector("#output");
+//       wave = new Wave(myAudio, canvasElement);
+//       wave.clearAnimations();
+//       wave.addAnimation(new wave.animations.Wave());
+//     }
+//     setTrashState(true);
+//   }
+//   if (isPlaying) {
+//     if (audioElement && currentSong.url === songFromUrl.url) {
+//       myAudio = new Audio(songFromUrl.url);
+//       if (!myAudio.src) {
+//         console.log("second attempt at connecting");
+//         myAudio = new Audio(songFromUrl.url);
+//       }
+//       myAudio.crossOrigin = "anonymous";
+//       myAudio.autoplay = "true";
+//       myAudio.currentTime = parseFloat(
+//         audioElement.audio.current.currentTime
+//       );
+//       audioElement.audio.current.volume = 0;
+//       let canvasElement = document.querySelector("#output");
+//       wave = new Wave(myAudio, canvasElement);
+//       wave.clearAnimations();
+//       wave.addAnimation(new wave.animations.Wave());
+//     }
+//   }
+//   if (myAudio) {
+//     return () => {
+//       // console.log("cleaning up audio")
+//       if (myAudio) {
+//         myAudio.src = null;
+//       }
+//       audioElement.audio.current.volume = 1;
+//     };
+//   }
+// }, [currentSong, isPlaying, trashState]);

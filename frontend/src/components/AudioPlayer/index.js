@@ -6,7 +6,6 @@ import { getSongs } from "../../store/songs";
 import { useIsPaused } from "../../context/IsPausedContext";
 import { useIsPlaying } from "../../context/IsPlayingContext";
 import { useAudioElement } from "../../context/AudioElementContext";
-import { useCurrentTime } from "../../context/CurrentTimeContext";
 import "./Audio.css";
 
 const Player = ({ songs }) => {
@@ -64,8 +63,6 @@ const Player = ({ songs }) => {
         onPause={(e) => {
           setIsPaused(true);
           setIsPlaying(false);
-          // setCurTime(parseFloat(player.current.audio.current.currentTime));
-          // console.log("current time onPause()", curTime);
         }}
         autoPlayAfterSrcChange={true}
       />

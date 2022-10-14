@@ -1,0 +1,13 @@
+.liked {
+  width: 80px;
+  height: 30px;
+  border: var(--selective-yellow);
+  background: none;
+  cursor: pointer;
+}
+.disliked {
+  width: 80px;
+  height: 30px;
+  background: none;
+  cursor: pointer;
+}
