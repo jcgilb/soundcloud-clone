@@ -17,6 +17,7 @@ const SongDetails = () => {
   // context for the audio player
   const { isPaused, setIsPaused } = useIsPaused();
   const { isPlaying, setIsPlaying } = useIsPlaying();
+  console.log("isPlaying context", isPlaying);
   // state for controlling whether or not to render the "pause" button
   const [pauseButton, setPauseButton] = useState(false);
   const curSong = useSelector((state) => state.songs.currentSong);
@@ -48,22 +49,24 @@ const SongDetails = () => {
   const [vol, setVol] = useState(0);
   const wavesurfer = useRef();
 
-  // const changePosition = () => {
-  //   console.log("changing position", position);
-  //   audioElement.audio.current.currentTime = position;
-  // };
+  const changePosition = () => {
+    console.log("changing position", position);
+    // audioElement.audio.current.currentTime = position;
+    setPosition(parseFloat(audioElement.audio.current.currentTime));
+  };
 
-  // const skipAhead = () => {
-  //   if (currentSong.url === songFromUrl.url) {
-  //     console.log("seeking to", position);
-  //     audioElement.audio.current.currentTime = position;
-  //     setPosition(parseFloat(audioElement.audio.current.currentTime));
-  //     wavesurfer.current.volume(vol);
-  //   }
-  // };
+  const skipAhead = () => {
+    if (currentSong.url === songFromUrl.url) {
+      console.log("seeking to", position);
+      // audioElement.audio.current.currentTime = position;
+      setPosition(parseFloat(audioElement.audio.current.currentTime));
+      wavesurfer.current.volume(vol);
+    }
+  };
 
   console.log("currentsong", currentSong);
   console.log("songFromUrl", songFromUrl);
+
   useEffect(() => {
     if (currentSong === songFromUrl) {
       if (isPlaying === true) setPlaying(true);
@@ -75,10 +78,18 @@ const SongDetails = () => {
     if (isPlaying) {
       if (audioElement && currentSong.url === songFromUrl.url) {
         setPosition(parseFloat(audioElement.audio.current.currentTime));
-        wavesurfer.current.volume = 0;
+        setPlaying(true);
       }
     }
   }, []);
+
+  useEffect(() => {
+    if (!isPlaying) {
+      if (currentSong.url === songFromUrl.url) {
+        setPlaying(false);
+      }
+    }
+  }, [isPlaying]);
   //////////////////////////////////////////////////
 
   // random color
