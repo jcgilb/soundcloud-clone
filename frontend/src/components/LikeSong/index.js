@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { likeASong, deleteLike } from "../../store/likes";
+import { likeASong, deleteLike, getLikes } from "../../store/likes";
 import "./LikeSong.css";
 
 function LikeSong() {
@@ -21,6 +21,10 @@ function LikeSong() {
   // see if the current user liked the song
   const like = songLikes.find((like) => like.userId === user?.id);
 
+  useEffect(() => {
+    dispatch(getLikes());
+  }, []);
+
   // setters for displaying like/already liked
   useEffect(() => {
     if (like) setLiked(true);
@@ -33,12 +37,14 @@ function LikeSong() {
       className={liked ? "liked" : "disliked"}
       onClick={async () => {
         // if like is undefined, like the song
-        if (!like) {
+        if (user && !like) {
           await dispatch(likeASong(songId));
         }
         // if like is defined, unlike it
-        if (like) {
+        else if (user && like) {
           await dispatch(deleteLike(like.id));
+        } else {
+          alert("Please sign in to like songs.");
         }
       }}
     >

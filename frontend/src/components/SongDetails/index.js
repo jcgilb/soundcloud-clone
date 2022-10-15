@@ -63,14 +63,16 @@ const SongDetails = () => {
     }
   };
 
-  useEffect(() => {
-    if (currentSong === songFromUrl) {
+  console.log("isPlaying context", isPlaying);
+
+  useLayoutEffect(() => {
+    if (audioElement && currentSong.url === songFromUrl.url) {
       if (isPlaying === true) setPlaying(true);
       else setPlaying(false);
     }
   }, [isPlaying, currentSong]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (isPlaying) {
       if (audioElement && currentSong.url === songFromUrl.url) {
         setPosition(parseFloat(audioElement.audio.current.currentTime));
@@ -79,13 +81,22 @@ const SongDetails = () => {
     }
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!isPlaying) {
-      if (currentSong === songFromUrl) {
+      if (audioElement && currentSong === songFromUrl) {
         setPlaying(false);
       }
     }
   }, [isPlaying]);
+
+  useEffect(() => {
+    if (!isPlaying) {
+      if (audioElement && currentSong.url === songFromUrl.url) {
+        setPlaying(false);
+      }
+    }
+  }, [isPlaying]);
+
   //////////////////////////////////////////////////
 
   // random color
@@ -210,10 +221,6 @@ const SongDetails = () => {
               <ReactWaves
                 ref={wavesurfer}
                 audioFile={songFromUrl.url}
-                playing={playing}
-                pos={position}
-                volume={0}
-                zoom={1}
                 options={{
                   barWidth: 3,
                   barRadius: 2,
@@ -223,6 +230,10 @@ const SongDetails = () => {
                   waveColor: "rgba(65, 89, 251, 0.4)",
                   responsive: true,
                 }}
+                playing={playing}
+                pos={position}
+                volume={0}
+                zoom={1}
                 // onPosChange={changePosition}
                 // onSeek={skipAhead}
               />
