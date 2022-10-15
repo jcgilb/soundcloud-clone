@@ -20,7 +20,7 @@ const validateSongs = [
 router.get("/", async (req, res) => {
   let { page, size } = req.query;
   if (!page || isNaN(page)) page = 1;
-  if (!size || isNaN(size)) size = 20;
+  if (!size || isNaN(size)) size = 50;
   let pagination = {};
   if (page && page > 0) {
     if (size && size > 0) {

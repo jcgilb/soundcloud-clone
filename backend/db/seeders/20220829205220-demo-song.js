@@ -26,8 +26,7 @@ const songs = [
     userId: 3,
     title: "Affirmation",
     description: "Jazz",
-
-    url: "https://res.cloudinary.com/ddmb8mrlb/video/upload/v1665799087/audioUrl/George_Benson_-_Affirmation_yx6lrb.mp4",
+    url: "https://res.cloudinary.com/ddmb8mrlb/video/upload/v1665810233/audioUrl/George_Benson_-_Affirmation_1976_Original_Studio_Version_cymony.mp4",
     imageUrl:
       "https://res.cloudinary.com/ddmb8mrlb/image/upload/v1665800555/imageUrl/ab67616d0000b2735a5a012f4063c464eab6aec3_mfyfoq.jpg",
   },
@@ -36,7 +35,7 @@ const songs = [
     userId: 4,
     title: "produk 29 [101]",
     description: "from syro album",
-    url: "https://res.cloudinary.com/ddmb8mrlb/video/upload/v1665000851/audioUrl/Makaih_Beats_-_Perfect_Timing_yutuo5.mp3",
+    url: "https://res.cloudinary.com/ddmb8mrlb/video/upload/v1665799096/audioUrl/Produk_29_101_nwf30z.mp4",
     imageUrl:
       "https://res.cloudinary.com/ddmb8mrlb/image/upload/v1665800501/imageUrl/maxresdefault_un2jge.jpg",
   },
@@ -54,7 +53,7 @@ const songs = [
     userId: 4,
     title: "#20",
     description: "by Aphex Twin",
-    url: "https://res.cloudinary.com/ddmb8mrlb/video/upload/v1665002161/audioUrl/Viscid_-_Galvanize_fnfcsi.mp3",
+    url: "https://res.cloudinary.com/ddmb8mrlb/video/upload/v1665799206/audioUrl/20_n83lrd.mp4",
     imageUrl:
       "https://res.cloudinary.com/ddmb8mrlb/image/upload/v1665799823/imageUrl/artworks-000060921309-12xzsv-t500x500_yzh7b7.jpg",
   },
@@ -90,7 +89,7 @@ const songs = [
     userId: 5,
     title: "Janet",
     description: "track 3",
-    url: "https://www.youtube.com/watch?v=PnI6jDiLdsA",
+    url: "https://res.cloudinary.com/ddmb8mrlb/video/upload/v1665799304/audioUrl/berhana_-_Janet_Official_Audio_gj72le.mp4",
     imageUrl:
       "https://res.cloudinary.com/ddmb8mrlb/image/upload/v1663784185/imageUrl/qVHzKdDyeETx_jghaen.jpg",
   },
@@ -99,7 +98,7 @@ const songs = [
     userId: 6,
     title: "Every Piece Matters",
     description: "track 4",
-    url: "https://www.youtube.com/watch?v=Rv_a6rlRjZk&list=PLmAVRRr5uCHP9F_Z1w5gpar2PvsvrhFCA",
+    url: "https://res.cloudinary.com/ddmb8mrlb/video/upload/v1665799237/audioUrl/Plini_-__Every_Piece_Matters__2016_lm5xs5.mp4",
     imageUrl:
       "https://res.cloudinary.com/ddmb8mrlb/image/upload/v1663784406/imageUrl/Plini_-_Handmade_Cities_aqgigu.jpg",
   },
@@ -131,7 +130,6 @@ const songs = [
     imageUrl:
       "https://res.cloudinary.com/ddmb8mrlb/image/upload/v1665800409/imageUrl/81Le-A3K89L._SS500__l1sz9f.jpg",
   },
-
   {
     albumId: 14,
     userId: 8,

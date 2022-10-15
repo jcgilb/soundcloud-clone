@@ -1,154 +1,153 @@
 .main-container-div {
-    width: 100%;
-    height: 100%;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    margin-top: 50px;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
 }
 
 .main-top-div {
-    width: 90%;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .main-middle-div {
-    width: 95%;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  width: 95%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .main-trending-title {
-    margin-top: 80px;
-    font-size: 24px;
-    margin-bottom: 20px;
+  margin-top: 80px;
+  font-size: 24px;
+  margin-bottom: 20px;
 }
 
 .main-title {
-    width: 96.7%;
-    font-size: 24px;
-    padding-left: 33px;
-    padding-top: 60px
+  width: 96.7%;
+  font-size: 24px;
+  padding-left: 33px;
+  padding-top: 60px;
 }
 
 .title-container {
-    width: 90%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .tiles {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: flex-start;
-    grid-row-gap: 8rem;
-    width: 102%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  grid-row-gap: 8rem;
+  width: 102%;
 }
 
 .tiles-splash {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    padding-bottom: 120px;
-    grid-row-gap: .5rem;
-    width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 120px;
+  grid-row-gap: 0.5rem;
+  width: 100%;
 }
 
 .song-tile {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    max-width: 50%;
-    margin: 1.5rem;
-    justify-content: center;
-    align-items: center;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  max-width: 50%;
+  margin: 1.5rem;
+  justify-content: center;
+  align-items: center;
 }
 
 .album-art {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-    box-sizing: border-box;
-    position: relative;
-    z-index: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 0;
 }
 
 img.tile {
-    display: flex;
-    flex-direction: column;
-    height: 10rem;
-    width: 10rem;
-    box-sizing: border-box;
-
+  display: flex;
+  flex-direction: column;
+  /* height: 10rem;
+  width: 10rem; */
+  height: 172px;
+  width: 172px;
+  object-fit: cover;
+  box-sizing: border-box;
 }
 
 #artist-name {
-    font-size: .8rem;
-    opacity: 60%;
-    box-sizing: border-box;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 160px;
-
+  font-size: 0.8rem;
+  opacity: 60%;
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 160px;
 }
 
 .title-nav {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    box-sizing: border-box;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 160px;
 }
 
 .play-pause {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    height: 55px;
-    width: 55px;
-    border-radius: 50%;
-    opacity: 15%;
-    z-index: 0;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  height: 55px;
+  width: 55px;
+  border-radius: 50%;
+  opacity: 15%;
+  z-index: 0;
 }
 
 .play-button,
 .pause-button {
-    opacity: 15%;
-    position: absolute;
+  opacity: 15%;
+  position: absolute;
 }
 
 .fa-play {
-    color: #FFB703;
-
+  color: #ffb703;
 }
 
 .fa-pause {
-    color: #FFB703;
+  color: #ffb703;
 }
 
 .play-button:hover,
 .pause-button:hover,
 .play-pause:hover {
-    opacity: 100%;
-    cursor: pointer;
+  opacity: 100%;
+  cursor: pointer;
 }
-
 
 /* .grid {
     display: flex;

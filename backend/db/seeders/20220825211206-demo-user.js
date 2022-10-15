@@ -52,15 +52,6 @@ module.exports = {
             "https://res.cloudinary.com/ddmb8mrlb/image/upload/v1663783732/previewImage/34LfZlo0_400x400_dv09qy.jpg",
         },
         {
-          email: "viscid@user.io",
-          username: "Viscid",
-          firstName: "Viscid",
-          lastName: "Music",
-          hashedPassword: bcrypt.hashSync("password"),
-          previewImage:
-            "https://res.cloudinary.com/ddmb8mrlb/image/upload/v1665000880/imageUrl/image_tum7j8.webp",
-        },
-        {
           email: "plini@user.io",
           username: "Plini",
           firstName: "Plini",
