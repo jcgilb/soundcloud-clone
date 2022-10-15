@@ -1,12 +1,19 @@
 import { csrfFetch } from "./csrf";
 
 const GET = "likes/GET";
+const GETALL = "likes/GETALL";
 const LIKE_SONG = "likes/likeOne";
 const DISLIKE_SONG = "likes/dislikeOne";
 
 const get = (songlikes) => {
   return {
     type: GET,
+    songlikes,
+  };
+};
+const getAll = (songlikes) => {
+  return {
+    type: GETALL,
     songlikes,
   };
 };
@@ -25,15 +32,15 @@ const dislikeOne = (likeId) => {
   };
 };
 
-// // get all likes thunk
-// export const getLikes = () => async (dispatch) => {
-//   const response = await csrfFetch("/api/likes");
-//   if (response.ok) {
-//     const data = await response.json();
-//     dispatch(get(data));
-//   }
-//   return response;
-// };
+// get all likes thunk
+export const getLikes = () => async (dispatch) => {
+  const response = await csrfFetch("/api/likes");
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(getAll(data));
+  }
+  return response;
+};
 
 // get all likes based on songId thunk
 export const getSongLikes = (songId) => async (dispatch) => {
@@ -80,6 +87,15 @@ const likesReducer = (state = initialState, action) => {
       });
       return {
         ...allSongLikes,
+        ...state,
+      };
+    case GETALL:
+      const allLikes = {};
+      action.songlikes.likes.forEach((like) => {
+        allLikes[like.id] = like;
+      });
+      return {
+        ...allLikes,
         ...state,
       };
     case LIKE_SONG:

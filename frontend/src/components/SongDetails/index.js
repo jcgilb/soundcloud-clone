@@ -17,7 +17,6 @@ const SongDetails = () => {
   // context for the audio player
   const { isPaused, setIsPaused } = useIsPaused();
   const { isPlaying, setIsPlaying } = useIsPlaying();
-  console.log("isPlaying context", isPlaying);
   // state for controlling whether or not to render the "pause" button
   const [pauseButton, setPauseButton] = useState(false);
   const curSong = useSelector((state) => state.songs.currentSong);
@@ -64,9 +63,6 @@ const SongDetails = () => {
     }
   };
 
-  console.log("currentsong", currentSong);
-  console.log("songFromUrl", songFromUrl);
-
   useEffect(() => {
     if (currentSong === songFromUrl) {
       if (isPlaying === true) setPlaying(true);
@@ -85,7 +81,7 @@ const SongDetails = () => {
 
   useEffect(() => {
     if (!isPlaying) {
-      if (currentSong.url === songFromUrl.url) {
+      if (currentSong === songFromUrl) {
         setPlaying(false);
       }
     }

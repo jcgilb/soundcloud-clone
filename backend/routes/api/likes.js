@@ -8,7 +8,7 @@ const router = express.Router();
 // Authentication: false
 router.get("/", async (req, res) => {
   const likes = await SongLikes.findAll({});
-  return res.json(likes);
+  return res.json({ likes });
 });
 
 // Delete a song like

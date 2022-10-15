@@ -1,76 +1,56 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import {
-  likeASong,
-  deleteLike,
-  getSongLikes,
-  //   getLikes,
-} from "../../store/likes";
+import { likeASong, deleteLike } from "../../store/likes";
 import "./LikeSong.css";
 
-function LikeSong({ songFromUrl }) {
-  const { songId } = useParams();
+function LikeSong() {
+  let { songId } = useParams();
   const dispatch = useDispatch();
   const [liked, setLiked] = useState();
   // get the song, user, and likes if applicable
   const songs = useSelector((state) => state.songs);
   const likes = useSelector((state) => state.likes);
-  console.log("state likes", likes);
   const user = useSelector((state) => state.session.user);
-  console.log("songId", songId); // id 1
+  songId = parseInt(songId);
   // find the song from the url
-  const song = Object.values(songs).find(
-    (song) => song.id === parseInt(songId)
-  );
+  const song = Object.values(songs).find((song) => song.id === songId);
   // filter out all the likes that don't belong to this song
-  const songLikes = Object.values(likes).filter(
-    (like) => like.songId !== songId
-  );
-  console.log(songLikes, "songLieks");
+  const likesArray = Object.values(likes);
+  let songLikes = likesArray.filter((like) => like.songId === songId);
   // see if the current user liked the song
-  const like = songLikes.find((like) => like.userId === user.id);
-  console.log("song", song); // id 1
-  console.log("user", user); // id 6
-  console.log("like", like); // undefined
+  const like = songLikes.find((like) => like.userId === user?.id);
 
+  // setters for displaying like/already liked
   useEffect(() => {
     if (like) setLiked(true);
     if (!like) setLiked(false);
-  }, []);
-
-  useEffect(() => {
-    dispatch(getSongLikes(songId));
-    // dispatch(getLikes());
-  }, [dispatch, songId]);
+  }, [like, songId]);
 
   if (!song) return null;
   return (
     <button
       className={liked ? "liked" : "disliked"}
       onClick={async () => {
-        // if like is undefined
+        // if like is undefined, like the song
         if (!like) {
-          setLiked(true);
           await dispatch(likeASong(songId));
-          console.log("liked t/f", liked);
         }
-        // if like is defined
+        // if like is defined, unlike it
         if (like) {
-          setLiked(false);
           await dispatch(deleteLike(like.id));
         }
-
-        console.log("liked t/f", liked);
       }}
     >
-      {liked && (
+      {like && (
         <>
+          {/* render already liked button */}
           <i className={"fas fa-heart"} /> <span>Liked</span>
         </>
       )}
-      {!liked && (
+      {!like && (
         <>
+          {/* render like button */}
           <i className={"fas fa-heart"} /> <span>Like</span>
         </>
       )}
