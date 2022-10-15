@@ -247,7 +247,6 @@ const SongDetails = () => {
             />
           </div>
         </div>
-        <LikeSong song={songFromUrl}></LikeSong>
         <div className="edit-song-details">
           {user?.id === songFromUrl.userId && (
             // get rid of NavLink default styling
@@ -262,6 +261,7 @@ const SongDetails = () => {
         <div className="comments-container">
           <div className="leave-comment">
             <CreateNewComment />
+            <LikeSong />
           </div>
           <GetAllComments />
         </div>

@@ -1,75 +1,75 @@
 .navbar-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    width: 100%;
-    margin: 0 auto;
-    height: 52px;
-    top: 0;
-    background-color: #023047;
-    position: fixed;
-    z-index: 1;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 100%;
+  margin: 0 auto;
+  height: 52px;
+  top: 0;
+  background-color: #023047;
+  position: fixed;
+  z-index: 1;
 }
 
 .navbar-links {
-    width: 35%;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: center;
+  width: 20%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .get-songs,
 .create-song {
-    font-size: 16px !important;
+  font-size: 16px !important;
 }
 
 #logged-in-links {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .logo-container {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: flex-end;
-    align-items: center;
-    width: 20%;
-    color: white;
-    font-size: 20px;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  align-items: center;
+  width: 20%;
+  color: white;
+  font-size: 20px;
 }
 
 .login-signup-links {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 #login,
 #signup {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 .logo {
-    width: 60px;
-    margin-right: 10px;
+  width: 60px;
+  margin-right: 10px;
 }
 
 .middle-empty-nav {
-    width: 30%;
+  width: 32.5%;
 }
 
 .outer-empty-nav {
+  width: 13.75%;
+}
+
+/* @media screen and (max-width: 1000px) {
+  .outer-empty-nav {
     width: 7.5%;
-}
+  }
 
-@media screen and (max-width: 1000px) {
-    .outer-empty-nav {
-        width: 7.5%;
-    }
-
-    .middle-empty-nav {
-        width: 30%;
-    }
-}
+  .middle-empty-nav {
+    width: 30%;
+  }
+} */

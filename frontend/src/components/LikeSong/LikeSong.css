@@ -1,13 +1,39 @@
+.likes-container {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 68%;
+  justify-content: space-between;
+}
+
 .liked {
-  width: 80px;
+  width: 70px;
   height: 30px;
-  border: var(--selective-yellow);
+  border: 1px solid var(--blue-green);
   background: none;
+  font-size: 14px;
   cursor: pointer;
+  border-radius: 4px;
+}
+.liked .fa-heart,
+.liked span {
+  color: var(--blue-green);
 }
 .disliked {
-  width: 80px;
+  width: 70px;
   height: 30px;
+  font-size: 14px;
   background: none;
   cursor: pointer;
+  border: 1px solid rgb(224, 224, 224);
+  border-radius: 4px;
+}
+.disliked:hover {
+  border: 1px solid #868686;
+}
+
+.stats-count {
+  font-size: 14px;
+  color: #868686;
 }

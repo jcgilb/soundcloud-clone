@@ -1,11 +1,11 @@
 import AudioPlayer from "react-h5-audio-player";
-import "react-h5-audio-player/lib/styles.css";
 import { useDispatch } from "react-redux";
 import { useRef, useEffect } from "react";
 import { getSongs } from "../../store/songs";
 import { useIsPaused } from "../../context/IsPausedContext";
 import { useIsPlaying } from "../../context/IsPlayingContext";
 import { useAudioElement } from "../../context/AudioElementContext";
+import "react-h5-audio-player/lib/styles.css";
 import "./Audio.css";
 
 const Player = ({ songs }) => {
@@ -65,6 +65,7 @@ const Player = ({ songs }) => {
           setIsPlaying(false);
         }}
         autoPlayAfterSrcChange={true}
+        layout="horizontal-reverse"
       />
       <div className="song-details-preview">
         <img alt="album-art" src={currentSong.imageUrl} />

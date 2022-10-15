@@ -35,7 +35,7 @@ body {
 }
 
 .inner-container {
-  width: 85%;
+  width: 72.5%;
   background-color: white;
   margin: 0 auto;
   padding-bottom: 300px;
@@ -87,8 +87,8 @@ footer {
   align-items: center;
   justify-content: flex-start;
   background: rgb(224, 234, 238);
-  padding-left: 7.5%;
-  padding-right: 7.5%;
+  padding-left: 13.75%;
+  padding-right: 13.75%;
 }
 
 a {
@@ -151,7 +151,13 @@ a {
 .rhap_time {
   color: #023047;
 }
-/* 
+
 .rhap_volume-container {
-    display: none !important;
-} */
+  justify-content: space-around !important;
+}
+.rhap_main-controls {
+  justify-content: flex-start !important;
+}
+.rhap_additional-controls {
+  justify-content: space-around !important;
+}
