@@ -29,7 +29,7 @@ body {
   background-color: rgba(2, 48, 71, 0.1);
   width: 100%;
   height: fit-content;
-  padding-bottom: 88px;
+  padding-bottom: 60px;
   position: relative;
   z-index: 0;
 }
@@ -82,7 +82,7 @@ footer {
   bottom: 0;
   box-sizing: border-box;
   display: flex;
-  height: 90px;
+  height: 60px;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
@@ -151,13 +151,18 @@ a {
 .rhap_time {
   color: #023047;
 }
-
+.rhap_controls-section {
+  flex-direction: row !important;
+}
 .rhap_volume-container {
+  margin-left: 70px;
+  margin-right: 20px;
   justify-content: space-around !important;
 }
 .rhap_main-controls {
   justify-content: flex-start !important;
 }
 .rhap_additional-controls {
-  justify-content: space-around !important;
+  margin-right: none !important;
+  justify-content: flex-start !important;
 }
