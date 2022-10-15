@@ -1,6 +1,6 @@
-'use strict';
-const { Model, Validator } = require('sequelize');
-const bcrypt = require('bcryptjs');
+"use strict";
+const { Model, Validator } = require("sequelize");
+const bcrypt = require("bcryptjs");
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -9,26 +9,27 @@ module.exports = (sequelize, DataTypes) => {
       return { id, username, firstName, lastName, email };
     }
     static associate(models) {
-      User.hasMany(models.Album, { foreignKey: 'userId' })
-      User.hasMany(models.Song, { foreignKey: 'userId' })
-      User.hasMany(models.Playlist, { foreignKey: 'userId' })
-      User.hasMany(models.Comment, { foreignKey: 'userId' })
+      User.hasMany(models.Album, { foreignKey: "userId" });
+      User.hasMany(models.Song, { foreignKey: "userId" });
+      User.hasMany(models.Playlist, { foreignKey: "userId" });
+      User.hasMany(models.Comment, { foreignKey: "userId" });
+      User.hasMany(models.SongLikes, { foreignKey: "userId" });
     }
     static getCurrentUserById(id) {
       return User.scope("currentUser").findByPk(id);
     }
     static async login({ credential, password }) {
-      const { Op } = require('sequelize');
-      const user = await User.scope('loginUser').findOne({
+      const { Op } = require("sequelize");
+      const user = await User.scope("loginUser").findOne({
         where: {
           [Op.or]: {
             username: credential,
-            email: credential
-          }
-        }
+            email: credential,
+          },
+        },
       });
       if (user && user.validatePassword(password)) {
-        return await User.scope('currentUser').findByPk(user.id);
+        return await User.scope("currentUser").findByPk(user.id);
       }
     }
     static async signup({ username, email, firstName, lastName, password }) {
@@ -38,14 +39,14 @@ module.exports = (sequelize, DataTypes) => {
         email,
         firstName,
         lastName,
-        hashedPassword
+        hashedPassword,
       });
-      return await User.scope('currentUser').findByPk(user.id);
+      return await User.scope("currentUser").findByPk(user.id);
     }
     validatePassword(password) {
       return bcrypt.compareSync(password, this.hashedPassword.toString());
     }
-  };
+  }
 
   User.init(
     {
@@ -58,16 +59,16 @@ module.exports = (sequelize, DataTypes) => {
             if (Validator.isEmail(value)) {
               throw new Error("Cannot be an email.");
             }
-          }
-        }
+          },
+        },
       },
       email: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
           len: [3, 256],
-          isEmail: true
-        }
+          isEmail: true,
+        },
       },
       firstName: {
         type: DataTypes.STRING,
@@ -76,32 +77,39 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
       },
       previewImage: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
       },
       hashedPassword: {
         type: DataTypes.STRING.BINARY,
         allowNull: false,
         validate: {
           len: [60, 60],
-        }
-      }
+        },
+      },
     },
     {
       sequelize,
       modelName: "User",
       defaultScope: {
         attributes: {
-          exclude: ["hashedPassword", "email", "createdAt", "updatedAt"]
-        }
+          exclude: ["hashedPassword", "email", "createdAt", "updatedAt"],
+        },
       },
       scopes: {
         currentUser: {
-          attributes: { exclude: ["hashedPassword", "previewImage", "createdAt", "updatedAt"] }
+          attributes: {
+            exclude: [
+              "hashedPassword",
+              "previewImage",
+              "createdAt",
+              "updatedAt",
+            ],
+          },
         },
         loginUser: {
-          attributes: {}
-        }
-      }
+          attributes: {},
+        },
+      },
     }
   );
   return User;

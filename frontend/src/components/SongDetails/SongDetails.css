@@ -13,7 +13,7 @@
   box-sizing: border-box;
   position: relative;
   justify-content: space-between;
-  height: 420px;
+  height: 470px;
   margin-top: 50px;
   width: 100%;
 }
@@ -31,7 +31,9 @@
 }
 
 .song-details img {
-  width: 100%;
+  height: 340px;
+  width: 340px;
+  object-fit: cover;
 }
 
 .artist-details h2 {
@@ -65,7 +67,7 @@
   margin-right: 40px;
 }
 
-#wave {
+#output {
   width: 100%;
   height: 100px;
 }
