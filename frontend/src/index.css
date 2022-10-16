@@ -4,7 +4,7 @@
   --blue-green: #219ebc;
   --light-cornflower-blue: #8ecae6;
   --selective-yellow: #ffb703;
-  --tangerine: #fb8500;
+  --tangerine: rgb(250, 133, 0);
 }
 
 * {
@@ -64,18 +64,6 @@ body {
   width: 70%;
 }
 
-/* footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    background: rgb(224, 234, 238);
-    padding-left: 10%;
-} */
-
 footer {
   width: 100%;
   position: fixed;
@@ -89,6 +77,7 @@ footer {
   background: rgb(224, 234, 238);
   padding-left: 13.75%;
   padding-right: 13.75%;
+  border-top: 1px solid var(--prussian-blue);
 }
 
 a {
@@ -155,7 +144,7 @@ a {
   flex-direction: row !important;
 }
 .rhap_volume-container {
-  margin-left: 70px;
+  margin-left: 55px;
   margin-right: 20px;
   justify-content: space-around !important;
 }

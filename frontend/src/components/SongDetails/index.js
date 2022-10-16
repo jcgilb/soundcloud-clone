@@ -211,7 +211,11 @@ const SongDetails = () => {
               </div>
               <div className="artist-details">
                 <h2>{songFromUrl.title}</h2>
-                <span>{songFromUrl?.Artist?.username}</span>
+                {songFromUrl.Artist && (
+                  <span>{songFromUrl?.Artist?.username}</span>
+                )}
+
+                {!songFromUrl.Artist && <span>{user?.username}</span>}
               </div>
             </div>
             <div className="audio-visualizer">
