@@ -10,7 +10,7 @@
 .liked {
   width: 70px;
   height: 30px;
-  border: 1px solid var(--blue-green);
+  border: 1px solid #023047;
   background: none;
   font-size: 14px;
   cursor: pointer;
@@ -18,15 +18,16 @@
 }
 .liked .fa-heart,
 .liked span {
-  color: var(--blue-green);
+  color: #023047;
 }
+
 .disliked {
   width: 70px;
   height: 30px;
   font-size: 14px;
   background: none;
   cursor: pointer;
-  border: 1px solid rgb(224, 224, 224);
+  border: 1px solid rgba(2, 48, 71, 0.2);
   border-radius: 4px;
 }
 .disliked:hover {

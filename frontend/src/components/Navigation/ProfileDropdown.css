@@ -1,90 +1,88 @@
 button.logout {
-    border: none;
-    border-radius: 4px;
-    margin: 0 auto;
-    width: 194px;
-    height: 30px;
-    background: var(--selective-yellow);
-    font-size: 14px;
-    color: white;
-    font-weight: light;
+  border: none;
+  border-radius: 4px;
+  margin: 0 auto;
+  width: 194px;
+  height: 30px;
+  background: var(--selective-yellow);
+  font-size: 14px;
+  color: white;
+  font-weight: light;
 }
 
 .profile {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    cursor: pointer;
-    position: relative;
-    margin-right: 10px;
-    margin-left: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  cursor: pointer;
+  position: relative;
+  margin-left: 10px;
 }
 
 .fa-user-circle {
-    color: white;
-    padding: 6px;
-    border-radius: 50%;
+  color: white;
+  padding: 6px;
+  border-radius: 50%;
 }
 
 .fa-chevron-down {
-    padding: 8px;
-    margin-right: 10
+  padding: 8px;
 }
 
 .firstName {
-    padding: 8px;
-    margin-left: 3px;
+  padding: 8px;
+  margin-left: 3px;
 }
 
 .profile-dropdown {
-    box-sizing: border-box;
-    border: 1px solid rgb(224, 224, 224);
-    background-color: white;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-    height: 100px;
-    top: 52px;
-    right: 12.5%;
-    font-size: 14px;
-    padding-bottom: none;
-    padding-top: 5px;
+  box-sizing: border-box;
+  border: 1px solid rgba(2, 48, 71, 0.2);
+  background-color: white;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: 100px;
+  top: 52px;
+  right: 13.75%;
+  font-size: 14px;
+  padding-bottom: none;
+  padding-top: 5px;
 }
 
 .profile-dropdown label {
-    padding: 4px;
+  padding: 4px;
 }
 
 #username,
 #email {
-    border-bottom: 1px solid rgb(224, 224, 224);
-    width: 96%;
+  border-bottom: 1px solid rgba(2, 48, 71, 0.1);
+  width: 96%;
 }
 
 hr {
-    width: 99%;
+  width: 99%;
 }
 
 .far-left {
-    display: flex;
-    flex-direction: row;
-    position: absolute;
-    left: 0;
-    width: 250px;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  left: 0;
+  width: 250px;
+  justify-content: space-between;
 }
 
 .far-right {
-    display: flex;
-    flex-direction: row;
-    position: absolute;
-    right: 0;
-    justify-content: space-evenly;
-    width: 350px;
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  right: 0;
+  justify-content: space-evenly;
+  width: 350px;
 }

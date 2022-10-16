@@ -64,12 +64,17 @@
   width: 13.75%;
 }
 
-/* @media screen and (max-width: 1000px) {
+@media screen and (max-width: 1000px) {
   .outer-empty-nav {
-    width: 7.5%;
+    width: 5%;
   }
-
+  .navbar-links {
+    width: 37.5%;
+  }
+  .logo-container {
+    width: 27.5%;
+  }
   .middle-empty-nav {
-    width: 30%;
+    width: 25%;
   }
-} */
+}

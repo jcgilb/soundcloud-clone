@@ -1,48 +1,48 @@
 .write-comment {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    box-sizing: border-box;
-    background-color: white;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    height: 55px;
-    width: 70%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  background-color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  height: 55px;
+  width: 70%;
 }
 
 .write-comment input {
-    box-sizing: border-box;
-    border: 10px solid rgb(224, 224, 224);
-    padding: 6px;
-    font-size: 14px;
-    width: 94%;
-    height: 55px;
-    outline: none !important;
+  box-sizing: border-box;
+  border: 10px solid rgba(2, 48, 71, 0.1);
+  padding: 6px;
+  font-size: 14px;
+  width: 94%;
+  height: 55px;
+  outline: none !important;
 }
 
 .weird-box {
-    height: 54px;
-    width: 54px;
+  height: 54px;
+  width: 54px;
 }
 
 .new-comment {
-    opacity: 100%;
-    background-color: white;
-    border: 10px solid rgb(224, 224, 224);
-    border-left: none;
-    font-size: 14px;
-    padding: 6px;
-    padding: 4px;
-    cursor: pointer;
-    height: 55px;
-    color: rgb(130, 130, 130);
-    width: 75px;
+  opacity: 100%;
+  background-color: white;
+  border: 10px solid rgba(2, 48, 71, 0.1);
+  border-left: none;
+  font-size: 14px;
+  padding: 6px;
+  padding: 4px;
+  cursor: pointer;
+  height: 55px;
+  color: #868686;
+  width: 75px;
 }
 
 .create-comment-form {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    color: rgb(135, 135, 135);
-    width: 93.5%
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: #868686;
+  width: 93.5%;
 }
