@@ -1,10 +1,22 @@
 .likes-container {
-  margin-top: 10px;
+  margin-top: 5px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 68%;
+  width: 100%;
   justify-content: space-between;
+  margin-bottom: 10px;
+}
+.likes-container-column {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  width: 68%;
+}
+.likes-container-column hr {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .liked {

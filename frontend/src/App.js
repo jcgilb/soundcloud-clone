@@ -10,10 +10,15 @@ import UpdateSong from "./components/UpdateSong";
 import SplashPage from "./components/SplashPage";
 import { getSongs } from "./store/songs";
 import * as sessionActions from "./store/session";
+import { getArtist } from "./store/artists";
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+  const songs = useSelector((state) => state.songs);
+  const currentSong = Object.values(songs.currentSong);
+  const user = useSelector((state) => state.session.user);
+
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
   }, [dispatch]);
@@ -21,10 +26,6 @@ function App() {
   useEffect(() => {
     dispatch(getSongs());
   }, [dispatch]);
-
-  const songs = useSelector((state) => state.songs);
-  const currentSong = Object.values(songs.currentSong);
-  const user = useSelector((state) => state.session.user);
 
   return (
     <>

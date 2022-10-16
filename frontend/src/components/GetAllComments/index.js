@@ -41,7 +41,8 @@ const GetAllComments = () => {
 
     switch (interval) {
       case "SECONDS":
-        return Math.round(elapsedTime / 1000) + " seconds ago";
+        if (Math.round(elapsedTime / 1000) < 0) return "0 seconds ago";
+        else return Math.round(elapsedTime / 1000) + " seconds ago";
       case "MINUTES":
         return Math.round(elapsedTime / msMin) + " minutes ago";
       case "HOURS":
@@ -60,8 +61,6 @@ const GetAllComments = () => {
   return (
     <>
       <div className="get-all-comments">
-        <hr></hr>
-        <br></br>
         <div>
           {" "}
           <i class="fa-regular fa-message"></i> {songComments.length} Comments

@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { createComment } from "../../store/comments.js";
+import { getArtist } from "../../store/artists.js";
+import { clearArtist } from "../../store/artists.js";
 import "./CreateAComment.css";
 
 const CreateNewComment = () => {
@@ -18,6 +20,21 @@ const CreateNewComment = () => {
   );
   // identify the current user
   const user = useSelector((state) => state.session.user);
+
+  useEffect(() => {
+    if (user) {
+      const handlePageMount = async () => {
+        await dispatch(getArtist(user.id));
+      };
+      handlePageMount();
+    }
+    return () => {
+      dispatch(clearArtist());
+    };
+  }, [dispatch]);
+
+  // identify the currentArtist/user
+  const thisArtist = useSelector((state) => state.artists.artist);
 
   // helper function for clearing the input
   const revert = () => {
@@ -47,13 +64,18 @@ const CreateNewComment = () => {
   return (
     <div className="write-comment">
       {/* SoundCloud uses this greyish square to style the comment form */}
-      <div className="weird-box">
-        <img
-          alt="box"
-          src={
-            "https://res.cloudinary.com/ddmb8mrlb/image/upload/v1664117317/icons/commentsquare_lphvlw.jpg"
-          }
-        />
+      <div style={{ height: "54px", width: "54px" }} className="weird-box">
+        {thisArtist?.previewImage && (
+          <img alt="profile-pic" src={thisArtist?.previewImage} />
+        )}
+        {!thisArtist?.previewImage && (
+          <img
+            alt="box"
+            src={
+              "https://res.cloudinary.com/ddmb8mrlb/image/upload/v1664117317/icons/commentsquare_lphvlw.jpg"
+            }
+          />
+        )}
       </div>
       <form className="create-comment-form" onSubmit={handleSubmit}>
         <input

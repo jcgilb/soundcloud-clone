@@ -54,6 +54,10 @@
 .logo {
   width: 60px;
   margin-right: 10px;
+  cursor: pointer;
+}
+.name-container {
+  cursor: pointer;
 }
 
 .middle-empty-nav {

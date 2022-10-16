@@ -107,6 +107,11 @@
   margin-top: 50px;
   margin-left: 65px;
 }
+.comment-row {
+  display: flex;
+  flex-direction: row;
+  width: 68%;
+}
 
 .edit-song-details {
   display: flex;

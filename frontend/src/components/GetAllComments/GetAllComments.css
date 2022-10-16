@@ -1,10 +1,14 @@
 .get-all-comments {
   display: flex;
   flex-direction: column;
-  width: 68%;
-  padding: 10px;
+  width: 100%;
+  padding-top: 10px;
+  margin-left: 40px;
 }
 
+.get-all-comments hr {
+  width: 100%;
+}
 .individual-comment {
   display: flex;
   flex-direction: row;

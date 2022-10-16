@@ -7,7 +7,7 @@
   padding-top: 10px;
   padding-bottom: 10px;
   height: 55px;
-  width: 70%;
+  width: 68.5%;
 }
 
 .write-comment input {
@@ -15,14 +15,15 @@
   border: 10px solid rgba(2, 48, 71, 0.1);
   padding: 6px;
   font-size: 14px;
-  width: 94%;
+  width: 95%;
   height: 55px;
   outline: none !important;
 }
 
-.weird-box {
+.weird-box img {
   height: 54px;
   width: 54px;
+  object-fit: cover;
 }
 
 .new-comment {

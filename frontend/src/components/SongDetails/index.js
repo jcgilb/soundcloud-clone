@@ -7,6 +7,7 @@ import { useAudioElement } from "../../context/AudioElementContext";
 import { useIsPaused } from "../../context/IsPausedContext";
 import GetAllComments from "../GetAllComments";
 import CreateNewComment from "../CreateAComment";
+import ArtistInfo from "../ArtistInfo";
 import LikeSong from "../LikeSong";
 import { Wave } from "@foobar404/wave";
 import ReactWaves from "@dschoon/react-waves";
@@ -267,7 +268,10 @@ const SongDetails = () => {
             <CreateNewComment />
             <LikeSong />
           </div>
-          <GetAllComments />
+          <div className="comment-row">
+            <ArtistInfo />
+            <GetAllComments />
+          </div>
         </div>
       </div>
     </>

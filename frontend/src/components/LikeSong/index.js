@@ -33,49 +33,53 @@ function LikeSong() {
 
   if (!song) return null;
   return (
-    <div className="likes-container">
-      <button
-        className={liked ? "liked" : "disliked"}
-        onClick={async () => {
-          // if like is undefined, like the song
-          if (user && !like) {
-            await dispatch(likeASong(songId));
-          }
-          // if like is defined, unlike it
-          else if (user && like) {
-            await dispatch(deleteLike(like.id));
-          } else {
-            alert("Please sign in to like songs.");
-          }
-        }}
-      >
-        {like && (
-          <>
-            {/* render already liked button */}
-            <i className={"fas fa-heart"} /> <span>Liked</span>
-          </>
-        )}
-        {!like && (
-          <>
-            {/* render like button */}
-            <i className={"fas fa-heart"} /> <span>Like</span>
-          </>
-        )}
-      </button>
-      <div className="stats-count">
-        {songLikes?.length > 0 && (
-          <>
-            {/* show number of likes */}
-            <i className={"fas fa-heart"} /> {songLikes.length}
-          </>
-        )}
-        {songLikes?.length === 0 && (
-          <>
-            {/* show number of likes */}
-            <i className={"fas fa-heart"} /> {0}
-          </>
-        )}
+    <div className="likes-container-column">
+      <div className="likes-container">
+        <button
+          className={liked ? "liked" : "disliked"}
+          onClick={async () => {
+            // if like is undefined, like the song
+            if (user && !like) {
+              await dispatch(likeASong(songId));
+            }
+            // if like is defined, unlike it
+            else if (user && like) {
+              await dispatch(deleteLike(like.id));
+            } else {
+              alert("Please sign in to like songs.");
+            }
+          }}
+        >
+          {like && (
+            <>
+              {/* render already liked button */}
+              <i className={"fas fa-heart"} /> <span>Liked</span>
+            </>
+          )}
+          {!like && (
+            <>
+              {/* render like button */}
+              <i className={"fas fa-heart"} /> <span>Like</span>
+            </>
+          )}
+        </button>
+        <div className="stats-count">
+          {songLikes?.length > 0 && (
+            <>
+              {/* show number of likes */}
+              <i className={"fas fa-heart"} /> {songLikes.length}
+            </>
+          )}
+          {songLikes?.length === 0 && (
+            <>
+              {/* show number of likes */}
+              <i className={"fas fa-heart"} /> {0}
+            </>
+          )}
+        </div>
       </div>
+      <hr></hr>
+      <br></br>
     </div>
   );
 }

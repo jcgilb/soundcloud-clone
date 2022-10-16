@@ -12,6 +12,8 @@ import { restoreCSRF, csrfFetch } from "./store/csrf";
 import * as sessionActions from "./store/session";
 import { deleteSong, getOneSong, getSongs } from "./store/songs";
 import { deleteLike, likeASong, getSongLikes, getLikes } from "./store/likes";
+import { getArtist } from "./store/artists";
+
 import AudioElementProvider from "./context/AudioElementContext";
 
 const store = configureStore();
@@ -28,6 +30,7 @@ if (process.env.NODE_ENV !== "production") {
   window.likeASong = likeASong;
   window.deleteLike = deleteLike;
   window.getLikes = getLikes;
+  window.getArtist = getArtist;
 }
 
 function Root() {
