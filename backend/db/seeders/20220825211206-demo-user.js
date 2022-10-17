@@ -31,7 +31,7 @@ module.exports = {
           lastName: "Benson",
           hashedPassword: bcrypt.hashSync("password"),
           previewImage:
-            "https://res.cloudinary.com/ddmb8mrlb/image/upload/v1663787236/previewImage/image_eas8ux.jpg",
+            "https://res.cloudinary.com/ddmb8mrlb/image/upload/v1664117317/icons/commentsquare_lphvlw.jpg",
         },
         {
           email: "rdjames@user.io",
@@ -135,11 +135,11 @@ module.exports = {
         {
           email: "brotet@user.io",
           username: "The Brotet",
-          firstName: "Samson",
-          lastName: "Grisman",
+          firstName: "Brotet",
+          lastName: "Band",
           hashedPassword: bcrypt.hashSync("password"),
           previewImage:
-            "https://res.cloudinary.com/ddmb8mrlb/image/upload/v1665800065/imageUrl/ab67616d0000b2736b540886ef9bd8a30abab30e_vdnayb.jpg",
+            "https://res.cloudinary.com/ddmb8mrlb/image/upload/v1665983259/previewImage/ab6761610000e5ebb44a0f431732e030bc2e5a13_sdgdui.jpg",
         },
         {
           email: "owane@user.io",
@@ -153,8 +153,8 @@ module.exports = {
         {
           email: "nujabes@user.io",
           username: "Nujabes",
-          firstName: "Nujabes",
-          lastName: "Shibuya",
+          firstName: "Seba",
+          lastName: "Jun",
           hashedPassword: bcrypt.hashSync("password"),
           previewImage:
             "https://res.cloudinary.com/ddmb8mrlb/image/upload/v1665806902/previewImage/Nujabes_performing_live_v3ntik.jpg",
