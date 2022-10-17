@@ -38,7 +38,7 @@
 
 .artist-details h2 {
   margin-bottom: 8px;
-  color: white;
+  color: rgba(255, 255, 255);
   background: rgba(2, 48, 71, 0.7);
   padding: 3px;
   margin-right: 20px;

@@ -1,9 +1,9 @@
 /* Site wide styles */
 :root {
   --prussian-blue: #023047;
-  --blue-green: #219ebc;
-  --light-cornflower-blue: #8ecae6;
-  --selective-yellow: #ffb703;
+  --blue-green: rgb(33, 158, 188);
+  --light-cornflower-blue: rgb(142, 202, 230);
+  --selective-yellow: rgb(255, 183, 3);
   --tangerine: rgb(250, 133, 0);
 }
 
@@ -77,7 +77,7 @@ footer {
   background: rgb(224, 234, 238);
   padding-left: 13.75%;
   padding-right: 13.75%;
-  border-top: 1px solid var(--prussian-blue);
+  border-top: 1px solid rgb(1, 70, 105);
 }
 
 a {

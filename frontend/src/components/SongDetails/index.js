@@ -1,6 +1,6 @@
 import { useEffect, useState, useLayoutEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useParams, withRouter } from "react-router-dom";
 import { getOneSong, playASong } from "../../store/songs";
 import { useIsPlaying } from "../../context/IsPlayingContext";
 import { useAudioElement } from "../../context/AudioElementContext";
@@ -231,8 +231,8 @@ const SongDetails = () => {
                   barRadius: 2,
                   hideScrollbar: true,
                   cursorWidth: 0,
-                  progressColor: "#4159FB",
-                  waveColor: "rgba(65, 89, 251, 0.4)",
+                  progressColor: "#023047",
+                  waveColor: "rgb(255, 255, 255)",
                   responsive: true,
                 }}
                 playing={playing}

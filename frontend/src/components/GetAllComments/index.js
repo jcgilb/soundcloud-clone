@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getComments, deleteComment } from "../../store/comments.js";
 import { useParams, useHistory } from "react-router-dom";
+import { getComments, deleteComment } from "../../store/comments.js";
+import { getArtist, clearArtist } from "../../store/artists.js";
 import "./GetAllComments.css";
 
 const GetAllComments = () => {
@@ -23,6 +24,21 @@ const GetAllComments = () => {
   let songComments = commentsArr.filter(
     (comment) => comment.songId === song.id
   );
+
+  useEffect(() => {
+    if (user) {
+      const handlePageMount = async () => {
+        await dispatch(getArtist(user.id));
+      };
+      handlePageMount();
+    }
+    return () => {
+      dispatch(clearArtist());
+    };
+  }, [dispatch]);
+
+  // identify the currentArtist/user
+  const thisArtist = useSelector((state) => state.artists.artist);
 
   const getRelativeTime = (createdAt) => {
     const elapsedTime = new Date() - Date.parse(createdAt); // elapsed time in milliseconds
@@ -68,31 +84,46 @@ const GetAllComments = () => {
         <br></br>
         <hr></hr>
         {songComments.map((comment) => (
-          <>
-            <div className="individual-comment">
-              <div className="comment-author">
-                {!comment.User && <div>{user?.username}:</div>}
-                {comment?.User?.username && (
-                  <div>{comment?.User?.username}:</div>
-                )}
+          <div className="comment-beginning">
+            <div className="user-profile-pic">
+              {comment?.User?.previewImage && (
+                <img alt={"profile-pic"} src={comment?.User?.previewImage} />
+              )}
+              {!comment?.User?.previewImage && (
+                <img
+                  alt={"profile-pic"}
+                  src={
+                    "https://res.cloudinary.com/ddmb8mrlb/image/upload/v1664117317/icons/commentsquare_lphvlw.jpg"
+                  }
+                />
+              )}
+            </div>
+            <div className="comment-col">
+              <div className="individual-comment">
+                <div className="comment-author">
+                  {!comment.User && <div>{user?.username}:</div>}
+                  {comment?.User?.username && (
+                    <div>{comment?.User?.username}:</div>
+                  )}
+                </div>
+                <div className="comment-end">
+                  <div>{getRelativeTime(comment.createdAt)}</div>
+                  {comment.userId === user?.id && (
+                    <i
+                      className="fa-regular fa-trash-can"
+                      onClick={async () => {
+                        await dispatch(deleteComment(comment.id));
+                        return history.push(`/songs/${song.id}`);
+                      }}
+                    ></i>
+                  )}
+                </div>
               </div>
-              <div className="comment-end">
-                <div>{getRelativeTime(comment.createdAt)}</div>
-                {comment.userId === user?.id && (
-                  <i
-                    className="fa-regular fa-trash-can"
-                    onClick={async () => {
-                      await dispatch(deleteComment(comment.id));
-                      return history.push(`/songs/${song.id}`);
-                    }}
-                  ></i>
-                )}
+              <div key={comment.id} className="comment-body">
+                {comment.body}
               </div>
             </div>
-            <div key={comment.id} className="comment-body">
-              {comment.body}
-            </div>
-          </>
+          </div>
         ))}
       </div>
     </>

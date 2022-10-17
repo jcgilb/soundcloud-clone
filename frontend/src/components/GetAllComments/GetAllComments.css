@@ -6,6 +6,27 @@
   margin-left: 40px;
 }
 
+.comment-beginning {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.user-profile-pic {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+.user-profile-pic img {
+  height: 40px;
+  width: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
 .get-all-comments hr {
   width: 100%;
 }
@@ -13,7 +34,12 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding-top: 15px;
+  padding-top: 5px;
+}
+.comment-col {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .comment-author {
