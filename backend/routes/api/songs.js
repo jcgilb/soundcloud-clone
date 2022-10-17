@@ -221,11 +221,12 @@ router.post("/:songId/comments", requireAuth, async (req, res) => {
       },
     });
   }
-  const comment = await Comment.create({
+  let commentBody = {
     userId: req.user.id,
     songId: song.id,
     body: req.body.body,
-  });
+  };
+  const comment = await Comment.create(commentBody);
   return res.json(comment);
 });
 

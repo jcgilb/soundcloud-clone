@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import { createComment } from "../../store/comments.js";
+import { createComment, getOneComment } from "../../store/comments.js";
 import { getArtist } from "../../store/artists.js";
 import { clearArtist } from "../../store/artists.js";
 import "./CreateAComment.css";
@@ -44,7 +44,7 @@ const CreateNewComment = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // error handling for when a user tries to submit a comment if not logged in
-    if (user === null) {
+    if (!user || user === null) {
       alert("Please log in or create an account to post comments.");
       // erase the comment body
       revert();
@@ -56,6 +56,8 @@ const CreateNewComment = () => {
     let comment = await dispatch(createComment(newComment, songId));
     // if successful, post the comment
     if (comment) {
+      console.log("getting last comment");
+      await dispatch(getOneComment(comment.id));
       revert();
       history.push(`/songs/${song.id}`);
     }

@@ -59,6 +59,7 @@ const Player = ({ songs }) => {
         onPlay={(e) => {
           setIsPaused(false);
           setIsPlaying(true);
+          console.log(audioElement);
         }}
         onPause={(e) => {
           setIsPaused(true);

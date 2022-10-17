@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import { getComments, deleteComment } from "../../store/comments.js";
@@ -14,26 +14,39 @@ const GetAllComments = () => {
   const song = Object.values(songs).find(
     (song) => song.id === parseInt(songId)
   );
-  const commentsObj = useSelector((state) => state.comments);
-  const commentsArr = Object.values(commentsObj);
 
   useEffect(() => {
     dispatch(getComments(songId));
   }, [dispatch, songId]);
 
+  useLayoutEffect(() => {
+    return () => {
+      dispatch(getComments(songId));
+    };
+  }, []);
+
+  const commentsObj = useSelector((state) => state.comments);
+  const commentsArr = Object.values(commentsObj);
+
+  console.log("array of comments", commentsArr);
+
   let songComments = commentsArr.filter(
     (comment) => comment.songId === song.id
   );
+
+  console.log("song comments", songComments);
 
   useEffect(() => {
     if (user) {
       const handlePageMount = async () => {
         await dispatch(getArtist(user.id));
+        await dispatch(getComments(songId));
       };
       handlePageMount();
     }
     return () => {
       dispatch(clearArtist());
+      dispatch(getComments(songId));
     };
   }, [dispatch]);
 

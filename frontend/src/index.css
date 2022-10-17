@@ -14,7 +14,7 @@
 
 html,
 body {
-  height: 100vh;
+  height: 100%;
   /* font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
   size: 10px;
   /* font-family: 'Montserrat Alternates', sans-serif; */
@@ -22,12 +22,13 @@ body {
 }
 
 .root {
-  height: 100vh;
+  height: 100%;
 }
 
 .overall-container {
   background-color: rgba(2, 48, 71, 0.1);
   width: 100%;
+  height: 100%;
   height: fit-content;
   padding-bottom: 60px;
   position: relative;
@@ -36,9 +37,10 @@ body {
 
 .inner-container {
   width: 72.5%;
+  height: 100%;
   background-color: white;
   margin: 0 auto;
-  padding-bottom: 300px;
+  padding-bottom: 100px;
   position: relative;
   z-index: 0;
 }
