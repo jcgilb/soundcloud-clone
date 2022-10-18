@@ -1,11 +1,7 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
-import {
-  getComments,
-  deleteComment,
-  getOneComment,
-} from "../../store/comments.js";
+import { getComments, deleteComment } from "../../store/comments.js";
 import { getArtist, clearArtist } from "../../store/artists.js";
 import "./GetAllComments.css";
 
@@ -37,8 +33,6 @@ const GetAllComments = () => {
 
   const commentsObj = useSelector((state) => state.comments);
   const commentsArr = Object.values(commentsObj);
-
-  console.log("array of comments", commentsArr);
 
   let songComments = commentsArr.filter(
     (comment) => comment.songId === song.id
