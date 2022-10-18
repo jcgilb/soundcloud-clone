@@ -81,7 +81,7 @@ const SongDetails = () => {
 
   useLayoutEffect(() => {
     return () => {
-      if (currentSong.url === songFromUrl.url && firstPlay === true) {
+      if (currentSong?.url === songFromUrl?.url && firstPlay === true) {
         setFirstPlay(false);
         dispatch(incrementPlays(songFromUrl.id));
       }
