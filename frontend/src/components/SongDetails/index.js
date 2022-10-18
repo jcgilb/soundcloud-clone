@@ -1,7 +1,7 @@
 import { useEffect, useState, useLayoutEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
-import { incrementPlays, playASong } from "../../store/songs";
+import { playASong } from "../../store/songs";
 import { useIsPlaying } from "../../context/IsPlayingContext";
 import { useAudioElement } from "../../context/AudioElementContext";
 import { useIsPaused } from "../../context/IsPausedContext";
@@ -79,15 +79,6 @@ const SongDetails = () => {
     }
   }, [isPlaying]);
 
-  useLayoutEffect(() => {
-    return () => {
-      if (currentSong?.url === songFromUrl?.url && firstPlay === true) {
-        setFirstPlay(false);
-        dispatch(incrementPlays(songFromUrl.id));
-      }
-    };
-  }, []);
-
   // random color
   const getColor = () => {
     // all possible hex characters
@@ -137,7 +128,7 @@ const SongDetails = () => {
                   >
                     <i
                       style={{ cursor: "pointer" }}
-                      className="fa-solid fa-play fa-4x"
+                      className="fa-solid fa-play fa-5x"
                     ></i>
                   </div>
                 )}
@@ -153,7 +144,7 @@ const SongDetails = () => {
                   >
                     <i
                       style={{ cursor: "pointer" }}
-                      className="fa-solid fa-pause fa-4x"
+                      className="fa-solid fa-pause fa-5x"
                     ></i>
                   </div>
                 )}
@@ -171,7 +162,7 @@ const SongDetails = () => {
                   >
                     <i
                       style={{ cursor: "pointer" }}
-                      className="fa-solid fa-play fa-4x"
+                      className="fa-solid fa-play fa-5x"
                     ></i>
                   </div>
                 )}
@@ -193,7 +184,7 @@ const SongDetails = () => {
                   >
                     <i
                       style={{ cursor: "pointer" }}
-                      className="fa-solid fa-play fa-4x"
+                      className="fa-solid fa-play fa-5x"
                     ></i>
                   </div>
                 )}
@@ -229,7 +220,7 @@ const SongDetails = () => {
           </div>
           <div key="image" className="individual-song-image-url">
             <img
-              style={{ borderRadius: "4px" }}
+              style={{ borderRadius: "2px" }}
               alt={songFromUrl.id}
               src={songFromUrl.imageUrl}
             />

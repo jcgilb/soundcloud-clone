@@ -64,7 +64,7 @@ hr {
 }
 
 .song-card {
-  width: 24%;
+  width: 19%;
   min-width: 172px;
   height: 210px;
   display: flex;
@@ -72,7 +72,7 @@ hr {
   justify-content: flex-end;
   align-items: center;
   z-index: 0;
-  margin: 3px;
+  margin: 6px;
 }
 
 #inner-song-card {

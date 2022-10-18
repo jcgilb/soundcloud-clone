@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getSongs, playASong, incrementPlays } from "../../store/songs.js";
+import { getSongs, playASong } from "../../store/songs.js";
 import { NavLink, useHistory } from "react-router-dom";
 import { useIsPaused } from "../../context/IsPausedContext.js";
+import { useIsPlaying } from "../../context/IsPlayingContext";
 import "./GetAllSongs.css";
 import "../SplashPage/SplashPage.css";
 
@@ -11,6 +12,7 @@ const GetAllSongs = () => {
   const history = useHistory();
   // context for the audio player
   const { setIsPaused } = useIsPaused();
+  const { isPlaying, setIsPlaying } = useIsPlaying();
   // state for controlling whether or not to render the "pause" button
   const [pauseButton, setPauseButton] = useState(false);
   // get the current song in order to set the current song
@@ -29,12 +31,6 @@ const GetAllSongs = () => {
     dispatch(getSongs());
   }, [dispatch]);
 
-  useEffect(() => {
-    if (currentSong.id) {
-      dispatch(incrementPlays(currentSong.id));
-    }
-  }, [currentSong]);
-
   return (
     <div className="main-container-div">
       <div className="main-top-div"></div>
@@ -47,52 +43,126 @@ const GetAllSongs = () => {
                 <div key="image" className="image-url">
                   <div className="album-art">
                     <img
-                      style={{ borderRadius: "4px", textDecoration: "none" }}
+                      style={{ borderRadius: "2px", textDecoration: "none" }}
                       className="tile"
                       alt={song.id}
                       src={song.imageUrl}
                     />
                     <div className="play-pause">
-                      {/* render a play button on every song */}
+                      {/* show a play button if currentSong === songFromUrl and isPaused*/}
+                      {!isPlaying && currentSong.url === song.url && (
+                        <div
+                          className="press-play"
+                          onClick={async () => {
+                            if (currentSong !== song) {
+                              if (currentSong.url) setIsPlaying(false);
+                              setCurrentSong(song);
+                            }
+                            await dispatch(playASong(song.id));
+                            setIsPaused(false); // for AudioPlayer component
+                            setIsPlaying(true);
+                            setPauseButton(true);
+                          }}
+                        >
+                          <i
+                            style={{ cursor: "pointer" }}
+                            className="fa-solid fa-play fa-4x"
+                          ></i>
+                        </div>
+                      )}
+                      {/* show a pause button if currentSong === song and isPlaying*/}
+                      {isPlaying && currentSong.url === song.url && (
+                        <div
+                          className="press-pause"
+                          onClick={async () => {
+                            setIsPaused(true); // for AudioPlayer component
+                            setIsPlaying(false);
+                            setPauseButton(false);
+                          }}
+                        >
+                          <i
+                            style={{ cursor: "pointer" }}
+                            className="fa-solid fa-pause fa-4x"
+                          ></i>
+                        </div>
+                      )}
+                      {/* show a play button if currentSong !== song and !isPlaying*/}
+                      {currentSong.url !== song.url && !isPlaying && (
+                        <div
+                          className="press-play"
+                          onClick={async () => {
+                            setCurrentSong(song);
+                            await dispatch(playASong(song.id));
+                            setIsPaused(false); // for AudioPlayer component
+                            setIsPlaying(true);
+                            setPauseButton(true);
+                          }}
+                        >
+                          <i
+                            style={{ cursor: "pointer" }}
+                            className="fa-solid fa-play fa-4x"
+                          ></i>
+                        </div>
+                      )}
+                      {/* show a play button if currentSong !== song and isPlaying*/}
+                      {currentSong.url !== song.url && isPlaying && (
+                        <div
+                          className="press-play"
+                          onClick={async (e) => {
+                            if (currentSong !== song) {
+                              if (currentSong.url) setIsPlaying(false);
+                              setCurrentSong(song);
+                            }
+                            setCurrentSong(song);
+                            await dispatch(playASong(song.id));
+                            setIsPaused(false); // for AudioPlayer component
+                            setIsPlaying(true);
+                            setPauseButton(true);
+                          }}
+                        >
+                          <i
+                            style={{ cursor: "pointer" }}
+                            className="fa-solid fa-play fa-4x"
+                          ></i>
+                        </div>
+                      )}
+                      {/* render a play button on every song
                       {song !== currentSong && (
                         <div
                           className="play-button"
                           onClick={async () => {
                             setCurrentSong(song);
-                            await dispatch(playASong(song.id));
                             setIsPaused(false);
-                            setPauseButton(true);
+                            dispatch(playASong(song.id));
                           }}
                         >
                           <i className="fa-solid fa-play fa-2x"></i>
                         </div>
                       )}
                       {/**show a play button after a user presses pause */}
-                      {!pauseButton && (
+                      {/* {!isPlaying && currentSong === song && (
                         <div
                           className="play-button"
                           onClick={async () => {
                             setCurrentSong(song);
-                            await dispatch(playASong(song.id));
                             setIsPaused(false);
-                            setPauseButton(true);
+                            dispatch(playASong(song.id));
                           }}
                         >
                           <i className="fa-solid fa-play fa-2x"></i>
                         </div>
                       )}
-                      {/* show the paused button after a user presses play */}
-                      {currentSong === song && pauseButton && (
+                      show the paused button after a user presses play */}
+                      {/* {currentSong === song && isPlaying && (
                         <div
                           className="pause-button"
                           onClick={async () => {
                             setIsPaused(true);
-                            setPauseButton(false);
                           }}
                         >
                           <i className="fa-solid fa-pause fa-2x"></i>
                         </div>
-                      )}
+                      )}  */}
                     </div>
                   </div>
                   <div className="title-nav">

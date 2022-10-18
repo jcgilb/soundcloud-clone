@@ -1,7 +1,7 @@
 import AudioPlayer from "react-h5-audio-player";
 import { useDispatch } from "react-redux";
 import { useRef, useEffect } from "react";
-import { getSongs } from "../../store/songs";
+import { getSongs, incrementPlays } from "../../store/songs";
 import { useIsPaused } from "../../context/IsPausedContext";
 import { useIsPlaying } from "../../context/IsPlayingContext";
 import { useAudioElement } from "../../context/AudioElementContext";
@@ -31,6 +31,13 @@ const Player = ({ songs }) => {
   // in order to perform .play() and .pause() methods
   const player = useRef();
   setAudioElement(player.current);
+
+  // this useEffect increments numPlays every time a new song is played
+  useEffect(() => {
+    if (currentSong?.url) {
+      dispatch(incrementPlays(currentSong.id));
+    }
+  }, [currentSong?.url]);
 
   if (isPaused === false) {
     if (currentSong) {
