@@ -277,6 +277,22 @@ router.post("/", [validateSongs, requireAuth], async (req, res) => {
   }
 });
 
+// increment numPlays - PUT /:songId/plays
+// Authentication: false
+router.put("/:songId/plays", async (req, res) => {
+  const song = await Song.findByPk(req.params.songId);
+  if (!song) {
+    res.status(404);
+    return res.json({
+      message: "Song couldn't be found",
+      statusCode: 404,
+    });
+  }
+  song.numPlays = song.numPlays + 1;
+  song.save();
+  return res.json(song);
+});
+
 // Edit a Song - PUT /:songId
 // Authentication: true
 router.put("/:songId", requireAuth, async (req, res) => {

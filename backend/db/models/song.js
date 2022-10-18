@@ -37,6 +37,10 @@ module.exports = (sequelize, DataTypes) => {
       description: DataTypes.STRING,
       url: DataTypes.STRING,
       imageUrl: DataTypes.STRING,
+      numPlays: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+      },
     },
     {
       sequelize,

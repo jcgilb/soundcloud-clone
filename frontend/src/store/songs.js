@@ -77,6 +77,21 @@ export const createSong = (payload) => async (dispatch) => {
   }
 };
 
+// increment plays thunk
+export const incrementPlays = (songId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/songs/${songId}/plays`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (response.ok) {
+    const songData = await response.json();
+    dispatch(addOne(songData));
+    return songData;
+  }
+};
+
 // update a song thunk
 export const updateSong = (songBody, songId) => async (dispatch) => {
   const response = await csrfFetch(`/api/songs/${songId}`, {

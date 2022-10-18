@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getSongs, playASong } from "../../store/songs.js";
+import { getSongs, playASong, incrementPlays } from "../../store/songs.js";
 import { NavLink, useHistory } from "react-router-dom";
 import { useIsPaused } from "../../context/IsPausedContext.js";
 import "./GetAllSongs.css";
@@ -28,6 +28,12 @@ const GetAllSongs = () => {
   useEffect(() => {
     dispatch(getSongs());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (currentSong.id) {
+      dispatch(incrementPlays(currentSong.id));
+    }
+  }, [currentSong]);
 
   return (
     <div className="main-container-div">

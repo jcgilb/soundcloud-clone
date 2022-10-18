@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { likeASong, deleteLike, getLikes } from "../../store/likes";
+import NumPlays from "../NumPlays";
 import "./LikeSong.css";
 
 function LikeSong() {
@@ -64,6 +65,8 @@ function LikeSong() {
           )}
         </button>
         <div className="stats-count">
+          <i style={{ color: "#868686" }} className={"fas fa-play"} />{" "}
+          {song?.numPlays}
           {songLikes?.length > 0 && (
             <>
               {/* show number of likes */}

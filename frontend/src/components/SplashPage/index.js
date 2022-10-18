@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getSongs, playASong } from "../../store/songs.js";
+import { getSongs, playASong, incrementPlays } from "../../store/songs.js";
 import { NavLink, useHistory } from "react-router-dom";
 import { useIsPaused } from "../../context/IsPausedContext.js";
 import "./SplashPage.css";
@@ -20,14 +20,6 @@ const SplashPage = ({ songs }) => {
   useEffect(() => {
     dispatch(getSongs());
   }, [dispatch]);
-
-  // reload the page when navigating to song details so the wave can show on every song
-  // function refreshPage() {
-  //     setTimeout(() => {
-  //         window.location.reload(false);
-  //     }, 100);
-  //     console.log('page to reload');
-  // }
 
   // only show the first 10 songs on the splash page
   let myMap = Object.values(songs).slice(0, 10);
@@ -68,6 +60,7 @@ const SplashPage = ({ songs }) => {
                           e.preventDefault();
                           setCurrentSong(song);
                           await dispatch(playASong(song.id));
+                          await dispatch(incrementPlays(song.id));
                           setIsPaused(false);
                           setPauseButton(true);
                         }}
@@ -131,74 +124,6 @@ const SplashPage = ({ songs }) => {
       </div>
     </div>
   );
-
-  // old code - song cards are centered not left aligned.
-
-  // return (
-  //     <div className="main-container-div">
-  //         <div className='main-top-div'>
-  //             <img alt="main-background" src={"https://res.cloudinary.com/ddmb8mrlb/image/upload/v1664141664/backgrounds/sc_landing_header_web_b-447230ef_pzqzhn.jpg"} />
-  //         </div>
-  //         <div className='main-middle-div'>
-  //             <div className="main-trending-title">Hear what's trending in the Audio Stratus community</div>
-  //             <div className="tiles-splash">
-  //                 {myMap.map((song) => (
-  //                     <div className="song-tile">
-  //                         <div key="image" className="image-url">
-  //                             <div className='album-art'>
-  //                                 <img className="tile" alt={song.id} src={song.imageUrl} />
-  //                                 <div className="play-pause">
-  //                                     {/* render a play button on every song */}
-  //                                     {song !== currentSong &&
-  //                                         <div className="play-button"
-  //                                             onClick={async (e) => {
-  //                                                 e.preventDefault();
-  //                                                 setCurrentSong(song)
-  //                                                 await dispatch(playASong(song.id))
-  //                                                 setIsPaused(false);
-  //                                                 setPauseButton(true);
-  //                                             }}><i className="fa-solid fa-play fa-2x"></i>
-  //                                         </div>
-  //                                     }
-  //                                     {!pauseButton &&
-  //                                         <div className="play-button"
-  //                                             onClick={async (e) => {
-  //                                                 e.preventDefault();
-  //                                                 setCurrentSong(song)
-  //                                                 await dispatch(playASong(song.id))
-  //                                                 setIsPaused(false);
-  //                                                 setPauseButton(true);
-  //                                             }}><i className="fa-solid fa-play fa-2x"></i>
-  //                                         </div>
-  //                                     }
-  //                                     {/* show the paused button after a user presses play */}
-  //                                     {currentSong === song && pauseButton &&
-  //                                         <div className="pause-button"
-  //                                             onClick={async (e) => {
-  //                                                 e.preventDefault();
-  //                                                 setIsPaused(true);
-  //                                                 setPauseButton(false);
-  //                                             }}><i className="fa-solid fa-pause fa-2x"></i>
-  //                                         </div>
-  //                                     }
-  //                                 </div>
-  //                             </div>
-  //                             <div className="title-nav">
-  //                                 <NavLink style={{ color: "black", textDecoration: "none" }} to={`/songs/${song.id}`}>{song.title}</NavLink>
-  //                                 <div onClick={(e) => {
-  //                                     e.preventDefault();
-  //                                     history.push(`/songs/${song.id}`)
-  //                                 }}
-  //                                     className="artist-name">{song.Artist?.username}
-  //                                     cd </div>
-  //                             </div>
-  //                         </div>
-  //                     </div>
-  //                 ))}
-  //             </div>
-  //         </div >
-  //     </div>
-  // )
 };
 
 export default SplashPage;

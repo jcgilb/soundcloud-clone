@@ -78,6 +78,8 @@ module.exports = (sequelize, DataTypes) => {
       },
       previewImage: {
         type: DataTypes.STRING,
+        defaultValue:
+          "https://res.cloudinary.com/ddmb8mrlb/image/upload/v1664117317/icons/commentsquare_lphvlw.jpg",
       },
       hashedPassword: {
         type: DataTypes.STRING.BINARY,
