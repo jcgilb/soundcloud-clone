@@ -101,7 +101,7 @@ const GetAllSongs = () => {
                     >
                       {song.title}
                     </NavLink>
-                    <p id="artist-name">{song.Artist.username}</p>
+                    <p id="artist-name">{song.Artist?.username}</p>
                   </div>
                 </div>
               </div>

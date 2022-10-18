@@ -1,7 +1,11 @@
 import { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
-import { getComments, deleteComment } from "../../store/comments.js";
+import {
+  getComments,
+  deleteComment,
+  getOneComment,
+} from "../../store/comments.js";
 import { getArtist, clearArtist } from "../../store/artists.js";
 import "./GetAllComments.css";
 
@@ -16,14 +20,20 @@ const GetAllComments = () => {
   );
 
   useEffect(() => {
-    dispatch(getComments(songId));
-  }, [dispatch, songId]);
-
-  useLayoutEffect(() => {
+    if (user) {
+      const handlePageMount = async () => {
+        await dispatch(getArtist(user.id));
+        await dispatch(getComments());
+      };
+      handlePageMount();
+    }
     return () => {
-      dispatch(getComments(songId));
+      dispatch(clearArtist());
     };
-  }, []);
+  }, [dispatch, user, songId]);
+
+  // identify the currentArtist/user
+  const thisArtist = useSelector((state) => state.artists.artist);
 
   const commentsObj = useSelector((state) => state.comments);
   const commentsArr = Object.values(commentsObj);
@@ -33,25 +43,6 @@ const GetAllComments = () => {
   let songComments = commentsArr.filter(
     (comment) => comment.songId === song.id
   );
-
-  console.log("song comments", songComments);
-
-  useEffect(() => {
-    if (user) {
-      const handlePageMount = async () => {
-        await dispatch(getArtist(user.id));
-        await dispatch(getComments(songId));
-      };
-      handlePageMount();
-    }
-    return () => {
-      dispatch(clearArtist());
-      dispatch(getComments(songId));
-    };
-  }, [dispatch]);
-
-  // identify the currentArtist/user
-  const thisArtist = useSelector((state) => state.artists.artist);
 
   const getRelativeTime = (createdAt) => {
     const elapsedTime = new Date() - Date.parse(createdAt); // elapsed time in milliseconds

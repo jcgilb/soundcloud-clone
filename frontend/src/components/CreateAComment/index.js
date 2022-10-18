@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import { createComment, getOneComment } from "../../store/comments.js";
+import { createComment, getComments } from "../../store/comments.js";
 import { getArtist } from "../../store/artists.js";
 import { clearArtist } from "../../store/artists.js";
 import "./CreateAComment.css";
@@ -20,11 +20,13 @@ const CreateNewComment = () => {
   );
   // identify the current user
   const user = useSelector((state) => state.session.user);
+  const comments = useSelector((state) => state.session.comments);
 
   useEffect(() => {
     if (user) {
       const handlePageMount = async () => {
         await dispatch(getArtist(user.id));
+        await dispatch(getComments());
       };
       handlePageMount();
     }
@@ -35,7 +37,6 @@ const CreateNewComment = () => {
 
   // identify the currentArtist/user
   const thisArtist = useSelector((state) => state.artists.artist);
-
   // helper function for clearing the input
   const revert = () => {
     setBody("");
@@ -56,8 +57,8 @@ const CreateNewComment = () => {
     let comment = await dispatch(createComment(newComment, songId));
     // if successful, post the comment
     if (comment) {
-      console.log("getting last comment");
-      await dispatch(getOneComment(comment.id));
+      // once created, add user data to comment
+      if (user) comment.User = user;
       revert();
       history.push(`/songs/${song.id}`);
     }

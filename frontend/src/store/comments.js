@@ -25,8 +25,8 @@ const remove = (commentId) => {
 };
 
 // get all comments based on songId thunk
-export const getComments = (songId) => async (dispatch) => {
-  const response = await csrfFetch(`/api/songs/${songId}/comments`);
+export const getComments = (d) => async (dispatch) => {
+  const response = await csrfFetch(`/api/comments`);
   if (response.ok) {
     const data = await response.json();
     // console.log("this is my data in my getComments thunk", data)
@@ -93,7 +93,7 @@ const commentsReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET:
       const allComments = {};
-      action.comments.Comments.forEach((comment) => {
+      action.comments.forEach((comment) => {
         allComments[comment.id] = comment;
       });
       return {
