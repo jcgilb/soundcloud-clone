@@ -47,8 +47,6 @@ const SongDetails = () => {
   const [vol, setVol] = useState(0);
   const wavesurfer = useRef();
 
-  console.log("isPlaying context", isPlaying);
-
   useLayoutEffect(() => {
     if (audioElement && currentSong.url === songFromUrl.url) {
       if (isPlaying === true) setPlaying(true);

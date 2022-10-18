@@ -60,7 +60,6 @@ const SplashPage = ({ songs }) => {
                           e.preventDefault();
                           setCurrentSong(song);
                           await dispatch(playASong(song.id));
-                          await dispatch(incrementPlays(song.id));
                           setIsPaused(false);
                           setPauseButton(true);
                         }}

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { likeASong, deleteLike, getLikes } from "../../store/likes";
-import NumPlays from "../NumPlays";
 import "./LikeSong.css";
 
 function LikeSong() {
