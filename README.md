@@ -1,6 +1,6 @@
 
 # Audio Stratus
-![image](https://user-images.githubusercontent.com/106204127/192257188-d3908931-4361-4c46-a90e-b4404609dd76.png)
+![image](https://user-images.githubusercontent.com/106204127/196734315-4e4baafe-2799-42ab-bc9a-217f99fbc7e6.png)
 
 
 ***
@@ -10,7 +10,7 @@ Audio Stratus is a full stack application that is inspired by SoundCloud. It can
 
 ***
 
-[API DOCUMENTATION](https://github.com/jcgilb/API-project#api-documentation)
+[API DOCUMENTATION](https://github.com/jcgilb/API-project/wiki/API-Routes)
 
 Documentation of the API routes used to make requests to the database.
 
