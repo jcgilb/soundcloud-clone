@@ -18,6 +18,8 @@ const GetAllSongs = () => {
   // get the current song in order to set the current song
   const curSong = useSelector((state) => state.songs.currentSong);
   const [currentSong, setCurrentSong] = useState(curSong);
+  //get the current user for when a song is just published
+  const user = useSelector((state) => state.session.user);
 
   const songsObj = useSelector((state) => state.songs);
   // slice off the "current song" because there's no need to map it
@@ -126,43 +128,6 @@ const GetAllSongs = () => {
                           ></i>
                         </div>
                       )}
-                      {/* render a play button on every song
-                      {song !== currentSong && (
-                        <div
-                          className="play-button"
-                          onClick={async () => {
-                            setCurrentSong(song);
-                            setIsPaused(false);
-                            dispatch(playASong(song.id));
-                          }}
-                        >
-                          <i className="fa-solid fa-play fa-2x"></i>
-                        </div>
-                      )}
-                      {/**show a play button after a user presses pause */}
-                      {/* {!isPlaying && currentSong === song && (
-                        <div
-                          className="play-button"
-                          onClick={async () => {
-                            setCurrentSong(song);
-                            setIsPaused(false);
-                            dispatch(playASong(song.id));
-                          }}
-                        >
-                          <i className="fa-solid fa-play fa-2x"></i>
-                        </div>
-                      )}
-                      show the paused button after a user presses play */}
-                      {/* {currentSong === song && isPlaying && (
-                        <div
-                          className="pause-button"
-                          onClick={async () => {
-                            setIsPaused(true);
-                          }}
-                        >
-                          <i className="fa-solid fa-pause fa-2x"></i>
-                        </div>
-                      )}  */}
                     </div>
                   </div>
                   <div className="title-nav">
@@ -177,7 +142,13 @@ const GetAllSongs = () => {
                     >
                       {song.title}
                     </NavLink>
-                    <p id="artist-name">{song.Artist?.username}</p>
+                    {song?.Artist && (
+                      <p id="artist-name">{song.Artist?.username}</p>
+                    )}
+                    {/* for when a song is just published */}
+                    {!song?.Artist && user && (
+                      <p id="artist-name">{user?.username}</p>
+                    )}
                   </div>
                 </div>
               </div>
