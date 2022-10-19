@@ -11,12 +11,24 @@ function ArtistInfo() {
   songId = parseInt(songId);
   // find the song from the url
   const song = Object.values(songs).find((song) => song.id === songId);
+  // find current artist/user
+  const artist = useSelector((state) => state.artists.artist);
 
   if (!song) return null;
   return (
     <div className="artist-preview-image">
-      <img alt={"artist-img"} src={song?.Artist?.previewImage} />
-      <div className="artist-username">{song?.Artist?.username}</div>
+      {song?.Artist && (
+        <>
+          <img alt={"artist-img"} src={song?.Artist?.previewImage} />
+          <div className="artist-username">{song?.Artist?.username}</div>
+        </>
+      )}
+      {!song?.Artist && artist && (
+        <>
+          <img alt={"artist-img"} src={artist?.previewImage} />
+          <div className="artist-username">{artist?.username}</div>
+        </>
+      )}
     </div>
   );
 }

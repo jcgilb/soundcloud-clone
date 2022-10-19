@@ -24,7 +24,7 @@ const SplashPage = ({ songs }) => {
   }, [dispatch]);
 
   // only show the first 10 songs on the splash page
-  let myMap = Object.values(songs).slice(0, 10);
+  let myMap = Object.values(songs).slice(18, 28);
   if (!myMap.length) return null;
 
   return (
