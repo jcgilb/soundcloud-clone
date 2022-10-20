@@ -3,10 +3,17 @@ const GET = "songs/GET";
 const ADD_ONE = "songs/ADD_ONE";
 const PLAY_SONG = "song/PLAY_SONG";
 const DELETE = "songs/DELETE";
+const POPULAR = "songs/POPULAR";
 
 const get = (songs) => {
   return {
     type: GET,
+    songs,
+  };
+};
+const getPopular = (songs) => {
+  return {
+    type: POPULAR,
     songs,
   };
 };
@@ -39,6 +46,17 @@ export const getSongs = () => async (dispatch) => {
     const data = await response.json();
     // console.log("this is my data in my getSongs thunk", data)
     dispatch(get(data));
+  }
+  return response;
+};
+
+// get all songs thunk
+export const getPopularSongs = () => async (dispatch) => {
+  const response = await csrfFetch("/api/songs/splash");
+  if (response.ok) {
+    const data = await response.json();
+    // console.log("this is my data in my getSongs thunk", data)
+    dispatch(getPopular(data));
   }
   return response;
 };
@@ -118,7 +136,7 @@ export const deleteSong = (songId) => async (dispatch) => {
   }
 };
 
-const initialState = { currentSong: {} };
+const initialState = { popularSongs: {}, currentSong: {} };
 
 const songsReducer = (state = initialState, action) => {
   let newState;
@@ -150,6 +168,12 @@ const songsReducer = (state = initialState, action) => {
         ...state,
         currentSong: { ...action.song },
       };
+    case POPULAR:
+      newState = { ...state };
+      action.songs.forEach((song) => {
+        newState.popularSongs = action.songs;
+      });
+      return newState;
     case DELETE:
       newState = { ...state };
       delete newState[action.songId];

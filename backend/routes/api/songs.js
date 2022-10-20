@@ -3,7 +3,8 @@ const { Song, User, Album, Comment, SongLikes } = require("../../db/models");
 const { requireAuth, setTokenCookie } = require("../../utils/auth");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
-// const Op = Sequelize.Op;
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
 
 const router = express.Router();
 
@@ -78,6 +79,40 @@ router.get("/", async (req, res) => {
     page,
     size,
   });
+});
+
+// Get all songs
+// Authentication: false
+router.get("/splash", async (req, res) => {
+  const songs = await Song.findAll({
+    attributes: {
+      include: [
+        [Sequelize.fn("COUNT", Sequelize.col("SongLikes.id")), "numLikes"],
+      ],
+    },
+    include: [
+      {
+        model: User,
+        as: "Artist",
+        attributes: ["id", "username", "previewImage"],
+      },
+      {
+        model: Album,
+        attributes: ["id", "title", "imageUrl", "userId"],
+      },
+      {
+        attributes: [],
+        model: SongLikes,
+      },
+    ],
+    group: ["Song.id"],
+    order: [
+      ["numLikes", "DESC"],
+      ["numPlays", "DESC"],
+    ],
+  });
+
+  return res.json(songs);
 });
 
 // Get all Songs created by the Current User

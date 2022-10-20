@@ -25,7 +25,7 @@ const GetAllSongs = () => {
   // slice off the "current song" because there's no need to map it
   let myMap = Object.values(songsObj).slice(
     0,
-    Object.values(songsObj).length - 1
+    Object.values(songsObj).length - 2
   );
 
   // get songs
@@ -52,7 +52,7 @@ const GetAllSongs = () => {
                     />
                     <div className="play-pause">
                       {/* show a play button if currentSong === songFromUrl and isPaused*/}
-                      {!isPlaying && currentSong.url === song.url && (
+                      {!isPlaying && currentSong.id === song.id && (
                         <div
                           className="press-play"
                           onClick={async () => {
@@ -73,7 +73,7 @@ const GetAllSongs = () => {
                         </div>
                       )}
                       {/* show a pause button if currentSong === song and isPlaying*/}
-                      {isPlaying && currentSong.url === song.url && (
+                      {isPlaying && currentSong.id === song.id && (
                         <div
                           className="press-pause"
                           onClick={async () => {
@@ -89,7 +89,7 @@ const GetAllSongs = () => {
                         </div>
                       )}
                       {/* show a play button if currentSong !== song and !isPlaying*/}
-                      {currentSong.url !== song.url && !isPlaying && (
+                      {currentSong.id !== song.id && !isPlaying && (
                         <div
                           className="press-play"
                           onClick={async () => {
@@ -107,7 +107,7 @@ const GetAllSongs = () => {
                         </div>
                       )}
                       {/* show a play button if currentSong !== song and isPlaying*/}
-                      {currentSong.url !== song.url && isPlaying && (
+                      {currentSong.id !== song.id && isPlaying && (
                         <div
                           className="press-play"
                           onClick={async (e) => {

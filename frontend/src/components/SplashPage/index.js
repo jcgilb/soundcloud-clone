@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getSongs, playASong } from "../../store/songs.js";
+import { getSongs, getPopularSongs, playASong } from "../../store/songs.js";
 import { NavLink, useHistory } from "react-router-dom";
 import { useIsPaused } from "../../context/IsPausedContext.js";
 import { useIsPlaying } from "../../context/IsPlayingContext";
@@ -20,11 +20,13 @@ const SplashPage = ({ songs }) => {
 
   // get songs
   useEffect(() => {
-    dispatch(getSongs());
+    dispatch(getPopularSongs());
   }, [dispatch]);
 
   // only show the first 10 songs on the splash page
-  let myMap = Object.values(songs).slice(18, 28);
+  const popularSongs = useSelector((state) => state.songs.popularSongs);
+  let myMap = Object.values(popularSongs).slice(0, 10);
+  // let myMap = Object.values(songs).slice(20, 30);
   if (!myMap.length) return null;
 
   return (
@@ -55,7 +57,7 @@ const SplashPage = ({ songs }) => {
                   />
                   <div className="play-pause">
                     {/* show a play button if currentSong === songFromUrl and isPaused*/}
-                    {!isPlaying && currentSong.url === song.url && (
+                    {!isPlaying && currentSong.id === song.id && (
                       <div
                         className="press-play"
                         onClick={async () => {
@@ -76,7 +78,7 @@ const SplashPage = ({ songs }) => {
                       </div>
                     )}
                     {/* show a pause button if currentSong === song and isPlaying*/}
-                    {isPlaying && currentSong.url === song.url && (
+                    {isPlaying && currentSong.id === song.id && (
                       <div
                         className="press-pause"
                         onClick={async () => {
@@ -92,7 +94,7 @@ const SplashPage = ({ songs }) => {
                       </div>
                     )}
                     {/* show a play button if currentSong !== song and !isPlaying*/}
-                    {currentSong.url !== song.url && !isPlaying && (
+                    {currentSong.id !== song.id && !isPlaying && (
                       <div
                         className="press-play"
                         onClick={async () => {
@@ -110,7 +112,7 @@ const SplashPage = ({ songs }) => {
                       </div>
                     )}
                     {/* show a play button if currentSong !== song and isPlaying*/}
-                    {currentSong.url !== song.url && isPlaying && (
+                    {currentSong.id !== song.id && isPlaying && (
                       <div
                         className="press-play"
                         onClick={async (e) => {
@@ -131,48 +133,6 @@ const SplashPage = ({ songs }) => {
                         ></i>
                       </div>
                     )}
-                    {/* render a play button on every song */}
-                    {/* {song !== currentSong && (
-                      <div
-                        className="play-button"
-                        onClick={async (e) => {
-                          e.preventDefault();
-                          setCurrentSong(song);
-                          await dispatch(playASong(song.id));
-                          setIsPaused(false);
-                          setPauseButton(true);
-                        }}
-                      >
-                        <i className="fa-solid fa-play fa-2x"></i>
-                      </div>
-                    )}
-                    {!pauseButton && (
-                      <div
-                        className="play-button"
-                        onClick={async (e) => {
-                          e.preventDefault();
-                          setCurrentSong(song);
-                          await dispatch(playASong(song.id));
-                          setIsPaused(false);
-                          setPauseButton(true);
-                        }}
-                      >
-                        <i className="fa-solid fa-play fa-2x"></i>
-                      </div>
-                    )} */}
-                    {/* show the paused button after a user presses play */}
-                    {/* {currentSong === song && pauseButton && (
-                      <div
-                        className="pause-button"
-                        onClick={async (e) => {
-                          e.preventDefault();
-                          setIsPaused(true);
-                          setPauseButton(false);
-                        }}
-                      >
-                        <i className="fa-solid fa-pause fa-2x"></i>
-                      </div>
-                    )} */}
                   </div>
                 </div>
                 <div className="artist-info">

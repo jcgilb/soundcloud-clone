@@ -73,7 +73,7 @@ const songs = [
     description: "by Aphex Twin",
     url: "https://res.cloudinary.com/ddmb8mrlb/video/upload/v1666200645/audioUrl/peter-tchaikovsky-old-french-song-opus-39-16-classical-remix-7692_tru56i.mp3",
     imageUrl:
-      "https://res.cloudinary.com/ddmb8mrlb/image/upload/v1665799674/imageUrl/ab67616d0000b273c4d5de8930bbc762a68c0bc7_kkqqwo.jpg",
+      "https://res.cloudinary.com/ddmb8mrlb/image/upload/v1666285640/previewImage/57723_mhfflz.jpg",
   },
   {
     albumId: 8,
@@ -82,7 +82,7 @@ const songs = [
     description: "by Aphex Twin",
     url: "https://res.cloudinary.com/ddmb8mrlb/video/upload/v1666200704/audioUrl/classical-piano-by-chopin-sonate-op-35-trauermarsch-119909_p7lvzh.mp3",
     imageUrl:
-      "https://res.cloudinary.com/ddmb8mrlb/image/upload/v1665802425/imageUrl/AphexTwinICareBecauseYouDo_tqnt4m.jpg",
+      "https://res.cloudinary.com/ddmb8mrlb/image/upload/v1666286066/previewImage/gcl60ucb8aw01_gdxnye.jpg",
   },
   {
     albumId: 9,
