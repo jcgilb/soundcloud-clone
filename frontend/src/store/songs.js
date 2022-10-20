@@ -170,9 +170,10 @@ const songsReducer = (state = initialState, action) => {
       };
     case POPULAR:
       newState = { ...state };
-      action.songs.forEach((song) => {
-        newState.popularSongs = action.songs;
-      });
+      // action.songs.forEach((song) => {
+      //   newState.popularSongs[song.id] = song;
+      // });
+      newState.popularSongs = action.songs;
       return newState;
     case DELETE:
       newState = { ...state };

@@ -105,7 +105,7 @@ router.get("/splash", async (req, res) => {
         model: SongLikes,
       },
     ],
-    group: ["Song.id"],
+    group: ["Song.id", "Artist.id"],
     order: [
       ["numLikes", "DESC"],
       ["numPlays", "DESC"],
