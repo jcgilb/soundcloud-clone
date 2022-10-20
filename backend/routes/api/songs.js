@@ -85,11 +85,11 @@ router.get("/", async (req, res) => {
 // Authentication: false
 router.get("/splash", async (req, res) => {
   const songs = await Song.findAll({
-    attributes: {
-      include: [
-        [Sequelize.fn("COUNT", Sequelize.col("SongLikes.id")), "numLikes"],
-      ],
-    },
+    // attributes: {
+    //   include: [
+    //     [Sequelize.fn("COUNT", Sequelize.col("SongLikes.id")), "numLikes"],
+    //   ],
+    // },
     include: [
       {
         model: User,
@@ -100,16 +100,17 @@ router.get("/splash", async (req, res) => {
         model: Album,
         attributes: ["id", "title", "imageUrl", "userId"],
       },
-      {
-        attributes: [],
-        model: SongLikes,
-      },
+      // {
+      //   attributes: [],
+      //   model: SongLikes,
+      // },
     ],
-    group: ["Song.id", "Artist.id"],
+    // group: ["Song.id", "Artist.id"],
     order: [
-      ["numLikes", "DESC"],
+      // ["numLikes", "DESC"],
       ["numPlays", "DESC"],
     ],
+    limit: 10,
   });
 
   return res.json(songs);
