@@ -81,7 +81,7 @@ router.get("/", async (req, res) => {
   });
 });
 
-// Get all songs
+// Get first 10 most popular songs
 // Authentication: false
 router.get("/splash", async (req, res) => {
   const songs = await Song.findAll({
@@ -101,8 +101,8 @@ router.get("/splash", async (req, res) => {
         attributes: ["id", "title", "imageUrl", "userId"],
       },
       // {
-      //   attributes: [],
       //   model: SongLikes,
+      //   attributes: [],
       // },
     ],
     // group: ["Song.id", "Artist.id"],
