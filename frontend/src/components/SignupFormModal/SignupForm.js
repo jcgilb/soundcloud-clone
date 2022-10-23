@@ -40,10 +40,11 @@ function SignupFormPage() {
         // or redirect to songs page if no errors
         if (data && !data.errors) return history.push("/songs");
       });
+    } else {
+      return setErrors([
+        "Confirm Password field must be the same as the Password field",
+      ]);
     }
-    return setErrors([
-      "Confirm Password field must be the same as the Password field",
-    ]);
   };
 
   return (
