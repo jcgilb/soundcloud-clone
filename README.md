@@ -22,10 +22,10 @@ SQLite3 database schema.
 ***
 [FEATURE LIST](https://github.com/jcgilb/API-project/wiki/Feature-List)
 
-List of the functional features of the app. 
+List of the app's functional features. 
 
 ***
 [REDUX STORE SHAPE](https://github.com/jcgilb/API-project/wiki/Redux-Store-Shape)
 
-Pseudo code that illustrates the state of the Redux store for the two features that will be implemented. 
+Pseudo code that illustrates the state of the Redux store for songs and comments. 
 
