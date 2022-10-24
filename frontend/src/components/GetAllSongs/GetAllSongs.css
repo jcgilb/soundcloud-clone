@@ -94,24 +94,19 @@ img.tile {
 }
 
 #artist-name {
-  font-size: 0.8rem;
-  opacity: 60%;
-  box-sizing: border-box;
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.5);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 160px;
+  max-width: 150px;
 }
 
 .title-nav {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  box-sizing: border-box;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 160px;
+  max-width: 150px;
 }
 
 .play-pause {
