@@ -1,88 +1,88 @@
 .upload-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    margin: 0 auto;
-    height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+  height: 100vh;
 }
 
 .upload-form-heading {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    padding-bottom: 10px;
-    width: 100%;
-    margin-top: 200px;
-    font-size: 24px;
-    margin: 0 auto;
-    border-bottom: 1px solid rgb(224, 224, 224);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 10px;
+  width: 100%;
+  margin-top: 200px;
+  font-size: 24px;
+  margin: 0 auto;
+  border-bottom: 1px solid rgb(224, 224, 224);
 }
 
 .upload-title {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 80px !important;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    width: 100%;
-    font-size: 28px;
-    margin: 0 auto;
-    color: white;
-    background: black;
-    height: 55px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 80px !important;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  width: 100%;
+  font-size: 28px;
+  margin: 0 auto;
+  color: white;
+  background: black;
+  height: 55px;
 }
 
-
 .upload-song-form {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-between;
-    border: 2px solid rgb(224, 224, 224);
-    border-radius: 6px;
-    margin: 0 auto;
-    width: 450px;
-    height: 380px;
-    margin-top: 3%;
-    padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  border: 2px solid rgb(224, 224, 224);
+  border-radius: 6px;
+  margin: 0 auto;
+  width: 450px;
+  height: 380px;
+  margin-top: 3%;
+  padding: 20px;
 }
 
 .upload-song-form input {
-    border: 1px solid rgb(224, 224, 224);
-    border-radius: 4px;
-    margin: 0 auto;
-    width: 99%;
-    height: 30px;
-    padding-left: 4px;
+  border: 1px solid rgb(224, 224, 224);
+  border-radius: 4px;
+  margin: 0 auto;
+  width: 99%;
+  height: 30px;
+  padding-left: 4px;
+  padding-right: 4px;
 }
 
 select {
-    border: 1px solid rgb(224, 224, 224);
-    border-radius: 4px;
-    margin: 0 auto;
-    width: 100.4%;
-    height: 30px;
-    padding-left: 4px;
+  border: 1px solid rgb(224, 224, 224);
+  border-radius: 4px;
+  margin: 0 auto;
+  width: 100.4%;
+  height: 30px;
+  padding-left: 4px;
 }
 
 #err {
-    text-decoration: none;
-    list-style-type: none;
-    font-size: .8rem;
+  text-decoration: none;
+  list-style-type: none;
+  font-size: 0.8rem;
 }
 
 .upload-submit {
-    border: none;
-    border-radius: 6px;
-    margin: 0 auto;
-    width: 100%;
-    height: 30px;
-    background: var(--selective-yellow);
-    font-size: 14px;
-    color: white;
-    font-weight: light;
+  border: none;
+  border-radius: 6px;
+  margin: 0 auto;
+  width: 100%;
+  height: 30px;
+  background: var(--selective-yellow);
+  font-size: 14px;
+  color: white;
+  font-weight: light;
 }
