@@ -1,6 +1,6 @@
 # SoundCloud Clone
 
-![image](https://user-images.githubusercontent.com/106204127/192253374-bf818058-cd8c-4bc0-b5c0-997abf1453db.png)
+![audio-stratus-logo](https://user-images.githubusercontent.com/106204127/197435828-00d215c0-d582-48f5-9b04-97b130bfd6ca.png)
 
 ## Database Schema Design
 
