@@ -53,7 +53,7 @@ const UpdateSong = () => {
   useEffect(() => {
     const errors = [];
     setValidationErrors(errors);
-    if (!title.length) errors.push("Song title is required.");
+    if (!title) errors.push("Song title is required.");
     if (!url) errors.push("Audio is required.");
     // if (isNaN(albumId) && albumId) errors.push(`"${albumId}" is not a valid integer.`)
     setValidationErrors(errors);
