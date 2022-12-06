@@ -83,6 +83,7 @@ router.get("/", async (req, res) => {
 
 // Get all songs
 // Authentication: false
+
 router.get("/splash", async (req, res) => {
   const songs = await Song.findAll({
     // attributes: {
