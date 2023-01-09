@@ -15,6 +15,7 @@ import { deleteLike, likeASong, getSongLikes, getLikes } from "./store/likes";
 import { getArtist } from "./store/artists";
 
 import AudioElementProvider from "./context/AudioElementContext";
+import SearchResultsProvider from "./context/SearchResultsContext";
 
 const store = configureStore();
 
@@ -41,7 +42,9 @@ function Root() {
           <IsPlayingProvider>
             <IsPausedProvider>
               <AudioElementProvider>
-                <App />
+                <SearchResultsProvider>
+                  <App />
+                </SearchResultsProvider>
               </AudioElementProvider>
             </IsPausedProvider>
           </IsPlayingProvider>
