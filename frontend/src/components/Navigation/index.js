@@ -6,6 +6,7 @@ import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import "./Navbar.css";
 import "../LoginFormModal/LoginForm.css";
+import Search from "../Search";
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
@@ -68,7 +69,9 @@ function Navigation({ isLoaded }) {
           />
         </div>
       </div>
-      <div className="middle-empty-nav"></div>
+      <div className="middle-empty-nav">
+        <Search />
+      </div>
       <div className="navbar-links">{isLoaded && sessionLinks}</div>
       <div className="outer-empty-nav"></div>
     </div>
