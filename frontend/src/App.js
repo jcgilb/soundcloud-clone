@@ -8,11 +8,10 @@ import Player from "./components/AudioPlayer";
 import CreateNewSong from "./components/CreateNewSong";
 import UpdateSong from "./components/UpdateSong";
 import SplashPage from "./components/SplashPage";
-import SearchResults from "./components/Search";
+import SearchResults from "./components/SearchResults";
 import { getSongs } from "./store/songs";
 import * as sessionActions from "./store/session";
 import { getArtist } from "./store/artists";
-import { useSearchResults } from "./context/SearchResultsContext";
 
 function App() {
   const dispatch = useDispatch();
@@ -20,8 +19,6 @@ function App() {
   const songs = useSelector((state) => state.songs);
   const currentSong = Object.values(songs.currentSong);
   const user = useSelector((state) => state.session.user);
-
-  const { searchResults, setSearchResults } = useSearchResults();
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
@@ -44,6 +41,9 @@ function App() {
               <Route path="/new">
                 <CreateNewSong />
               </Route>
+              <Route exact path="/songs/results">
+                <SearchResults />
+              </Route>
               <Route exact path="/songs/:songId/edit">
                 <UpdateSong />
               </Route>
@@ -52,12 +52,6 @@ function App() {
               </Route>
               <Route exact path="/songs">
                 <GetAllSongs songs={songs} />
-              </Route>
-              <Route exact path="/songs/results">
-                <SearchResults
-                  isLoaded={isLoaded}
-                  searchResults={searchResults}
-                />
               </Route>
             </Switch>
           )}
