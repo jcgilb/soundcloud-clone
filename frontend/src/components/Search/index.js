@@ -13,7 +13,8 @@ const Search = () => {
   const songs = useSelector((state) => state.songs);
   const keywordList = {};
 
-  const { searchResults, setSearchResults } = useSearchResults;
+  const { searchResults, setSearchResults } = useSearchResults();
+  const [songList, setSongList] = useState(Object.values(songs));
   const [songArr, setSongArr] = useState(Object.values(songs));
 
   useEffect(() => {
@@ -65,10 +66,17 @@ const Search = () => {
     return obj;
   });
 
+  useEffect(() => {
+    setSearchResults(songList);
+    console.log(searchResults, "search results in Search");
+  }, [songList]);
+
   const handleOnSelect = (item) => {
     // the item selected
     setSearchResults(item.songs);
-    return history.push(`/songs/results`);
+    setSongList(item.songs);
+    console.log("item.songs", item.songs);
+    return history.push("/songs/results");
   };
 
   const formatResult = (item) => {
@@ -86,7 +94,6 @@ const Search = () => {
           <ReactSearchAutocomplete
             searchResults={searchResults}
             items={items}
-            // onSearch={(e) => setSearchResults(e)}
             onSelect={handleOnSelect}
             autoFocus
             formatResult={formatResult}
