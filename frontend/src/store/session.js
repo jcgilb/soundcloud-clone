@@ -16,7 +16,38 @@ const removeUser = () => {
   };
 };
 
-// restore session user thunk action
+//  accepts an object of key value pairs
+//  turns them into FormData entries
+export const createUser = (user) => async (dispatch) => {
+  const { images, image, username, email, password } = user;
+  const formData = new FormData();
+  formData.append("username", username);
+  formData.append("email", email);
+  formData.append("password", password);
+
+  // for multiple files
+  if (images && images.length !== 0) {
+    for (var i = 0; i < images.length; i++) {
+      formData.append("images", images[i]);
+    }
+  }
+
+  // for single file
+  if (image) formData.append("image", image);
+
+  const res = await csrfFetch(`/api/users/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+    body: formData,
+  });
+
+  const data = await res.json();
+  dispatch(setUser(data.user));
+};
+
+// restore session user thunk
 export const restoreUser = () => async (dispatch) => {
   const response = await csrfFetch("/api/session");
   const data = await response.json();
@@ -24,7 +55,7 @@ export const restoreUser = () => async (dispatch) => {
   return response;
 };
 
-// signup thunk action
+// signup thunk
 export const signup = (user) => async (dispatch) => {
   const { username, email, firstName, lastName, password } = user;
   // const { username, email, password } = user;
@@ -43,7 +74,7 @@ export const signup = (user) => async (dispatch) => {
   return response;
 };
 
-// login thunk action
+// login thunk
 export const login = (user) => async (dispatch) => {
   const { credential, password } = user;
   const response = await csrfFetch("/api/session", {
@@ -58,7 +89,7 @@ export const login = (user) => async (dispatch) => {
   return response;
 };
 
-// logout thunk action
+// logout thunk
 export const logout = () => async (dispatch) => {
   const response = await csrfFetch("/api/session", {
     method: "DELETE",
@@ -80,6 +111,8 @@ const sessionReducer = (state = initialState, action) => {
       newState = Object.assign({}, state);
       newState.user = null;
       return newState;
+    // case SET_USER:
+    //   return { ...state, user: action.payload };
     default:
       return state;
   }

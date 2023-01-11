@@ -3,8 +3,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import { Provider as ReduxProvider } from "react-redux";
 import { ModalProvider } from "./context/Modal";
-import IsPlayingProvider from "./context/IsPlayingContext";
-import IsPausedProvider from "./context/IsPausedContext";
+
 import "./index.css";
 import App from "./App";
 import configureStore from "./store";
@@ -16,6 +15,8 @@ import { getArtist } from "./store/artists";
 
 import AudioElementProvider from "./context/AudioElementContext";
 import SearchResultsProvider from "./context/SearchResultsContext";
+import IsPlayingProvider from "./context/IsPlayingContext";
+import IsPausedProvider from "./context/IsPausedContext";
 
 const store = configureStore();
 
