@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getAlbums } from "../../store/albums.js";
 import { createSong } from "../../store/songs.js";
-import * as React from "react";
+import ImageUploading from "react-images-uploading";
 import "./CreateNewSong.css";
 
 const CreateNewSong = () => {
@@ -15,6 +15,7 @@ const CreateNewSong = () => {
   const [albumId, setAlbumId] = useState();
   const [validationErrors, setValidationErrors] = useState([]);
   const [albumSelect, setAlbumSelect] = useState();
+  const [images, setImages] = useState([]);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -55,9 +56,14 @@ const CreateNewSong = () => {
     const file = e.target.files[0];
     if (file) setUrl(file);
   };
-  const updateImage = (e) => {
-    const file = e.target.files[0];
-    if (file) setImageUrl(file);
+  // const updateImage = (e) => {
+  //   const file = e.target.files[0];
+  //   if (file) setImageUrl(file);
+  // };
+
+  const onChange = (imageList, addUpdateIndex) => {
+    // data for submit
+    setImages(imageList);
   };
 
   // helper function for clearing the form
@@ -72,6 +78,10 @@ const CreateNewSong = () => {
   // handle form submit function
   const handleSubmit = async (e) => {
     e.preventDefault();
+    let imageFiles = images?.map((img) => img.file);
+    let img = imageFiles[0];
+    console.log("image files", imageFiles);
+    console.log("img file", img);
     let newSong;
 
     newSong = {
@@ -79,7 +89,7 @@ const CreateNewSong = () => {
       description,
       albumId,
       url,
-      imageUrl,
+      imageUrl: img,
     };
 
     console.log("newSong", newSong);
@@ -123,10 +133,78 @@ const CreateNewSong = () => {
             Upload audio
             <input type="file" placeholder="Audio URL" onChange={updateAudio} />
           </label>
-          <label>
+          <ImageUploading
+            multiple={false}
+            value={images}
+            onChange={onChange}
+            maxNumber={1}
+            dataURLKey="data_url"
+            acceptType={["jpg", "png", "jpeg"]}
+          >
+            {({
+              imageList,
+              onImageUpload,
+              onImageUpdate,
+              onImageRemove,
+              isDragging,
+              dragProps,
+            }) => (
+              <div
+                className="upload-image-wrapper"
+                {...dragProps}
+                style={isDragging ? { color: "rgb(255, 22, 84)" } : undefined}
+              >
+                <div
+                  {...dragProps}
+                  style={isDragging ? { color: "rgb(255, 22, 84)" } : undefined}
+                >
+                  Drag & Drop to Upload Image
+                </div>
+                <div>OR</div>
+                <button
+                  style={isDragging ? { color: "rgb(255, 22, 84)" } : undefined}
+                  onClick={onImageUpload}
+                  {...dragProps}
+                  className="add-img-button"
+                >
+                  Browse
+                </button>
+
+                <div className="image-area">
+                  {imageList?.map((image, index) => (
+                    <div key={index} className="image-item">
+                      <img
+                        style={{ width: "120px" }}
+                        className="rvw-img-preview"
+                        src={image["data_url"]}
+                        alt=""
+                      />
+                      <div className="images-to-submit">
+                        <button
+                          className="rm-update"
+                          onClick={() => onImageUpdate(index)}
+                        >
+                          Update
+                        </button>
+                        <button
+                          className="rm-update"
+                          onClick={() => {
+                            onImageRemove(index);
+                          }}
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </ImageUploading>
+          {/* <label>
             Upload image
             <input type="file" placeholder="Image URL" onChange={updateImage} />
-          </label>
+          </label> */}
           <select
             onChange={updateAlbum}
             value={albumSelect}
