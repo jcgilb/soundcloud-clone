@@ -3,7 +3,8 @@ const { setTokenCookie, requireAuth } = require("../../utils/auth");
 const { User, Playlist } = require("../../db/models");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
-const { singlePublicFileUpload, singleMulterUpload } = require("../../awsS3");
+const asyncHandler = require("express-async-handler");
+const { singleMulterUpload, singlePublicFileUpload } = require("../../awsS3");
 
 const router = express.Router();
 
@@ -41,43 +42,50 @@ const validateSignup = [
 ];
 
 // Post /api/users ---Sign up
-router.post(
-  "/",
-  [singleMulterUpload("image"), validateSignup],
-  async (req, res) => {
-    const { email, username, firstName, lastName, password } = req.body;
-    const profileImageUrl = await singlePublicFileUpload(req.file);
-    const user = await User.signup({
-      email,
-      username,
-      firstName,
-      lastName,
-      password,
-      profileImageUrl,
-    });
-
-    // setTokenCookie(res, user);
-
-    // return res.json({
-    //   user,
-    // });
-
-    let resObj = user.toJSON();
-    let token = await setTokenCookie(res, user);
-    resObj.token = token;
-    return res.json(resObj);
-  }
-);
-
-// Sign up
-// router.post('/', validateSignup, async (req, res) => {
+// router.post(
+//   "/",
+//   singleMulterUpload("image"),
+//   validateSignup,
+//   asyncHandler(async (req, res) => {
 //     const { email, username, firstName, lastName, password } = req.body;
-//     const user = await User.signup({ email, username, firstName, lastName, password });
+//     const profileImageUrl = await singlePublicFileUpload(req.file);
+//     const user = await User.signup({
+//       email,
+//       username,
+//       firstName,
+//       lastName,
+//       password,
+//       profileImageUrl,
+//     });
+
+//     // setTokenCookie(res, user);
+
+//     // return res.json({
+//     //   user,
+//     // });
+
 //     let resObj = user.toJSON();
 //     let token = await setTokenCookie(res, user);
 //     resObj.token = token;
 //     return res.json(resObj);
-// });
+//   })
+// );
+
+// Sign up
+router.post("/", validateSignup, async (req, res) => {
+  const { email, username, firstName, lastName, password } = req.body;
+  const user = await User.signup({
+    email,
+    username,
+    firstName,
+    lastName,
+    password,
+  });
+  let resObj = user.toJSON();
+  let token = await setTokenCookie(res, user);
+  resObj.token = token;
+  return res.json(resObj);
+});
 
 // Get details of an Artist from an id
 // Authentication: false

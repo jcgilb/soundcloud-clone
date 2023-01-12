@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getAlbums } from "../../store/albums.js";
 import { createSong } from "../../store/songs.js";
+import * as React from "react";
 import "./CreateNewSong.css";
 
 const CreateNewSong = () => {
@@ -13,7 +14,7 @@ const CreateNewSong = () => {
   const [imageUrl, setImageUrl] = useState("");
   const [albumId, setAlbumId] = useState();
   const [validationErrors, setValidationErrors] = useState([]);
-  const [albumSelect, setAlbumSelect] = useState([]);
+  const [albumSelect, setAlbumSelect] = useState();
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -41,8 +42,23 @@ const CreateNewSong = () => {
     setValidationErrors(errors);
   }, [title, url, albumId, userAlbums.length]);
 
-  // set the user albums
+  // get the id from the name of the selected experience
+  useEffect(() => {
+    let selected = userAlbums?.find((album) => album?.name == albumSelect);
+    setAlbumId(selected?.id);
+  }, [albumSelect, userAlbums]);
+
+  // update selected album
   const updateAlbum = (e) => setAlbumSelect(e.target.value);
+  // update songFiles
+  const updateAudio = (e) => {
+    const file = e.target.files[0];
+    if (file) setUrl(file);
+  };
+  const updateImage = (e) => {
+    const file = e.target.files[0];
+    if (file) setImageUrl(file);
+  };
 
   // helper function for clearing the form
   const revert = () => {
@@ -53,24 +69,32 @@ const CreateNewSong = () => {
     setAlbumId();
   };
 
-  // handle submit onClick event
+  // handle form submit function
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newSong = {
+    let newSong;
+
+    newSong = {
       title,
       description,
+      albumId,
       url,
       imageUrl,
-      albumId,
     };
-    revert();
+
+    console.log("newSong", newSong);
+
     let song = await dispatch(createSong(newSong)).catch(async (res) => {
       const data = await res.json();
+      console.log("data", data);
       if (data && data.errors) setValidationErrors(data.errors);
     });
+
     if (song) {
-      if (validationErrors.length === 0)
+      if (validationErrors.length === 0) {
+        revert();
         return history.push(`/songs/${song.id}`);
+      }
     }
   };
 
@@ -95,18 +119,14 @@ const CreateNewSong = () => {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
-          <input
-            type="url"
-            placeholder="Audio URL"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-          />
-          <input
-            type="imageUrl"
-            placeholder="Image URL"
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
-          />
+          <label>
+            Upload audio
+            <input type="file" placeholder="Audio URL" onChange={updateAudio} />
+          </label>
+          <label>
+            Upload image
+            <input type="file" placeholder="Image URL" onChange={updateImage} />
+          </label>
           <select
             onChange={updateAlbum}
             value={albumSelect}

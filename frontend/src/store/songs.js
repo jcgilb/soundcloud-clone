@@ -81,13 +81,43 @@ export const playASong = (id) => async (dispatch) => {
   }
 };
 
-// create a song thunk
+// //  old create a song thunk
+// export const createSong = (payload) => async (dispatch) => {
+//   const response = await csrfFetch("/api/songs", {
+//     method: "POST",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify(payload),
+//   });
+//   if (response.ok) {
+//     const song = await response.json();
+//     dispatch(addOne(song));
+//     return song;
+//   }
+// };
+
+// create a song thunk - aws
 export const createSong = (payload) => async (dispatch) => {
+  const formData = new FormData();
+  const { title, description, url, imageUrl, albumId } = payload;
+
+  formData.append("title", title);
+  formData.append("description", description);
+  formData.append("songFiles", url);
+  formData.append("songFiles", imageUrl);
+  if (albumId) {
+    formData.append("albumId", albumId);
+  }
+
+  console.log(formData, "formData");
+
   const response = await csrfFetch("/api/songs", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+    body: formData,
   });
+
   if (response.ok) {
     const song = await response.json();
     dispatch(addOne(song));

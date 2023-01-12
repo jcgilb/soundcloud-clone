@@ -6,7 +6,6 @@ import { useIsPaused } from "../../context/IsPausedContext.js";
 import { useIsPlaying } from "../../context/IsPlayingContext";
 import { useSearchResults } from "../../context/SearchResultsContext";
 import "../GetAllSongs/GetAllSongs.css";
-import "../SplashPage/SplashPage.css";
 import "./SearchResults.css";
 
 const SearchResults = () => {
@@ -39,8 +38,9 @@ const SearchResults = () => {
   );
 
   return (
-    <div className="splash-container">
-      <div className="bottom-splash">
+    <div className="results-container">
+      <div className="main-title">Search results</div>
+      <div className="results-grid">
         {searchResults.length > 0 &&
           searchResults.map((song) => (
             <div className="song-card">
