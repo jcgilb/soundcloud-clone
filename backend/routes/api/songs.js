@@ -3,6 +3,13 @@ const { Song, User, Album, Comment, SongLikes } = require("../../db/models");
 const { requireAuth, setTokenCookie } = require("../../utils/auth");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
+const {
+  multipleMulterUpload,
+  multiplePublicFileUpload,
+  fieldsMulterUpload,
+  singlePublicFileUpload,
+} = require("../../awsS3");
+const asyncHandler = require("express-async-handler");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 
@@ -12,7 +19,7 @@ const validateSongs = [
   check("title")
     .exists({ checkFalsy: true })
     .withMessage("Song title is required."),
-  check("url").exists({ checkFalsy: true }).withMessage("Audio is required."),
+  // check("url").exists({ checkFalsy: true }).withMessage("Audio is required."),
   handleValidationErrors,
 ];
 
@@ -269,50 +276,95 @@ router.post("/:songId/comments", requireAuth, async (req, res) => {
 
 // Create a Song - creates new song w/ or w/o album.
 // Authentication: true
-//
-router.post("/", [validateSongs, requireAuth], async (req, res) => {
-  const album = await Album.findByPk(req.body.albumId);
-  if (req.body.albumId && !album) {
-    res.status(404);
-    return res.json({
-      message: "Album couldn't be found",
-      errors: "Album couldn't be found",
-      statusCode: 404,
-    });
-  }
-  // make sure a user cannot create a new song on someone else's album
-  if (!album || album.userId === req.user.id) {
+
+// Create a new song, album optional
+router.post(
+  "/",
+  requireAuth,
+  multipleMulterUpload("songFiles"),
+  validateSongs,
+  async (req, res, next) => {
+    let { title, description, albumId } = req.body;
+    let songFiles = await multiplePublicFileUpload(req.files);
+    if (albumId) {
+      // Check if album exists
+      const album = await Album.findByPk(albumId);
+      if (!album) {
+        (res.status = 404),
+          res.json({
+            message: "Album couldn't be found",
+            statusCode: 404,
+          });
+      }
+      // Check if album belongs to user
+      if (album.userId !== req.user.id) {
+        res.status(403);
+        return res.json({
+          message: "Forbidden",
+          errors: "Authorization required",
+          statusCode: 403,
+        });
+      }
+    }
+
     const newSong = await Song.create({
-      title: req.body.title,
-      description: req.body.description,
-      url: req.body.url,
-      imageUrl: req.body.imageUrl,
-      albumId: req.body.albumId,
+      title,
+      description,
+      url: songFiles[0],
+      imageUrl: songFiles[1],
+      albumId: albumId ? albumId : null,
       userId: req.user.id,
     });
-    if (!newSong) {
-      res.status(400);
-      return res.json({
-        message: "Validation Error",
-        statusCode: 400,
-        errors: {
-          title: "Song title is required",
-          url: "Audio is required",
-        },
-      });
-    } else {
-      res.status(201);
-      return res.json(newSong);
-    }
-  } else {
-    res.status(403);
-    return res.json({
-      message: "Forbidden",
-      errors: "Authorization required",
-      statusCode: 403,
-    });
+
+    res.status(201);
+    return res.json(newSong);
   }
-});
+);
+
+// old post route for creating song
+// router.post("/", [validateSongs, requireAuth], async (req, res) => {
+//   const album = await Album.findByPk(req.body.albumId);
+//   if (req.body.albumId && !album) {
+//     res.status(404);
+//     return res.json({
+//       message: "Album couldn't be found",
+//       errors: "Album couldn't be found",
+//       statusCode: 404,
+//     });
+//   }
+//   // make sure a user cannot create a new song on someone else's album
+//   if (!album || album.userId === req.user.id) {
+//     const newSong = await Song.create({
+//       title: req.body.title,
+//       description: req.body.description,
+//       url: req.body.url,
+//       imageUrl: req.body.imageUrl,
+//       albumId: req.body.albumId,
+//       userId: req.user.id,
+//     });
+//     if (!newSong) {
+//       res.status(400);
+//       return res.json({
+//         message: "Validation Error",
+//         statusCode: 400,
+//         errors: {
+//           title: "Song title is required",
+//           url: "Audio is required",
+//         },
+//       });
+//     } else {
+//       res.status(201);
+//       return res.json(newSong);
+//     }
+//   } else {
+//     res.status(403);
+//     return res.json({
+//       message: "Forbidden",
+//       errors: "Authorization required",
+//       statusCode: 403,
+//     });
+//   }
+// });
 
 // increment numPlays - PUT /:songId/plays
 // Authentication: false
@@ -332,48 +384,56 @@ router.put("/:songId/plays", async (req, res) => {
 
 // Edit a Song - PUT /:songId
 // Authentication: true
-router.put("/:songId", requireAuth, async (req, res) => {
-  if (req.user) {
-    const song = await Song.findByPk(req.params.songId);
-    if (!song) {
-      res.status(404);
+router.put(
+  "/:songId",
+  requireAuth,
+  multipleMulterUpload("songfiles"),
+  asyncHandler(async (req, res) => {
+    const songfiles = await multiplePublicFileUpload(req.files);
+    const [audioFile, image] = songfiles;
+    if (req.user) {
+      const song = await Song.findByPk(req.params.songId);
+      if (!song) {
+        res.status(404);
+        return res.json({
+          message: "Song couldn't be found",
+          statusCode: 404,
+        });
+      }
+      if (req.user.id !== song.userId) {
+        res.status(403);
+        return res.json({
+          message: "Forbidden",
+          statusCode: 403,
+        });
+      }
+      if (!req.body.url || !req.body.title) {
+        res.status(400);
+        return res.json({
+          message: "Validation Error",
+          statusCode: 400,
+          errors: {
+            title: "Song title is required",
+            url: "Audio is required",
+          },
+        });
+      }
+      song.title = req.body.title;
+      song.description = req.body.description;
+      song.url = audioFile;
+      song.imageUrl = image;
+      song.albumId = req.body.albumId;
+      song.save();
+      return res.json(song);
+    } else {
+      res.status(401);
       return res.json({
-        message: "Song couldn't be found",
-        statusCode: 404,
+        message: "Authentication required",
+        statusCode: 401,
       });
     }
-    if (req.user.id !== song.userId) {
-      res.status(403);
-      return res.json({
-        message: "Forbidden",
-        statusCode: 403,
-      });
-    }
-    if (!req.body.url || !req.body.title) {
-      res.status(400);
-      return res.json({
-        message: "Validation Error",
-        statusCode: 400,
-        errors: {
-          title: "Song title is required",
-          url: "Audio is required",
-        },
-      });
-    }
-    song.title = req.body.title;
-    song.description = req.body.description;
-    song.url = req.body.url;
-    song.albumId = req.body.albumId;
-    song.save();
-    return res.json(song);
-  } else {
-    res.status(401);
-    return res.json({
-      message: "Authentication required",
-      statusCode: 401,
-    });
-  }
-});
+  })
+);
 
 // Delete a Song
 // Authentication: true

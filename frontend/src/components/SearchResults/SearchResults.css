@@ -1,4 +1,14 @@
-.hello {
+.results-container {
+  margin-top: 50px;
   height: 100vh;
-  border: 3px solid greenyellow;
+  display: flex;
+  flex-direction: column;
+}
+
+.results-grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  grid-row-gap: 100px;
+  width: 100%;
 }
