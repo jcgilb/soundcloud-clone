@@ -129,82 +129,94 @@ const CreateNewSong = () => {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
-          <label>
-            Upload audio
-            <input type="file" placeholder="Audio URL" onChange={updateAudio} />
+          <label className="audio-upload-label">
+            {"Upload audio"}
+            <input
+              className="audio-upload-input"
+              type="file"
+              placeholder="Audio URL"
+              onChange={updateAudio}
+            />
           </label>
-          <ImageUploading
-            multiple={false}
-            value={images}
-            onChange={onChange}
-            maxNumber={1}
-            dataURLKey="data_url"
-            acceptType={["jpg", "png", "jpeg"]}
-          >
-            {({
-              imageList,
-              onImageUpload,
-              onImageUpdate,
-              onImageRemove,
-              isDragging,
-              dragProps,
-            }) => (
-              <div
-                className="upload-image-wrapper"
-                {...dragProps}
-                style={isDragging ? { color: "rgb(255, 22, 84)" } : undefined}
-              >
-                <div
-                  {...dragProps}
-                  style={isDragging ? { color: "rgb(255, 22, 84)" } : undefined}
-                >
-                  Drag & Drop to Upload Image
-                </div>
-                <div>OR</div>
-                <button
-                  style={isDragging ? { color: "rgb(255, 22, 84)" } : undefined}
-                  onClick={onImageUpload}
-                  {...dragProps}
-                  className="add-img-button"
-                >
-                  Browse
-                </button>
-
-                <div className="image-area">
-                  {imageList?.map((image, index) => (
-                    <div key={index} className="image-item">
-                      <img
-                        style={{ width: "120px" }}
-                        className="rvw-img-preview"
-                        src={image["data_url"]}
-                        alt=""
-                      />
-                      <div className="images-to-submit">
-                        <button
-                          className="rm-update"
-                          onClick={() => onImageUpdate(index)}
-                        >
-                          Update
-                        </button>
-                        <button
-                          className="rm-update"
-                          onClick={() => {
-                            onImageRemove(index);
-                          }}
-                        >
-                          Remove
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </ImageUploading>
           {/* <label>
             Upload image
             <input type="file" placeholder="Image URL" onChange={updateImage} />
           </label> */}
+          <label className="image-upload-label">
+            {"Upload image"}
+            <ImageUploading
+              multiple={false}
+              value={images}
+              onChange={onChange}
+              maxNumber={1}
+              dataURLKey="data_url"
+              acceptType={["jpg", "png", "jpeg"]}
+            >
+              {({
+                imageList,
+                onImageUpload,
+                onImageUpdate,
+                onImageRemove,
+                isDragging,
+                dragProps,
+              }) => (
+                <div
+                  className="upload-image-wrapper"
+                  {...dragProps}
+                  style={isDragging ? { color: "rgb(255, 22, 84)" } : undefined}
+                >
+                  <div
+                    {...dragProps}
+                    style={
+                      isDragging ? { color: "rgb(255, 22, 84)" } : undefined
+                    }
+                  >
+                    Drag & Drop to Upload Image
+                  </div>
+                  <div>OR</div>
+                  <button
+                    style={
+                      isDragging ? { color: "rgb(255, 22, 84)" } : undefined
+                    }
+                    onClick={onImageUpload}
+                    {...dragProps}
+                    className="add-rm-update"
+                  >
+                    Browse
+                  </button>
+
+                  <div className="image-area">
+                    {imageList?.map((image, index) => (
+                      <div key={index} className="image-item">
+                        <img
+                          style={{ width: "120px" }}
+                          className="rvw-img-preview"
+                          src={image["data_url"]}
+                          alt=""
+                        />
+                        <div className="images-to-submit">
+                          <button
+                            className="add-rm-update"
+                            onClick={() => onImageUpdate(index)}
+                          >
+                            Update
+                          </button>
+                          <button
+                            className="add-rm-update"
+                            onClick={() => {
+                              onImageRemove(index);
+                            }}
+                          >
+                            Remove
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </ImageUploading>
+          </label>
           <select
             onChange={updateAlbum}
             value={albumSelect}
