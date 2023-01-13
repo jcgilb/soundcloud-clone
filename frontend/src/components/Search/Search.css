@@ -13,13 +13,39 @@
   background-color: white;
   color: #212121;
   font-size: 14px;
-  font-family: Arial;
+  font-family: "Encode Sans", sans-serif !important;
+  z-index: 0;
+}
+
+/* heroku */
+
+.gyFedp > .wrapper {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border: 1px solid rgb(223, 225, 229);
+  border-radius: 5px !important;
+  background-color: white;
+  color: rgb(33, 33, 33);
+  font-size: 14px;
+  font-family: "Encode Sans", sans-serif !important;
   z-index: 0;
 }
 
 .cmyNjn {
   position: relative;
   height: 28px !important;
+}
+
+/* heroku */
+.lmCTmJ {
+  min-height: 28px !important;
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  -webkit-box-align: center;
+  align-items: center;
 }
 
 .fDbOPw {
@@ -44,6 +70,14 @@
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
+  align-items: center;
+  padding: 4px 0 4px 0;
+}
+
+/* heroku */
+.iLjAXM > ul > li {
+  display: flex;
+  -webkit-box-align: center;
   align-items: center;
   padding: 4px 0 4px 0;
 }
