@@ -36,6 +36,10 @@ button.logout {
   margin-left: 3px;
 }
 
+.my-links {
+  margin-top: 5px;
+}
+
 .profile-dropdown {
   box-sizing: border-box;
   border: 1px solid rgba(2, 48, 71, 0.2);
@@ -47,7 +51,7 @@ button.logout {
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-  height: 100px;
+  height: 130px;
   top: 52px;
   right: 13.75%;
   font-size: 14px;

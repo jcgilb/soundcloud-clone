@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as sessionActions from "../../store/session";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import "./ProfileDropdown.css";
 
 function ProfileButton({ user }) {
@@ -47,6 +47,47 @@ function ProfileButton({ user }) {
           <div className="profile-dropdown">
             <label id="username">{user.username}</label>
             <label id="email">{user.email}</label>
+            <div className="my-links">
+              <Link
+                to={{
+                  pathname: "https://github.com/jcgilb",
+                }}
+                target="_blank"
+              >
+                <img
+                  alt="joannas-github"
+                  src="../../../assets/icons8-github-24.png"
+                ></img>
+              </Link>
+              <Link
+                to={{
+                  pathname:
+                    "https://www.linkedin.com/in/joanna-gilbert-7b2053255/",
+                }}
+                target="_blank"
+              >
+                <img
+                  alt="joannas-linkedin"
+                  src="../../../assets/icons8-linkedin-24.png"
+                ></img>
+              </Link>
+              <Link
+                to={{
+                  pathname: "https://angel.co/u/joanna-gilbert",
+                }}
+                target="_blank"
+              >
+                <img
+                  style={{
+                    height: "15px",
+                    marginBottom: "4px",
+                    marginLeft: "4px",
+                  }}
+                  alt="joannas-angellist"
+                  src="../../../assets/Wellfound_2022_Icon.svg"
+                ></img>
+              </Link>
+            </div>
             <label>
               <button className="logout" onClick={logout}>
                 Log Out
