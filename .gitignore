@@ -3,3 +3,7 @@ node_modules
 build
 .DS_Store
 *.db
+src/components/AudioVisualizer
+src/components/Wave
+src/components/WaveSurfer
+
