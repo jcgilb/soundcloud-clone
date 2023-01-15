@@ -28,7 +28,8 @@ const Search = () => {
       setSongArr(responseData["songs"]);
     }
     fetchData();
-  }, []);
+  }, [songs]);
+
 
   songArr?.map((song, i) => {
     // title;

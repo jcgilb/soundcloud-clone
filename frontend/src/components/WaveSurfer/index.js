@@ -1,13 +1,10 @@
-import { useLayoutEffect, useRef } from "react";
+import { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
-import { getOneSong, playASong } from "../../store/songs";
 import { useIsPlaying } from "../../context/IsPlayingContext";
 import { useAudioElement } from "../../context/AudioElementContext";
 import { useIsPaused } from "../../context/IsPausedContext";
 import React, { useState, useEffect } from "react";
-import ReactDOM from "react-dom";
-import { WaveForm, WaveSurfer } from "wavesurfer-react";
 import ReactWaves from "@dschoon/react-waves";
 
 export function AudioVisualizer() {
@@ -65,50 +62,6 @@ export function AudioVisualizer() {
     }
   }, []);
 
-  //   useLayoutEffect(() => {
-  //     if (!trashState) {
-  //       if (audioElement && currentSong === songFromUrl) {
-  //         // console.log("audio is muted")
-
-  //         if (wavesurferRef.current && currentSong.url) {
-  //           // wavesurferRef.current.load(currentSong.url);
-
-  //           wavesurferRef.current.on("ready", () => {
-  //             console.log("WaveSurfer is ready");
-  //           });
-
-  //           wavesurferRef.current.on("loading", (data) => {
-  //             console.log("loading --> ", data);
-  //           });
-
-  //           if (window) {
-  //             window.surferidze = wavesurferRef.current;
-  //           }
-  //         }
-  //         setTrashState(true);
-  //       }
-  //       if (isPlaying) {
-  //         if (audioElement && currentSong.url === songFromUrl.url) {
-  //           // console.log("audio is muted")
-  //           let newAudio = new Audio(songFromUrl.url);
-  //           newAudio.currentTime = parseFloat(
-  //             audioElement.audio.current.currentTime
-  //           );
-  //           setAudioSource(newAudio.src);
-  //         }
-  //       }
-  //       if (audioSource) {
-  //         return () => {
-  //           // console.log("cleaning up audio")
-  //           if (audioSource) {
-  //             setAudioSource(null);
-  //           }
-  //           // audioElement.audio.current.volume = 1;
-  //         };
-  //       }
-  //     }
-  //   }, [currentSong, isPlaying, trashState]);
-
   if (!songFromUrl) return null;
 
   return (
@@ -118,8 +71,11 @@ export function AudioVisualizer() {
         audioFile={songFromUrl.url}
         playing={playing}
         options={{
+          height: 200,
+          fillParent: true,
           barWidth: 3,
           barRadius: 2,
+          barHeight: 2,
           hideScrollbar: true,
           cursorWidth: 0,
           progressColor: "#4159FB",
@@ -132,12 +88,6 @@ export function AudioVisualizer() {
         zoom={1}
         onSeek={skipAhead}
       />
-      {/* <div ref={wavesurferRef}>
-        <WaveSurfer onMount={handleWSMount}>
-          <WaveForm></WaveForm>
-        </WaveSurfer>
-      </div>
-      <button onClick={play}>Play / Pause</button> */}
     </>
   );
 }

@@ -205,6 +205,8 @@ const SongDetails = () => {
                 options={{
                   barWidth: 3,
                   barRadius: 2,
+                  barHeight: 2,
+                  height: 200,
                   hideScrollbar: true,
                   cursorWidth: 0,
                   progressColor: "#023047",
