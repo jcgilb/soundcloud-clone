@@ -77,8 +77,14 @@
   width: 100%;
   margin-left: 24px;
   z-index: 3;
-  margin-top: 27px;
-  margin-bottom: 25px;
+}
+
+.styles_reactWaves__1M36F {
+  width: 85%;
+  display: inline-block;
+  text-align: center;
+  margin: 0 !important;
+  padding: 4px 15px 0 40px;
 }
 
 .fa-circle-play {
