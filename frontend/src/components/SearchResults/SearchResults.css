@@ -1,8 +1,26 @@
-.results-container {
-  margin-top: 50px;
-  height: 100vh;
+.results-container-div {
+  width: 100%;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.results-container {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100vh;
+}
+
+.results-title {
+  width: 100%;
+  font-size: 28px;
+  padding-left: 25px;
+  padding-top: 100px;
+  padding-bottom: 10px;
 }
 
 .results-grid {
