@@ -251,13 +251,24 @@ const CreateNewSong = () => {
               />
             )}
           </div>
-          <button
-            className="upload-submit"
-            type="submit"
-            disabled={!!validationErrors.length}
-          >
-            Upload song
-          </button>
+          {isLoading && (
+            <button
+              className="upload-submit"
+              type="submit"
+              disabled={!!validationErrors.length}
+            >
+              Uploading...
+            </button>
+          )}
+          {!isLoading && (
+            <button
+              className="upload-submit"
+              type="submit"
+              disabled={!!validationErrors.length}
+            >
+              Upload song
+            </button>
+          )}
         </form>
       </div>
     </>
