@@ -146,3 +146,7 @@ input[type="file" i] {
   border: 1px solid rgb(224, 224, 224) !important;
   overflow: hidden !important;
 }
+
+.loading-container {
+  margin: 0 auto;
+}
