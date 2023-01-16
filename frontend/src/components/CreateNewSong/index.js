@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { getAlbums } from "../../store/albums.js";
 import { createSong } from "../../store/songs.js";
 import ImageUploading from "react-images-uploading";
+import LoadingIcons from "react-loading-icons";
 import "./CreateNewSong.css";
 
 const CreateNewSong = () => {
@@ -12,6 +13,7 @@ const CreateNewSong = () => {
   const [description, setDescription] = useState("");
   const [url, setUrl] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [albumId, setAlbumId] = useState();
   const [validationErrors, setValidationErrors] = useState([]);
   const [albumSelect, setAlbumSelect] = useState();
@@ -37,11 +39,12 @@ const CreateNewSong = () => {
     setValidationErrors(errors);
     if (!title.length) errors.push("Song title is required.");
     if (!url) errors.push("Audio is required.");
+    // if (!images.length) errors.push("Album cover is required.");
     if (isNaN(albumId) && albumId)
       errors.push(`"${albumId}" is not a valid integer.`);
     if (!userAlbums.length && albumId) errors.push("Authorization required.");
     setValidationErrors(errors);
-  }, [title, url, albumId, userAlbums.length]);
+  }, [title, url, albumId, images, userAlbums.length]);
 
   // get the id from the name of the selected experience
   useEffect(() => {
@@ -78,6 +81,8 @@ const CreateNewSong = () => {
   // handle form submit function
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!images.length) return;
+    setIsLoading(true);
     let imageFiles = images?.map((img) => img.file);
     let img = imageFiles[0];
     console.log("image files", imageFiles);
@@ -237,6 +242,15 @@ const CreateNewSong = () => {
                 </div>
               ))}
           </ul>
+          <div className="loading-container">
+            {isLoading && (
+              <LoadingIcons.Audio
+                stroke="var(--selective-yellow)"
+                strokeOpacity={1}
+                speed={0.75}
+              />
+            )}
+          </div>
           <button
             className="upload-submit"
             type="submit"
