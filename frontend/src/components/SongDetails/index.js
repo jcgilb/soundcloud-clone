@@ -212,6 +212,7 @@ const SongDetails = () => {
                   progressColor: "#023047",
                   waveColor: "rgb(255, 255, 255)",
                   responsive: true,
+                  normalize:true,
                 }}
                 playing={playing}
                 pos={position}

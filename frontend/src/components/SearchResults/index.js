@@ -38,123 +38,125 @@ const SearchResults = () => {
   );
 
   return (
-    <div className="results-container">
-      <div className="main-title">Search results</div>
-      <div className="results-grid">
-        {searchResults.length > 0 &&
-          searchResults.map((song) => (
-            <div className="song-card">
-              <div id="inner-song-card">
-                <div className="album-cover">
-                  <img
-                    style={{ borderRadius: "2px" }}
-                    alt="album-cover"
-                    src={`${song.imageUrl}`}
-                  />
-                  <div className="play-pause">
-                    {/* show a play button if currentSong === songFromUrl and isPaused*/}
-                    {!isPlaying && currentSong.id === song.id && (
-                      <div
-                        className="press-play"
-                        onClick={async () => {
-                          if (currentSong !== song) {
-                            if (currentSong.url) setIsPlaying(false);
+    <div className="results-container-div">
+      <div className="results-container">
+        <div className="results-title">Search results</div>
+        <div className="results-grid">
+          {searchResults.length > 0 &&
+            searchResults.map((song) => (
+              <div className="song-card">
+                <div id="inner-song-card">
+                  <div className="album-cover">
+                    <img
+                      style={{ borderRadius: "2px" }}
+                      alt="album-cover"
+                      src={`${song.imageUrl}`}
+                    />
+                    <div className="play-pause">
+                      {/* show a play button if currentSong === songFromUrl and isPaused*/}
+                      {!isPlaying && currentSong.id === song.id && (
+                        <div
+                          className="press-play"
+                          onClick={async () => {
+                            if (currentSong !== song) {
+                              if (currentSong.url) setIsPlaying(false);
+                              setCurrentSong(song);
+                            }
+                            await dispatch(playASong(song.id));
+                            setIsPaused(false); // for AudioPlayer component
+                            setIsPlaying(true);
+                            setPauseButton(true);
+                          }}
+                        >
+                          <i
+                            style={{ cursor: "pointer" }}
+                            className="fa-solid fa-play fa-4x"
+                          ></i>
+                        </div>
+                      )}
+                      {/* show a pause button if currentSong === song and isPlaying*/}
+                      {isPlaying && currentSong.id === song.id && (
+                        <div
+                          className="press-pause"
+                          onClick={async () => {
+                            setIsPaused(true); // for AudioPlayer component
+                            setIsPlaying(false);
+                            setPauseButton(false);
+                          }}
+                        >
+                          <i
+                            style={{ cursor: "pointer" }}
+                            className="fa-solid fa-pause fa-4x"
+                          ></i>
+                        </div>
+                      )}
+                      {/* show a play button if currentSong !== song and !isPlaying*/}
+                      {currentSong.id !== song.id && !isPlaying && (
+                        <div
+                          className="press-play"
+                          onClick={async () => {
                             setCurrentSong(song);
-                          }
-                          await dispatch(playASong(song.id));
-                          setIsPaused(false); // for AudioPlayer component
-                          setIsPlaying(true);
-                          setPauseButton(true);
-                        }}
-                      >
-                        <i
-                          style={{ cursor: "pointer" }}
-                          className="fa-solid fa-play fa-4x"
-                        ></i>
-                      </div>
-                    )}
-                    {/* show a pause button if currentSong === song and isPlaying*/}
-                    {isPlaying && currentSong.id === song.id && (
-                      <div
-                        className="press-pause"
-                        onClick={async () => {
-                          setIsPaused(true); // for AudioPlayer component
-                          setIsPlaying(false);
-                          setPauseButton(false);
-                        }}
-                      >
-                        <i
-                          style={{ cursor: "pointer" }}
-                          className="fa-solid fa-pause fa-4x"
-                        ></i>
-                      </div>
-                    )}
-                    {/* show a play button if currentSong !== song and !isPlaying*/}
-                    {currentSong.id !== song.id && !isPlaying && (
-                      <div
-                        className="press-play"
-                        onClick={async () => {
-                          setCurrentSong(song);
-                          await dispatch(playASong(song.id));
-                          setIsPaused(false); // for AudioPlayer component
-                          setIsPlaying(true);
-                          setPauseButton(true);
-                        }}
-                      >
-                        <i
-                          style={{ cursor: "pointer" }}
-                          className="fa-solid fa-play fa-4x"
-                        ></i>
-                      </div>
-                    )}
-                    {/* show a play button if currentSong !== song and isPlaying*/}
-                    {currentSong.id !== song.id && isPlaying && (
-                      <div
-                        className="press-play"
-                        onClick={async (e) => {
-                          if (currentSong !== song) {
-                            if (currentSong.url) setIsPlaying(false);
+                            await dispatch(playASong(song.id));
+                            setIsPaused(false); // for AudioPlayer component
+                            setIsPlaying(true);
+                            setPauseButton(true);
+                          }}
+                        >
+                          <i
+                            style={{ cursor: "pointer" }}
+                            className="fa-solid fa-play fa-4x"
+                          ></i>
+                        </div>
+                      )}
+                      {/* show a play button if currentSong !== song and isPlaying*/}
+                      {currentSong.id !== song.id && isPlaying && (
+                        <div
+                          className="press-play"
+                          onClick={async (e) => {
+                            if (currentSong !== song) {
+                              if (currentSong.url) setIsPlaying(false);
+                              setCurrentSong(song);
+                            }
                             setCurrentSong(song);
-                          }
-                          setCurrentSong(song);
-                          await dispatch(playASong(song.id));
-                          setIsPaused(false); // for AudioPlayer component
-                          setIsPlaying(true);
-                          setPauseButton(true);
-                        }}
-                      >
-                        <i
-                          style={{ cursor: "pointer" }}
-                          className="fa-solid fa-play fa-4x"
-                        ></i>
-                      </div>
-                    )}
+                            await dispatch(playASong(song.id));
+                            setIsPaused(false); // for AudioPlayer component
+                            setIsPlaying(true);
+                            setPauseButton(true);
+                          }}
+                        >
+                          <i
+                            style={{ cursor: "pointer" }}
+                            className="fa-solid fa-play fa-4x"
+                          ></i>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
-                <div className="artist-info">
-                  <NavLink
-                    style={{
-                      color: "black",
-                      fontSize: "14.5px",
-                      textDecoration: "none",
-                    }}
-                    to={`/songs/${song.id}`}
-                  >
-                    {song.title}
-                  </NavLink>
-                  <div
-                    onClick={(e) => {
-                      e.preventDefault();
-                      history.push(`/songs/${song.id}`);
-                    }}
-                    className="artist-name"
-                  >
-                    {song.Artist?.username}{" "}
+                  <div className="artist-info">
+                    <NavLink
+                      style={{
+                        color: "black",
+                        fontSize: "14.5px",
+                        textDecoration: "none",
+                      }}
+                      to={`/songs/${song.id}`}
+                    >
+                      {song.title}
+                    </NavLink>
+                    <div
+                      onClick={(e) => {
+                        e.preventDefault();
+                        history.push(`/songs/${song.id}`);
+                      }}
+                      className="artist-name"
+                    >
+                      {song.Artist?.username}{" "}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+        </div>
       </div>
     </div>
   );
