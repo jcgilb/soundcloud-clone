@@ -47,7 +47,16 @@ function ProfileButton({ user }) {
           <div className="profile-dropdown">
             <label id="username">{user.username}</label>
             <label id="email">{user.email}</label>
-            <div className="my-links">
+            <div
+              className="my-links"
+              style={{
+                height: "14px",
+                paddingTop: "8px",
+                display: "inline-flex",
+                alignItems: "flex-end",
+                justifyContent: "flex-start",
+              }}
+            >
               <Link
                 to={{
                   pathname: "https://github.com/jcgilb",
@@ -86,6 +95,38 @@ function ProfileButton({ user }) {
                   alt="joannas-angellist"
                   src="../../../assets/Wellfound_2022_Icon.svg"
                 ></img>
+              </Link>
+              <Link
+                to={{
+                  pathname: "https://jcgilb.github.io/",
+                }}
+                target="_blank"
+              >
+                <span
+                  style={{
+                    height: "28px",
+                    marginLeft: "8px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <div
+                    style={{
+                      height: "20px",
+                      width: "20px",
+                      border: "1px solid #ffc0f2",
+                      backgroundColor: "#ffc0f2",
+                      color: "white",
+                      borderRadius: "50%",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    JG
+                  </div>
+                </span>
               </Link>
             </div>
             <label>
