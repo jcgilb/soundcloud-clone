@@ -197,7 +197,6 @@ router.get("/:songId/comments", async (req, res) => {
     delete comment.firstName;
     delete comment.lastName;
   }
-  // console.log(newComments.Comments[0].User)
   return res.json(newComments);
 });
 

@@ -30,7 +30,6 @@ const Search = () => {
     fetchData();
   }, [songs]);
 
-
   songArr?.map((song, i) => {
     // title;
     if (keywordList[song.title]) {
@@ -69,14 +68,12 @@ const Search = () => {
 
   useEffect(() => {
     setSearchResults(songList);
-    console.log(searchResults, "search results in Search");
   }, [songList]);
 
   const handleOnSelect = (item) => {
     // the item selected
     setSearchResults(item.songs);
     setSongList(item.songs);
-    console.log("item.songs", item.songs);
     return history.push("/songs/results");
   };
 

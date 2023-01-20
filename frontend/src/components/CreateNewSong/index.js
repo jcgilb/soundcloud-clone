@@ -85,8 +85,6 @@ const CreateNewSong = () => {
     setIsLoading(true);
     let imageFiles = images?.map((img) => img.file);
     let img = imageFiles[0];
-    console.log("image files", imageFiles);
-    console.log("img file", img);
     let newSong;
 
     newSong = {
@@ -97,11 +95,8 @@ const CreateNewSong = () => {
       imageUrl: img,
     };
 
-    console.log("newSong", newSong);
-
     let song = await dispatch(createSong(newSong)).catch(async (res) => {
       const data = await res.json();
-      console.log("data", data);
       if (data && data.errors) setValidationErrors(data.errors);
     });
 

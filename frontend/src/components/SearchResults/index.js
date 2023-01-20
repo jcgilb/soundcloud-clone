@@ -18,7 +18,6 @@ const SearchResults = () => {
 
   // search results context
   const { searchResults, setSearchResults } = useSearchResults();
-  console.log("search results in search results component", searchResults);
 
   // state for controlling whether or not to render the "pause" button
   const [pauseButton, setPauseButton] = useState(false);

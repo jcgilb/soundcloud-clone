@@ -28,9 +28,6 @@ const singlePublicFileUpload = async (file) => {
 
   // save the name of the file in your bucket as the key in your database to retrieve for later
 
-  console.log("result", result);
-  console.log("file", file);
-
   return result.Location;
 };
 
