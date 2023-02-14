@@ -80,3 +80,9 @@
   align-items: center;
   padding: 4px 0 4px 0;
 }
+
+@media screen and (max-width: 1260px) {
+  .search-container {
+    display: none;
+  }
+}
