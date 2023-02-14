@@ -9,33 +9,36 @@ import GetAllComments from "../GetAllComments";
 import CreateNewComment from "../CreateAComment";
 import ArtistInfo from "../ArtistInfo";
 import LikeSong from "../LikeSong";
-import { Wave } from "@foobar404/wave";
 import ReactWaves from "@dschoon/react-waves";
 import "./SongDetails.css";
 
 const SongDetails = () => {
   const dispatch = useDispatch();
+
   // context for the audio player
   const { isPaused, setIsPaused } = useIsPaused();
   const { isPlaying, setIsPlaying } = useIsPlaying();
+
   // state for controlling whether or not to render the "pause" button
   const [pauseButton, setPauseButton] = useState(false);
   const curSong = useSelector((state) => state.songs.currentSong);
   const [currentSong, setCurrentSong] = useState(curSong);
-  const [firstPlay, setFirstPlay] = useState(true);
+
   // get and set two random colors for gradient
   const [color1, setColor1] = useState(1);
   const [color2, setColor2] = useState(1);
   let { songId } = useParams();
   const songs = useSelector((state) => state.songs);
   const user = useSelector((state) => state.session.user);
+
   // identify song from url
   songId = parseInt(songId);
   const songFromUrl = Object.values(songs).find((song) => song.id === songId);
+
+  // get context for audio element
   const { audioElement } = useAudioElement();
 
   useEffect(() => {
-    // dispatch(getOneSong(songId));
     // put these in a useEffect so a new gradient doesn't render every time a
     // user posts a comment or presses play/pause
     setColor1(one);
@@ -44,7 +47,6 @@ const SongDetails = () => {
 
   const [playing, setPlaying] = useState(false);
   const [position, setPosition] = useState(0);
-  const [vol, setVol] = useState(0);
   const wavesurfer = useRef();
 
   useLayoutEffect(() => {
@@ -212,7 +214,7 @@ const SongDetails = () => {
                   progressColor: "#023047",
                   waveColor: "rgb(255, 255, 255)",
                   responsive: true,
-                  normalize:true,
+                  normalize: true,
                 }}
                 playing={playing}
                 pos={position}
